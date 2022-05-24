@@ -75,7 +75,7 @@ body {
 }
 
 @media(max-width:692px) {
-  .center-item {
+  #login {
     form {
       width: 60%;
     }
@@ -83,7 +83,7 @@ body {
 }
 
 @media(max-width:452px) {
-  .center-item {
+  #login {
     form {
       width: 70%;
       padding: 25px;

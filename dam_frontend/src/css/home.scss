@@ -1,0 +1,67 @@
+$maincolor:#3B3B98;
+$textcolor:#fff;
+$font-family:Nunito Sans;
+
+body {
+  font-family: $font-family;
+  background-color: $maincolor;
+  margin: 0;
+}
+
+#home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2%;
+
+    #routers {
+        flex-direction: row;
+        width: 100%;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin-bottom: 2%;
+
+        .router-link-active {
+            font-size: 22px;
+            text-decoration: none;
+            color: black;
+            display: inline-block;
+            margin-left: 2%;
+            margin-right: 2%;
+        }
+
+    }
+
+    #homecontent {
+        width: 90%;
+        box-shadow: 1px 0 10px 15px rgba(0, 0, 0, .3);
+        padding: 40px;
+        background-color: #fff;
+
+        h1{
+            p{
+                align-items: center;
+            }
+        }
+    }
+}
+
+@media(max-width:692px) {
+    #home {
+        width: 60%;
+    }
+}
+
+@media(max-width:452px) {
+    #home {
+        width: 70%;
+        padding: 25px;
+
+        p {
+            font-size: 14px;
+        }
+     }
+}

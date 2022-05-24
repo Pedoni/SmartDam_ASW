@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
-        <div id="nav">
+    <div id="injectedApp">
+        <!--div id="nav">
             <router-link v-if="authenticated" to="/login" v-on:click="logout()" replace>Logout</router-link>
-        </div>
+        </div-->
         <router-view @authenticated="setAuthenticated" />
     </div>
 </template>
@@ -39,13 +39,16 @@
     body {
         background-color: #137020;
         background-image: url("./assets/dam.jpg");
+        background-attachment: fixed;
     }
+
     h1 {
         padding: 0;
         margin-top: 0;
     }
+
     #app {
-        width: 1024px;
-        margin: auto;
+        width: 100%;
+        height: 100%;
     }
 </style>
