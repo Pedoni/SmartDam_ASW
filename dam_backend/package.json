@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "blocking-queue": "^0.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "jssc": "^0.2.6",
+    "morgan": "^1.10.0",
+    "queue": "^6.0.2",
+    "serialport": "^10.3.0"
+  }
+}
