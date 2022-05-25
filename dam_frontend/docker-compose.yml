@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  dam_frontend:
+    build: .
+    volumes:
+      - ".:/home/dam_frontend"
+    ports:
+      - "8080:8080"
