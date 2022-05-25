@@ -21,3 +21,10 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# SASS cache
+.sass-cache
+
+# CSS files (generated through SASS)
+src/css/*.css
+src/css/*.css.map
