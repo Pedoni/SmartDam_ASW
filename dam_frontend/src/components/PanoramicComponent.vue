@@ -9,7 +9,7 @@
 <script>
 import { Viewer } from 'photo-sphere-viewer';
 import { MarkersPlugin } from 'photo-sphere-viewer/dist/plugins/markers';
-import 'photo-sphere-viewer/dist/photo-sphere-viewer.css'
+import 'photo-sphere-viewer/dist/photo-sphere-viewer.css';
 
 export default {
   name: 'PanoramicComponent',
@@ -60,19 +60,19 @@ export default {
 
 <style scoped>
     @import "photo-sphere-viewer/dist/plugins/markers.css";
-   /* @import  "../css/panoramic.css"*/
+    /*@import "../css/panoramic.css";*/
 
-   #viewer {
-    width: 100%;
-    height: 100%;
+    #viewer {
+        width: 100%;
+        height: 100%;
     }
 
     .panoramic {
-    height: 80vh;
+        height: 80vh;
     }
 
     .panoramic div {
-    width: 100%;
-    height: 100%;
+        width: 100%;
+        height: 100%;
     }
 </style>
