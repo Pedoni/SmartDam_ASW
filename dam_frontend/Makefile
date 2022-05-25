@@ -11,6 +11,9 @@ run:
 	sass src/css/panoramic.scss src/css/panoramic.css
 	npm run serve
 
+lint:
+	npm run lint
+
 clean:
 	rm -rf .sass-cache
 	rm -rf node_modules
