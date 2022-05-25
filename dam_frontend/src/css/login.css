@@ -60,16 +60,16 @@ body {
 }
 
 @media (max-width: 692px) {
-  .center-item form {
+  #login {
     width: 60%;
   }
 }
 @media (max-width: 452px) {
-  .center-item form {
+  #login {
     width: 70%;
     padding: 25px;
   }
-  .center-item form p {
+  #login {
     font-size: 14px;
   }
 }

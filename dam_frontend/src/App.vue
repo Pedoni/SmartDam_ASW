@@ -40,6 +40,7 @@
         background-color: #137020;
         background-image: url("./assets/dam.jpg");
         background-attachment: fixed;
+        overflow-y: scroll;
     }
 
     h1 {

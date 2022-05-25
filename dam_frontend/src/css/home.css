@@ -10,6 +10,7 @@ body {
   align-items: center;
   flex-direction: column;
   margin: 2%;
+  overflow-y: auto;
 }
 #home #routers {
   flex-direction: row;
