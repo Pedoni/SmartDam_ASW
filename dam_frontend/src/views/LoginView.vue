@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <form>
+        <form v-on:keyup.enter="login">
             <h1><p>Welcome to Smart Dam</p></h1>
             <input type="text" name="username" v-model="input.username" placeholder="Username" />
             <input type="password" name="password" v-model="input.password" placeholder="Password" />
