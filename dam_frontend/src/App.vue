@@ -38,6 +38,7 @@
 <style>
     body {
         background: url("./assets/dam.jpg") no-repeat center center fixed;
+        background-size: cover;
         background-attachment: fixed;
         overflow-y: scroll;
     }
