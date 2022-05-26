@@ -37,8 +37,7 @@
 
 <style>
     body {
-        background-color: #137020;
-        background-image: url("./assets/dam.jpg");
+        background: url("./assets/dam.jpg") no-repeat center center fixed;
         background-attachment: fixed;
         overflow-y: scroll;
     }
