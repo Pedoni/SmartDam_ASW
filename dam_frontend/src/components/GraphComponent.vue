@@ -10,7 +10,11 @@
   export default {
     data() {},
     mounted(){
-      var options = {
+      this.initGraph();
+    },
+    methods: {
+      initGraph(){
+        var options = {
           series: [{
             name: "Desktops",
             data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
@@ -29,7 +33,7 @@
           curve: 'straight'
         },
         title: {
-          text: 'Product Trends by Month',
+          text: 'Water level trend',
           align: 'left'
         },
         grid: {
@@ -42,9 +46,9 @@
           categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
         }
         };
-
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
+      }
     }
       
   }
