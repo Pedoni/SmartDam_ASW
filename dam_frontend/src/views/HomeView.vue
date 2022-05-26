@@ -85,18 +85,18 @@
     import GraphComponent from "../components/GraphComponent.vue"
     export default {
     name: "HomeView",
-    data() {
-        return {
-            comp: "Home",
-        };
-    },
-    methods: {
-        changeComponent(newComponent) {
-            this.comp = newComponent;
-        }
-    },
-    components: { PanoramicComponent, GraphComponent }
-}
+        data() {
+            return {
+                comp: "Home",
+            };
+        },
+        methods: {
+            changeComponent(newComponent) {
+                this.comp = newComponent;
+            }
+        },
+        components: { PanoramicComponent, GraphComponent }
+    }
 </script>
 
 <style scoped>
