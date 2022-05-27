@@ -1,8 +1,6 @@
 <template>
   <div class="panoramic">
-    <div>
         <div id="viewer"></div>
-    </div>
   </div>
 </template>
 
