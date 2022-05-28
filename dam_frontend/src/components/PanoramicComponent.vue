@@ -36,7 +36,7 @@ export default {
                         id: '1',
                         polylineRad: [[4.919, -0.2], [5.58, -0.08], [5.53, -0.21], [4.92, -0.40]],
                         svgStyle: {
-                            fill: 'rgba(255, 0, 0, 1)',
+                            fill: 'rgba(255, 0, 0, 0.2)',
                             strokeWidth: '10px'
                         },
                         tooltip: {
@@ -48,7 +48,7 @@ export default {
                         id: '2',
                         polylineRad: [[4.92, -0.40], [5.53, -0.21], [5.59, -0.38], [5.06, -0.60]],
                         svgStyle: {
-                            fill: 'rgba(0, 255, 0, 1)',
+                            fill: 'rgba(0, 255, 0, 0.2)',
                             strokeWidth: '10px'
                         },
                         tooltip: {
@@ -62,7 +62,7 @@ export default {
                         
                         [5.98, -0.94], [0.042, -1.04], [0.36, -1.01], [1.03, -0.5], [1.12, -0.7]],
                         svgStyle: {
-                            fill: 'rgba(0, 0, 255, 1)',
+                            fill: 'rgba(0, 0, 255, 0.2)',
                             strokeWidth: '10px'
                         },
                         tooltip: {
@@ -74,7 +74,7 @@ export default {
                         id: '4',
                         polylineRad: [[4.59, -0.38], [4.67, -0.26], [4.69, -0.38]],
                         svgStyle: {
-                            fill: 'rgba(255, 0, 0, 1)',
+                            fill: 'rgba(255, 0, 0, 0.2)',
                             strokeWidth: '10px'
                         },
                         tooltip: {
@@ -86,7 +86,7 @@ export default {
                         id: '5',
                         polylineRad: [[1.11, -0.38], [1.23, -0.58], [1.12, -0.7], [1.03, -0.5]],
                         svgStyle: {
-                            fill: 'rgba(0, 255, 0, 1)',
+                            fill: 'rgba(0, 255, 0, 0.2)',
                             strokeWidth: '10px'
                         },
                         tooltip: {
@@ -98,7 +98,7 @@ export default {
                         id: '6',
                         polylineRad: [[1.19, -0.25], [1.32, -0.44], [1.23, -0.58], [1.11, -0.38]],
                         svgStyle: {
-                            fill: 'rgba(255, 0, 0, 1)',
+                            fill: 'rgba(255, 0, 0, 0.2)',
                             strokeWidth: '10px'
                         },
                         tooltip: {
@@ -133,7 +133,7 @@ export default {
     }
 
     .panoramic {
-        height: 80vh;
+        height: 75vh;
     }
 
     .panoramic div {
