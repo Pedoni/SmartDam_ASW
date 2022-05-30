@@ -8,14 +8,26 @@
 import { Viewer } from 'photo-sphere-viewer';
 import { MarkersPlugin } from 'photo-sphere-viewer/dist/plugins/markers';
 import 'photo-sphere-viewer/dist/photo-sphere-viewer.css';
-
+/**
+ * Longitude: , Latitude: 
+ * Longitude: , Latitude: 
+ */
 export default {
   name: 'PanoramicComponent',
   data() {
         return {
             alertText: "ALERT",
             preAlertText: "PRE ALERT",
-            normalText: "NORMAL"
+            normalText: "NORMAL",
+            damHeight: 30,
+            highPoint: {
+                lat: -0.17741305282656916,
+                lon: 5.016652578705191
+            },
+            lowPoint: {
+                lat: -0.811019761355212,
+                lon: 5.866500196608605
+            }
         };
   },
   mounted() {
@@ -105,6 +117,16 @@ export default {
                             position: 'right bottom'
                         },
                     },
+                    {
+                        id        : 'image',
+                        imageLayer: 'https://cdn.iconscout.com/icon/free/png-256/sea-waves-2714064-2261636.png',
+                        width     : 240,
+                        height    : 150,
+                        longitude : -0.45,
+                        latitude  : -0.1,
+                        tooltip   : 'Image embedded in the scene',
+                        orientation: 90
+                    },
                 ]
             }]
         ]
@@ -112,13 +134,60 @@ export default {
 
     const markersPlugin = viewer.getPlugin(MarkersPlugin);
     markersPlugin.on('select-marker', (e, marker) => {
-        console.log(e + marker);
+        switch(marker.id){
+            case "1":
+                console.log("cliccata prima zona rossa");
+                break;
+        }
     });
+    
+    
     viewer.on('click', (e, position) => {
         console.log("Longitude: " + position.longitude + ", Latitude: " + position.latitude);
     });
+    
+   
+    setInterval(() => {
+        var [a, b] = this.midPoint(Math.random()*100);
+        markersPlugin.updateMarker({
+            id: "image",
+            latitude: a,
+            longitude: b
+        });
+        //console.log(this.midPoint());
+        /*
+        axios({
+            method: 'GET',
+            url: url,
+        }).then(response => {
+            data = data.slice(1, 10)
+            data.push(response.data.sort(() => Math.random() - 0.5)[0].y/3);
+            cat.push(cat.shift());
+            chart.updateSeries([{
+                name: 'Water level',
+                data: data,
+            }, 
+            {
+                name: 'Alarm',
+                data: line,
+            }]);
+            chart.updateOptions({
+                xaxis: {
+                    categories: cat
+                },
+            });
+        })
+        */
+    }, 1000);
 
+  },
+  methods: {
+      midPoint(per){
+          per = per/100;
+          return [this.lowPoint.lat + (this.highPoint.lat - this.lowPoint.lat) * per, this.lowPoint.lon + (this.highPoint.lon - this.lowPoint.lon) * per];
+      }
   }
+    
 }
 </script>
 

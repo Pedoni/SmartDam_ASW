@@ -81,7 +81,7 @@ app.post("/api/data", (req, res, next) => {
                 this.state = 0;
             } else if(value <= 1.0 && value > 0.4) {
                 this.state = 1;
-            } else if(value >= 0.4) {
+            } else if(value <= 0.4) {
                 this.state = 2;
             }
             if(value > D2){
