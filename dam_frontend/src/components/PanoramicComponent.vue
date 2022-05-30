@@ -122,8 +122,8 @@ export default {
                         imageLayer: 'https://cdn.iconscout.com/icon/free/png-256/sea-waves-2714064-2261636.png',
                         width     : 240,
                         height    : 150,
-                        longitude : -0.45,
-                        latitude  : -0.1,
+                        longitude : this.highPoint.lon,
+                        latitude  : this.highPoint.lat,
                         tooltip   : 'Image embedded in the scene',
                         orientation: 90
                     },
