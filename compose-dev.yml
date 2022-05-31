@@ -4,7 +4,7 @@ services:
   dam_backend:
     build:
       context: ./dam_backend
-      #dockerfile: dev.Dockerfile
+      dockerfile: dev.Dockerfile
     volumes:
       - "./dam_backend:/home/dam_backend"
     ports:

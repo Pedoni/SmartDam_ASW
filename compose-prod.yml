@@ -2,13 +2,18 @@ version: "3"
 
 services:
   dam_backend:
-    build: ./dam_backend
+    build:
+      context: ./dam_backend
+      dockerfile: prod.Dockerfile
     ports:
       - "27017:27017"
+      - "3000:3000"
 
   dam_frontend:
     depends_on:
       - "dam_backend"
-    build: ./dam_frontend
+    build:
+      context: ./dam_frontend
+      dockerfile: prod.Dockerfile
     ports:
       - "8080:8080"

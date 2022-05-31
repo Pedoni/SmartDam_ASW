@@ -5,10 +5,12 @@ default: install run
 install:
 	npm install
 
-run:
+sass:
 	sass src/css/login.scss src/css/login.css
 	sass src/css/home.scss src/css/home.css
 	sass src/css/panoramic.scss src/css/panoramic.css
+
+run: sass
 	npm run serve
 
 lint:
