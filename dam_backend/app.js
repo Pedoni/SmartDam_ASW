@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 var cors = require('cors');
 require('./DataPoint');
 var DataPoint = require("./DataPoint");
-var SerialCommChannel = require("./SerialCommChannel");
+//var SerialCommChannel = require("./SerialCommChannel");
 
 const MAX_SIZE = 10;
 let values = []
@@ -15,7 +15,7 @@ let manual = true;
 let percDam = 20;
 const D2 = 0.4
 const DeltaD = 0.04
-let scc = new SerialCommChannel('COM3', 9600);
+//let scc = new SerialCommChannel('COM3', 9600);
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
@@ -37,7 +37,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 setInterval(function(){ 
-    let rm = scc.receiveMessage();
+    //let rm = scc.receiveMessage();
+    let rm = "20"
     if(rm == "manual"){
         manual = true;
         console.log("Diga passata a modalità manuale");
@@ -48,7 +49,7 @@ setInterval(function(){
         percDam = 
         console.log("Valore attuale diga = " + rm);
     }
-}, 300);
+}, 1000);
 
 app.get("/api/dashboard", (req, res, next) => {
     let text = '[{"State": "' + state + '", "Manual": "' + manual + '", "Opening": "' + percDam + '"}';

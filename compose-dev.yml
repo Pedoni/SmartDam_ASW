@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  dam_backend:
+    build:
+      context: ./dam_backend
+      #dockerfile: dev.Dockerfile
+    volumes:
+      - "./dam_backend:/home/dam_backend"
+    ports:
+      - "27017:27017"
+      - "3000:3000"
+
+  dam_frontend:
+    depends_on:
+      - "dam_backend"
+    build:
+      context: ./dam_frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - "./dam_frontend:/home/dam_frontend"
+    ports:
+      - "8080:8080"

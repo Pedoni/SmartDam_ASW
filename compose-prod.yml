@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  dam_backend:
+    build: ./dam_backend
+    ports:
+      - "27017:27017"
+
+  dam_frontend:
+    depends_on:
+      - "dam_backend"
+    build: ./dam_frontend
+    ports:
+      - "8080:8080"
