@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 var cors = require('cors');
 require('./DataPoint');
 var DataPoint = require("./DataPoint");
@@ -19,14 +19,12 @@ const DeltaD = 0.04
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
-/*
 mongoose.connect(
     "mongodb://localhost:27017/smartDam", {
         useMongoClient: true
     }
 );
 mongoose.Promise = global.Promise;
-*/
 
 //for cors permissions
 app.use(cors({origin: '*'}));

@@ -11,12 +11,15 @@ RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mon
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update
-RUN apt install mongodb-org npm -y
+RUN apt install mongodb-org -y
+
+# Installing latest LTS version of nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt install nodejs -y
 
 EXPOSE 27017
 EXPOSE 3000
 
 WORKDIR /home/dam_backend
 
-RUN npm install
-CMD npm start
+CMD npm install && npm start
