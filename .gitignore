@@ -1,3 +1,9 @@
 **/node_modules/
 .vscode/
 **/package-lock.json
+
+doc/*
+!doc/*.tex
+!doc/*.bib
+!doc/*.jpg
+!doc/*.png
