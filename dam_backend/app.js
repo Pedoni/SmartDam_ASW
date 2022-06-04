@@ -19,8 +19,8 @@ const DeltaD = 0.04
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
-mongoose.connect("mongodb://localhost:27017/smartDam");
-mongoose.Promise = global.Promise;
+//mongoose.connect("mongodb://localhost:27017/smartDam");
+//mongoose.Promise = global.Promise;
 
 //for cors permissions
 app.use(cors({origin: '*'}));
@@ -30,9 +30,14 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Just to have some data.
+// ###############################################
+values.unshift(new DataPoint("100", Date.now(), "dam"));
+// ###############################################
+
 setInterval(function(){ 
     //let rm = scc.receiveMessage();
-    let rm = "20"
+    let rm = "100"
     if(rm == "manual"){
         manual = true;
         console.log("Diga passata a modalità manuale");
@@ -48,7 +53,8 @@ setInterval(function(){
 app.get("/api/dashboard", (req, res, next) => {
     let text = '[{"State": "' + state + '", "Manual": "' + manual + '", "Opening": "' + percDam + '"}';
     values.forEach(val => {
-        text += ', {time: ' + val.getTime() + ', value: ' + val.getValue() + ', place: '+ val.getPlace() + '}'
+        text += ', {"time": "' + val.getTime() +
+                 '", "value": "' + val.getValue() + '", "place": "'+ val.getPlace() + '"}'
     });
     text += ']';
     console.log(text);

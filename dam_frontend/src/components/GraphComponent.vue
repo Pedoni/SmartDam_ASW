@@ -14,7 +14,7 @@
               series: [{
                 type: 'area',
                 name: "Water level",
-                data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                data: [0,0,0,0,0,0,0,0,0]
               },
               {
                 type: 'line',
@@ -72,20 +72,22 @@
       initGraph(){
         var chart = new ApexCharts(document.querySelector("#chart"), this.options);
         chart.render();
-        var data = [10, 41, 35, 51, 49, 62, 69, 91, 148];
+        var data = [0,0,0,0,0,0,0,0,0];
+        //var data;
         //var cat = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
-        var cat = [10, 41, 35, 51, 49, 62, 69, 91, 14];
+        var cat = [0,0,0,0,0,0,0,0,0];
         var line = [150, 150, 150, 150, 150, 150, 150, 150, 150];
 
-        var url = 'http://my-json-server.typicode.com/apexcharts/apexcharts.js/yearly';
+        var url = 'http://localhost:3000/api/dashboard';
         setInterval(() => {
           axios({
             method: 'GET',
             url: url,
           }).then(response => {
-            data = data.slice(1, 10)
-            data.push(response.data.sort(() => Math.random() - 0.5)[0].y/3);
-            cat.push(cat.shift());
+            data = data.slice(1, 10);
+            data.push(response.data[1].value);
+            cat = cat.slice(1, 10);
+            cat.push(response.data[1].time);
             chart.updateSeries([{
               name: 'Water level',
               data: data,
