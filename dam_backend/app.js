@@ -19,8 +19,8 @@ const DeltaD = 0.04
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
-//mongoose.connect("mongodb://localhost:27017/smartDam");
-//mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://root:example@mongo:27017/");
+mongoose.Promise = global.Promise;
 
 //for cors permissions
 app.use(cors({origin: '*'}));
