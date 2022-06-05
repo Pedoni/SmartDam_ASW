@@ -5,14 +5,13 @@ let values = []
 router.get("/api/dashboard", (req, res, next) => {
     let text = '[{State: ' + state + ', Manual: ' + manual + ', Opening: ' + percdam + '},';
     values.forEach(val => {
-        text += '{time: ' + val.getTime() + ', value: ' + val.getValue() + ', place: '+ val.getPlace() + '},'
+        text += '{time: ' + val.getTime() + ', value: ' + val.getValue() + ', place: ' + val.getPlace() + '},'
     });
     text += ']';
     let arr = JSON.parse(text);
     res.status(200).json(arr);
 });
 
-/*
 router.post("/api/data", (req, res, next) => {
     if(req == null){
         return res.status(400).json({
@@ -28,4 +27,3 @@ router.post("/api/data", (req, res, next) => {
 });
 
 module.exports = router;
-*/
