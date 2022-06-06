@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const waterlevel = require("../model/waterlevel");
 let values = []
 
 router.get("/api/dashboard", (req, res, next) => {
@@ -18,10 +19,18 @@ router.post("/api/data", (req, res, next) => {
             message: "Error"
         });
     } else {
-        if(req.params.value!=null){
+        if(req.params.value != null){
             let value = req.params.value;
-            let place = req.params.place;
-            
+            //let place = req.params.place; // TODO remove if unused
+            waterlevel.insertMany([
+                {
+                    timestamp: Date.now(),
+                    value: value,
+                }
+            ],
+            function (err) {
+                if(err) console.log(err);
+            });
         }
     }
 });

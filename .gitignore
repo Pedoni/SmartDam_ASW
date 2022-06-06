@@ -2,7 +2,7 @@
 .vscode/
 **/package-lock.json
 
-dam_backend/db/journal
+dam_backend/db
 
 doc/*
 !doc/*.tex
