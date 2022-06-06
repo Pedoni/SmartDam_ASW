@@ -4,24 +4,24 @@ const { default: Queue } = require("queue");
 module.exports = class SerialCommChannel {
 
     constructor(port, baudrate) {
-		this.port = port;
-		this.baudrate = baudrate;
+        this.port = port;
+        this.baudrate = baudrate;
         this.q = Queue({ results: [] });
         this.serialPort = new SerialPort({ path: this.port, baudRate: this.baudrate });
-	}
-	
-	sendMessage(message) {
-		
-	}
-	
-	receiveMessage() {
+    }
+
+    sendMessage(message) {
+
+    }
+
+    receiveMessage() {
         //this.q.push(20);
-		return String(this.q.pop());
-	}
-	
-	isMessageAvailable() {
-		return this.q.length==0;
-	}
+        return String(this.q.pop());
+    }
+
+    isMessageAvailable() {
+        return this.q.length == 0;
+    }
 
 }
 
