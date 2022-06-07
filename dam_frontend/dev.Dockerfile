@@ -1,8 +1,8 @@
-FROM ubuntu:latest
+FROM node:18.3.0-alpine3.15
 
-RUN apt update
-RUN apt upgrade -y
-RUN apt install npm sass make -y
+RUN apk update
+RUN apk upgrade
+RUN apk add make
 
 WORKDIR /home/dam_frontend
 

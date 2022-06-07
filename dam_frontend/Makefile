@@ -10,7 +10,7 @@ sass:
 	sass src/css/home.scss src/css/home.css
 	sass src/css/panoramic.scss src/css/panoramic.css
 
-run: sass
+run:
 	npm run serve
 
 lint:
