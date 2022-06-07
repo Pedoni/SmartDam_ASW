@@ -14,12 +14,10 @@ export default {
                 series: [{
                     type: 'area',
                     name: "Water level",
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
                 },
                 {
                     type: 'line',
                     name: "Alarm",
-                    data: [150, 150, 150, 150, 150, 150, 150, 150, 150]
                 },
                 ],
                 chart: {
@@ -51,15 +49,12 @@ export default {
                         opacity: 0.5
                     },
                 },
-                xaxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-                },
                 yaxis: {
                     labels: {
                         formatter: (value => value + " mt.")
                     },
-                    min: 100,
-                    max: 170
+                    min: 0,
+                    max: 200
                 },
 
             },
@@ -73,7 +68,7 @@ export default {
             var chart = new ApexCharts(document.querySelector("#chart"), this.options);
             chart.render();
             var line = [];
-            for (let i=0; i<10; i++) {
+            for (let i = 0; i < 10; i++) {
                 line.push(150);
             }
 
@@ -93,7 +88,10 @@ export default {
                     }]);
                     chart.updateOptions({
                         xaxis: {
-                            categories: response.data.timestamps.reverse()
+                            categories: response.data.timestamps.reverse().map(t => {
+                                let date = new Date(t);
+                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                            })
                         },
                     });
                 })
