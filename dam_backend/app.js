@@ -3,6 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const waterlevel = require("./api/model/waterlevel");
 var cors = require('cors');
 require('./DataPoint');
 var DataPoint = require("./DataPoint");
@@ -19,7 +20,7 @@ let scc = new SerialCommChannel('COM3', 9600);
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
-mongoose.connect("mongodb://root:example@mongo:27017/");
+mongoose.connect("mongodb://root:example@mongo:27017");
 mongoose.Promise = global.Promise;
 
 //for cors permissions
@@ -36,7 +37,7 @@ values.unshift(new DataPoint("100", Date.now(), "dam"));
 // ###############################################
 
 setInterval(function () {
-    //let rm = scc.receiveMessage();
+    //let rm = scc.receiveMessage(); // TODO uncomment if needed
     let rm = "100"
     if (rm == "manual") {
         manual = true;
@@ -104,6 +105,18 @@ app.post("/api/data", (req, res, next) => {
         } else if (value <= (D2 - 4 * (DeltaD))) {
             sendValue(100);
         }
+
+        waterlevel.insertMany(
+            [{
+                timestamp: Date.now(),
+                level: value,
+            }],
+            function (err) {
+                if (err) {
+                    console.log("Error during insertMany: " + err);
+                }
+            }
+        );
     } else { // if state is not null
         state = req.body.state;
         console.log("New state: " + state);
@@ -148,6 +161,6 @@ app.use((req, res, next) => {
         }
     });
     res.status(error.status || 500);
-});*/
+});*/ // TODO delete if useless
 
 module.exports = app;
