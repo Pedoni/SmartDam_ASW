@@ -1,4 +1,4 @@
-const { SerialPort } = require("serialport");
+//const { SerialPort } = require("serialport");
 const { default: Queue } = require("queue");
 
 module.exports = class SerialCommChannel {
@@ -7,7 +7,7 @@ module.exports = class SerialCommChannel {
         this.port = port;
         this.baudrate = baudrate;
         this.q = Queue({ results: [] });
-        this.serialPort = new SerialPort({ path: this.port, baudRate: this.baudrate });
+        //this.serialPort = new SerialPort({ path: this.port, baudRate: this.baudrate }); // TODO uncomment this
     }
 
     sendMessage(message) {
@@ -16,7 +16,8 @@ module.exports = class SerialCommChannel {
 
     receiveMessage() {
         //this.q.push(20);
-        return String(this.q.pop());
+        //return String(this.q.pop()); // TODO uncomment this
+        return String(Date.now());
     }
 
     isMessageAvailable() {

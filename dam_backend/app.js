@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 var cors = require('cors');
 require('./DataPoint');
 var DataPoint = require("./DataPoint");
-//var SerialCommChannel = require("./SerialCommChannel");
+var SerialCommChannel = require("./SerialCommChannel");
 
 const MAX_SIZE = 10;
 let values = []
@@ -15,7 +15,7 @@ let manual = true;
 let percDam = 20;
 const D2 = 0.4
 const DeltaD = 0.04
-//let scc = new SerialCommChannel('COM3', 9600);
+let scc = new SerialCommChannel('COM3', 9600);
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
@@ -63,20 +63,19 @@ app.get("/api/dashboard", (req, res, next) => {
 });
 
 app.post("/api/data", (req, res, next) => {
-    console.log("Received a post on api data");
     if (req == null) {
         return res.status(400).json({
             message: "Error"
         });
     }
 
-    if (req.params.value == null ^ req.params.state == null) {
+    if (!("value" in req.body ^ "state" in req.body)) {
         res.status(300).end();
     }
 
-    if (req.params.value != null) {
-        let value = req.params.value;
-        let place = req.params.place;
+    if ("value" in req.body) {
+        let value = req.body.value;
+        let place = req.body.place;
         const time = Date.now();
         values.unshift(new DataPoint(value, time, place));
         if (values.length > MAX_SIZE) {
@@ -105,8 +104,8 @@ app.post("/api/data", (req, res, next) => {
         } else if (value <= (D2 - 4 * (DeltaD))) {
             sendValue(100);
         }
-    } else { // state is not null
-        state = req.params.state;
+    } else { // if state is not null
+        state = req.body.state;
         console.log("New state: " + state);
         switch (state) {
             case 0:
@@ -130,7 +129,7 @@ app.post("/api/data", (req, res, next) => {
 });
 
 function sendValue(val) {
-    scc.sendMsg('"' + val + '"');
+    scc.sendMessage('"' + val + '"');
     if (!manual) {
         percDam = val;
     }
@@ -142,13 +141,13 @@ app.use((req, res, next) => {
     next(error);
 });
 
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
+/*app.use((error, req, res, next) => {
     res.json({
         error: {
             message: error.message
         }
     });
-});
+    res.status(error.status || 500);
+});*/
 
 module.exports = app;
