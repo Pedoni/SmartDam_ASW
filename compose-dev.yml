@@ -42,3 +42,9 @@ services:
       - "./dam_frontend:/home/dam_frontend"
     ports:
       - "8080:8080"
+  
+  sensor:
+    depends_on:
+      - "dam_backend"
+    build:
+      context: ./dam_controller

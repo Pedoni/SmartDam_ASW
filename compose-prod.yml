@@ -38,3 +38,9 @@ services:
       dockerfile: prod.Dockerfile
     ports:
       - "8080:8080"
+
+  sensor:
+    depends_on:
+      - "dam_backend"
+    build:
+      context: ./dam_controller
