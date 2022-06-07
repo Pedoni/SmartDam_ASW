@@ -36,6 +36,7 @@ app.use(bodyParser.json());
 values.unshift(new DataPoint("100", Date.now(), "dam"));
 // ###############################################
 
+/*
 setInterval(function () {
     //let rm = scc.receiveMessage(); // TODO uncomment if needed
     let rm = "100"
@@ -49,18 +50,42 @@ setInterval(function () {
         percDam =
             console.log("Valore attuale diga = " + rm);
     }
-}, 1000);
+}, 1000);*/
 
 app.get("/api/dashboard", (req, res, next) => {
-    let text = '[{"State": "' + state + '", "Manual": "' + manual + '", "Opening": "' + percDam + '"}';
-    values.forEach(val => {
-        text += ', {"time": "' + val.getTime() +
-            '", "value": "' + val.getValue() + '", "place": "' + val.getPlace() + '"}'
-    });
-    text += ']';
-    console.log(text);
-    let arr = JSON.parse(text);
-    res.status(200).json(arr);
+    waterlevel.find()
+        .sort({ "timestamp": -1 })
+        .limit(10)
+        .select({ "timestamp": 1, "level": 1, "_id": 0 })
+        .exec((err, values) => {
+            if (err) {
+                console.log("Error during reading from db: " + err);
+                res.status(500).json({
+                    "Error": "something went wrong with the database"
+                });
+            } else {
+                // Fill with zeros to have exactly
+                while (values.length < 10) {
+                    values.unshift({ "timestamp": 0, "level": 0 });
+                }
+
+                // Splitting timestamp and level
+                var timestamps = []
+                var waterlevels = []
+                for (i in values) {
+                    timestamps.push(values[i]["timestamp"])
+                    waterlevels.push(values[i]["level"])
+                }
+
+                res.status(200).json({
+                    "state": state,
+                    "manual": manual,
+                    "opening": percDam,
+                    "timestamps": timestamps,
+                    "waterlevels": waterlevels
+                });
+            }
+        });
 });
 
 app.post("/api/data", (req, res, next) => {
