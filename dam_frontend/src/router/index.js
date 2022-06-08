@@ -3,21 +3,21 @@ import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
 
 const routes = [
-   {
+  {
     path: '/',
     redirect: {
-        name: "login"
+      name: "login"
     }
   },
   {
-      path: "/login",
-      name: "login",
-      component: LoginView
+    path: "/login",
+    name: "login",
+    component: LoginView
   },
   {
-      path: "/home",
-      name: "home",
-      component: HomeView
+    path: "/home",
+    name: "home",
+    component: HomeView
   }
 ]
 

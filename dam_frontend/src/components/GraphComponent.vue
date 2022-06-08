@@ -29,7 +29,7 @@ export default {
                 },
                 ],
                 chart: {
-                    height: 650,
+                    height: 600,
                     zoom: {
                         enabled: false
                     },

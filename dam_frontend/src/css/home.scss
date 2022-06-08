@@ -1,11 +1,11 @@
-$maincolor:#3B3B98;
-$textcolor:#fff;
-$font-family:Nunito Sans;
+$maincolor: #3B3B98;
+$textcolor: #fff;
+$font-family: Nunito Sans;
 
 body {
-  font-family: $font-family;
-  background-color: $maincolor;
-  margin: 0;
+    font-family: $font-family;
+    background-color: $maincolor;
+    margin: 0;
 }
 
 #home {
@@ -43,8 +43,8 @@ body {
         background-color: #fff;
         border-radius: 10px;
 
-        h1{
-            p{
+        h1 {
+            p {
                 align-items: center;
             }
         }
@@ -65,5 +65,5 @@ body {
         p {
             font-size: 14px;
         }
-     }
+    }
 }
