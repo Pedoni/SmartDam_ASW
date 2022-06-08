@@ -1,4 +1,5 @@
 <template>
+    <button v-on:click="forceUpdateGraph">Force Update</button>
     <div id="chart"></div>
 </template>
 
@@ -14,14 +15,17 @@ export default {
                 series: [{
                     type: 'area',
                     name: "Water level",
+                    data: [],
                 },
                 {
                     type: 'line',
                     name: "Alarm",
+                    data: [],
                 },
                 {
                     type: 'line',
                     name: "Pre-alert",
+                    data: [],
                 },
                 ],
                 chart: {
@@ -65,10 +69,20 @@ export default {
         }
     },
     mounted() {
-        this.initGraph();
+        // update the graph every 5 seconds
+        this.updateGraph();
+        setInterval(this.regularUpdate, 5000);
     },
     methods: {
-        initGraph() {
+        forceUpdateGraph: function () {
+            console.log("Force updating");
+            this.updateGraph();
+        },
+        regularUpdate: function() {
+            console.log("Regular update");
+            this.updateGraph();
+        },
+        updateGraph: function () {
             var chart = new ApexCharts(document.querySelector("#chart"), this.options);
             chart.render();
             var pre_alert_line = [];
@@ -79,33 +93,33 @@ export default {
             }
 
             var url = 'http://localhost:3000/api/dashboard';
-            setInterval(() => {
-                axios({
-                    method: 'GET',
-                    url: url,
-                }).then(response => {
-                    chart.updateSeries([{
-                        name: 'Water level',
-                        data: response.data.waterlevels.reverse(),
+            axios({
+                method: 'GET',
+                url: url,
+            }).then(response => {
+
+                chart.updateSeries([{
+                    name: 'Water level',
+                    data: response.data.waterlevels.reverse(),
+                },
+                {
+                    name: 'Alarm',
+                    data: alert_line,
+                },
+                {
+                    name: 'Pre-alert',
+                    data: pre_alert_line,
+                }]);
+
+                chart.updateOptions({
+                    xaxis: {
+                        categories: response.data.timestamps.reverse().map(t => {
+                            let date = new Date(t);
+                            return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                        })
                     },
-                    {
-                        name: 'Alarm',
-                        data: alert_line,
-                    },
-                    {
-                        name: 'Pre-alert',
-                        data: pre_alert_line,
-                    }]);
-                    chart.updateOptions({
-                        xaxis: {
-                            categories: response.data.timestamps.reverse().map(t => {
-                                let date = new Date(t);
-                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                            })
-                        },
-                    });
-                })
-            }, 1000);
+                });
+            });
         },
     },
 
