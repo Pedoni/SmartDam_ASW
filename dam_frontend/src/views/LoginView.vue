@@ -24,13 +24,8 @@ export default {
     },
     methods: {
         login() {
-            console.log("Your username: " + this.input.username);
-            console.log("Your password: " + this.input.password);
-            /*
-            console.log("Required username: " + this.$parent.mockAccount.username);
-            console.log("Required password: " + this.$parent.mockAccount.password);*/
             if (this.input.username != "" && this.input.password != "") {
-                if (this.input.username == /*this.$parent.mockAccount.username*/ "user" && this.input.password == "password" /*this.$parent.mockAccount.password*/) {
+                if (this.input.username == "user" && this.input.password == "password") {
                     this.$emit("authenticated", true);
                     this.$router.replace({ name: "home" });
                 } else {
