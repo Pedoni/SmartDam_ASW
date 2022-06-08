@@ -124,3 +124,14 @@ export default {
     },
 }
 </script>
+
+<style>
+button {
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(0, 128, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+}
+</style>
