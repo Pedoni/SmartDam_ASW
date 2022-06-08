@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             options: {
-                colors: ["#0000ff", "#ff0000"],
+                colors: ["#0000ff", "#ff0000", "#ffff00"],
                 series: [{
                     type: 'area',
                     name: "Water level",
@@ -18,6 +18,10 @@ export default {
                 {
                     type: 'line',
                     name: "Alarm",
+                },
+                {
+                    type: 'line',
+                    name: "Pre-alert",
                 },
                 ],
                 chart: {
@@ -67,9 +71,11 @@ export default {
         initGraph() {
             var chart = new ApexCharts(document.querySelector("#chart"), this.options);
             chart.render();
-            var line = [];
+            var pre_alert_line = [];
+            var alert_line = [];
             for (let i = 0; i < 10; i++) {
-                line.push(150);
+                alert_line.push(150);
+                pre_alert_line.push(130);
             }
 
             var url = 'http://localhost:3000/api/dashboard';
@@ -84,7 +90,11 @@ export default {
                     },
                     {
                         name: 'Alarm',
-                        data: line,
+                        data: alert_line,
+                    },
+                    {
+                        name: 'Pre-alert',
+                        data: pre_alert_line,
                     }]);
                     chart.updateOptions({
                         xaxis: {
