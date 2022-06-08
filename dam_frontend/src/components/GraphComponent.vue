@@ -69,6 +69,8 @@ export default {
         }
     },
     mounted() {
+        this.chart = new ApexCharts(document.querySelector("#chart"), this.options);
+        this.chart.render();
         // update the graph every 5 seconds
         this.updateGraph();
         setInterval(this.regularUpdate, 5000);
@@ -78,13 +80,11 @@ export default {
             console.log("Force updating");
             this.updateGraph();
         },
-        regularUpdate: function() {
+        regularUpdate: function () {
             console.log("Regular update");
             this.updateGraph();
         },
         updateGraph: function () {
-            var chart = new ApexCharts(document.querySelector("#chart"), this.options);
-            chart.render();
             var pre_alert_line = [];
             var alert_line = [];
             for (let i = 0; i < 10; i++) {
@@ -98,7 +98,7 @@ export default {
                 url: url,
             }).then(response => {
 
-                chart.updateSeries([{
+                this.chart.updateSeries([{
                     name: 'Water level',
                     data: response.data.waterlevels.reverse(),
                 },
@@ -111,7 +111,7 @@ export default {
                     data: pre_alert_line,
                 }]);
 
-                chart.updateOptions({
+                this.chart.updateOptions({
                     xaxis: {
                         categories: response.data.timestamps.reverse().map(t => {
                             let date = new Date(t);
@@ -122,6 +122,5 @@ export default {
             });
         },
     },
-
 }
 </script>
