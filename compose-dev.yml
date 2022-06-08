@@ -48,3 +48,4 @@ services:
       - "dam_backend"
     build:
       context: ./dam_controller
+    restart: always

@@ -18,6 +18,6 @@ def main():
 
 
 if __name__ == "__main__":
-    time.sleep(10)
+    time.sleep(random.uniform(5, 15))
     print("[sensor]: started sensor")
     main()
