@@ -84,6 +84,9 @@ export default {
         this.updateGraph();
         this.timer = setInterval(this.regularUpdate, 5000);
     },
+    unmounted(){
+        clearInterval(this.timer);
+    },
     methods: {
         forceUpdateGraph: function () {
             console.log("Force updating");

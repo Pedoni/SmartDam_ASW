@@ -154,7 +154,7 @@ export default {
         });
 
 
-        setInterval(() => {
+        this.timer = setInterval(() => {
             var url = 'http://localhost:3000/api/dashboard';
             axios({
                 method: 'GET',
@@ -171,6 +171,9 @@ export default {
             });
         }, 1000);
 
+    },
+    unmounted(){
+        clearInterval(this.timer);
     },
     methods: {
         midPoint(per) {
