@@ -133,8 +133,17 @@ export default {
         const markersPlugin = viewer.getPlugin(MarkersPlugin);
         markersPlugin.on('select-marker', (e, marker) => {
             switch (marker.id) {
-                case "1":
-                    console.log("cliccata prima zona rossa");
+                case "1": case"4": case "6":
+                    console.log("cliccata zona alert");
+                    break;
+                case "2": case "5":
+                    console.log("cliccata zona pre-alert");
+                    break;
+                case "3":
+                    console.log("cliccata zona normal");
+                    break;
+                default:
+                    console.log("Che cazzo hai cliccato");
                     break;
             }
         });
