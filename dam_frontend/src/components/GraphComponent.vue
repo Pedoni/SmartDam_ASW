@@ -1,5 +1,12 @@
 <template>
     <button v-on:click="forceUpdateGraph">Force Update</button>
+    <select @change="changedFrequency">
+        <option value="5">5 seconds</option>
+        <option value="10">10 seconds</option>
+        <option value="30">30 seconds</option>
+        <option value="60">1 minute</option>
+        <option value="300">5 minutes</option>
+    </select>
     <div id="chart"></div>
 </template>
 
@@ -71,9 +78,10 @@ export default {
     mounted() {
         this.chart = new ApexCharts(document.querySelector("#chart"), this.options);
         this.chart.render();
+        this.updateFrequency = 5000;
         // update the graph every 5 seconds
         this.updateGraph();
-        setInterval(this.regularUpdate, 5000);
+        this.timer = setInterval(this.regularUpdate, 5000);
     },
     methods: {
         forceUpdateGraph: function () {
@@ -121,6 +129,11 @@ export default {
                 });
             });
         },
+        changedFrequency: function(event) {
+            // kill old timer
+            clearInterval(this.timer);
+            this.timer = setInterval(this.regularUpdate, event.target.value * 1000);
+        },
     },
 }
 </script>
@@ -133,5 +146,15 @@ button {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     padding: 10px;
+}
+
+select {
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(0, 128, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px;
 }
 </style>
