@@ -115,7 +115,7 @@ export default {
                     document.getElementById("no_new_data").removeAttribute("hidden");
                 } else {
 
-                    this.last_values = response.data.timestamps;
+                    this.last_values = [...response.data.timestamps];
 
                     this.chart.updateSeries([{
                         name: 'Water level',
