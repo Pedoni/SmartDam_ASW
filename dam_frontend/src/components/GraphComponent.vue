@@ -1,5 +1,4 @@
 <template>
-    <button v-on:click="forceUpdateGraph">Force Update</button>
     <select @change="changedFrequency">
         <option value="5">5 seconds</option>
         <option value="10">10 seconds</option>
@@ -7,6 +6,8 @@
         <option value="60">1 minute</option>
         <option value="300">5 minutes</option>
     </select>
+    <button v-on:click="forceUpdateGraph">Force Update</button>
+    <p id="no_new_data" hidden>No new data</p>
     <div id="chart"></div>
 </template>
 
@@ -78,7 +79,7 @@ export default {
     mounted() {
         this.chart = new ApexCharts(document.querySelector("#chart"), this.options);
         this.chart.render();
-        this.updateFrequency = 5000;
+        this.last_values = [];
         // update the graph every 5 seconds
         this.updateGraph();
         this.timer = setInterval(this.regularUpdate, 5000);
@@ -105,31 +106,41 @@ export default {
                 method: 'GET',
                 url: url,
             }).then(response => {
+                // if there's no new data, we don't update the chart
+                if (response.data.timestamps.every((val, index) => val == this.last_values[index])) {
+                    console.log("ueuuuuuu");
+                    document.getElementById("no_new_data").removeAttribute("hidden");
+                } else {
 
-                this.chart.updateSeries([{
-                    name: 'Water level',
-                    data: response.data.waterlevels.reverse(),
-                },
-                {
-                    name: 'Alarm',
-                    data: alert_line,
-                },
-                {
-                    name: 'Pre-alert',
-                    data: pre_alert_line,
-                }]);
+                    this.last_values = response.data.timestamps;
 
-                this.chart.updateOptions({
-                    xaxis: {
-                        categories: response.data.timestamps.reverse().map(t => {
-                            let date = new Date(t);
-                            return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                        })
+                    this.chart.updateSeries([{
+                        name: 'Water level',
+                        data: response.data.waterlevels.reverse(),
                     },
-                });
+                    {
+                        name: 'Alarm',
+                        data: alert_line,
+                    },
+                    {
+                        name: 'Pre-alert',
+                        data: pre_alert_line,
+                    }]);
+
+                    this.chart.updateOptions({
+                        xaxis: {
+                            categories: response.data.timestamps.reverse().map(t => {
+                                let date = new Date(t);
+                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                            })
+                        },
+                    });
+
+                    document.getElementById("no_new_data").setAttribute("hidden", "hidden");
+                }
             });
         },
-        changedFrequency: function(event) {
+        changedFrequency: function (event) {
             // kill old timer
             clearInterval(this.timer);
             this.timer = setInterval(this.regularUpdate, event.target.value * 1000);
