@@ -8,10 +8,8 @@
 import { Viewer } from 'photo-sphere-viewer';
 import { MarkersPlugin } from 'photo-sphere-viewer/dist/plugins/markers';
 import 'photo-sphere-viewer/dist/photo-sphere-viewer.css';
-/**
- * Longitude: , Latitude: 
- * Longitude: , Latitude: 
- */
+import axios from 'axios';
+
 export default {
     name: 'PanoramicComponent',
     data() {
@@ -19,7 +17,7 @@ export default {
             alertText: "ALERT",
             preAlertText: "PRE ALERT",
             normalText: "NORMAL",
-            damHeight: 30,
+            damHeight: 160,
             highPoint: {
                 lat: -0.17741305282656916,
                 lon: 5.016652578705191
@@ -124,7 +122,7 @@ export default {
                             height: 150,
                             longitude: this.highPoint.lon,
                             latitude: this.highPoint.lat,
-                            tooltip: 'Image embedded in the scene',
+                            tooltip: 'Current level',
                             orientation: 90
                         },
                     ]
@@ -148,36 +146,20 @@ export default {
 
 
         setInterval(() => {
-            var [a, b] = this.midPoint(Math.random() * 100);
-            markersPlugin.updateMarker({
-                id: "image",
-                latitude: a,
-                longitude: b
-            });
-            //console.log(this.midPoint());
-            /*
+            var url = 'http://localhost:3000/api/dashboard';
             axios({
                 method: 'GET',
                 url: url,
             }).then(response => {
-                data = data.slice(1, 10)
-                data.push(response.data.sort(() => Math.random() - 0.5)[0].y/3);
-                cat.push(cat.shift());
-                chart.updateSeries([{
-                    name: 'Water level',
-                    data: data,
-                }, 
-                {
-                    name: 'Alarm',
-                    data: line,
-                }]);
-                chart.updateOptions({
-                    xaxis: {
-                        categories: cat
-                    },
+                var level = response.data.waterlevels.at(-1);
+                var [a, b] = this.midPoint(level / this.damHeight * 100);
+                markersPlugin.updateMarker({
+                    id: "image",
+                    latitude: a,
+                    longitude: b,
+                    tooltip: "Current level: " + level + " mt.",
                 });
-            })
-            */
+            });
         }, 1000);
 
     },
