@@ -7,6 +7,7 @@
             <input type="text" name="username" v-model="input.username" placeholder="Username" />
             <input type="password" name="password" v-model="input.password" placeholder="Password" />
             <button type="button" v-on:click="login()">Login</button>
+            <p id="wrong_credentials" hidden>Wrong credentials</p>
         </form>
     </div>
 </template>
@@ -24,15 +25,11 @@ export default {
     },
     methods: {
         login() {
-            if (this.input.username != "" && this.input.password != "") {
-                if (this.input.username == "user" && this.input.password == "password") {
-                    this.$emit("authenticated", true);
-                    this.$router.replace({ name: "home" });
-                } else {
-                    console.log("The username and / or password is incorrect");
-                }
+            if (this.input.username == "user" && this.input.password == "password") {
+                this.$emit("authenticated", true);
+                this.$router.replace({ name: "home" });
             } else {
-                console.log("A username and password must be present");
+                document.getElementById("wrong_credentials").removeAttribute("hidden");
             }
         }
     }
