@@ -43,7 +43,7 @@ services:
     depends_on:
       - "dam_backend"
     build:
-      context: ./dam_controller
+      context: ./dam_sensor
       args:
         quiet: quiet
     restart: always
