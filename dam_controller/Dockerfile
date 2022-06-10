@@ -6,4 +6,7 @@ WORKDIR /home
 
 COPY sensor.py .
 
-CMD python ./sensor.py
+ARG quiet
+ENV QUIET ${quiet}
+
+CMD python ./sensor.py QUIET

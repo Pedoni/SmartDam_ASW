@@ -44,4 +44,8 @@ services:
       - "dam_backend"
     build:
       context: ./dam_controller
+      args:
+        quiet: quiet
     restart: always
+    deploy:
+      replicas: 5
