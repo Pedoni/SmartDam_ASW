@@ -111,7 +111,6 @@ export default {
             }).then(response => {
                 // if there's no new data, we don't update the chart
                 if (response.data.timestamps.every((val, index) => val == this.last_values[index])) {
-                    console.log("ueuuuuuu");
                     document.getElementById("no_new_data").removeAttribute("hidden");
                 } else {
 
@@ -138,7 +137,6 @@ export default {
                             })
                         },
                     });
-
                     document.getElementById("no_new_data").setAttribute("hidden", "hidden");
                 }
             });
@@ -153,26 +151,26 @@ export default {
 </script>
 
 <style>
-button {
-    border-radius: 5px;
-    border: 0px;
-    color: white;
-    background-color: rgb(0, 128, 255);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    padding: 10px;
-    cursor: pointer;
-}
+    button {
+        border-radius: 5px;
+        border: 0px;
+        color: white;
+        background-color: rgb(0, 128, 255);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 10px;
+        cursor: pointer;
+    }
 
-select {
-    border-radius: 5px;
-    border: 0px;
-    color: white;
-    background-color: rgb(0, 128, 255);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    padding: 10px;
-    margin: 10px;
-    cursor: pointer;
-}
+    select {
+        border-radius: 5px;
+        border: 0px;
+        color: white;
+        background-color: rgb(0, 128, 255);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 10px;
+        margin: 10px;
+        cursor: pointer;
+    }
 </style>

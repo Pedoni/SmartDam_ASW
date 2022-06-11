@@ -7,6 +7,7 @@ const waterlevel = require("./api/model/waterlevel");
 var cors = require('cors');
 // require('./DataPoint');
 var DataPoint = require("./DataPoint");
+var DamData = require("./DamData");
 
 const MAX_SIZE = 10;
 let values = []
