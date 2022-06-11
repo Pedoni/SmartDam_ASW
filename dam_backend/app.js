@@ -5,9 +5,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const waterlevel = require("./api/model/waterlevel");
 var cors = require('cors');
-require('./DataPoint');
+// require('./DataPoint');
 var DataPoint = require("./DataPoint");
-var SerialCommChannel = require("./SerialCommChannel");
 
 const MAX_SIZE = 10;
 let values = []
@@ -16,7 +15,6 @@ let manual = true;
 let percDam = 20;
 const D2 = 0.4
 const DeltaD = 0.04
-let scc = new SerialCommChannel('COM3', 9600);
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
@@ -26,31 +24,12 @@ mongoose.Promise = global.Promise;
 //for cors permissions
 app.use(cors({ origin: '*' }));
 
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 //app.use('/images', express.static('images'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Just to have some data.
-// ###############################################
-values.unshift(new DataPoint("100", Date.now(), "dam"));
-// ###############################################
-
-/*
-setInterval(function () {
-    //let rm = scc.receiveMessage(); // TODO uncomment if needed
-    let rm = "100"
-    if (rm == "manual") {
-        manual = true;
-        console.log("Diga passata a modalità manuale");
-    } else if (rm == "auto") {
-        manual = false;
-        console.log("Diga passata a modalità automatica");
-    } else if (rm == "0" || rm == "20" || rm == "40" || rm == "60" || rm == "80" || rm == "100") {
-        percDam =
-            console.log("Valore attuale diga = " + rm);
-    }
-}, 1000);*/
+// values.unshift(new DataPoint("100", Date.now(), "dam"));
 
 app.get("/api/dashboard", (req, res, next) => {
     waterlevel.find()
@@ -118,17 +97,17 @@ app.post("/api/data", (req, res, next) => {
         }
 
         if (value > D2) {
-            sendValue(0);
+            // sendValue(0);
         } else if (value > (D2 - DeltaD) && value <= D2) {
-            sendValue(20);
+            // sendValue(20);
         } else if (value > (D2 - 2 * (DeltaD)) && value <= (D2 - (DeltaD))) {
-            sendValue(40);
+            // sendValue(40);
         } else if (value > (D2 - 3 * (DeltaD)) && value <= (D2 - (2 * DeltaD))) {
-            sendValue(60);
+            // sendValue(60);
         } else if (value > (D2 - 4 * (DeltaD)) && value <= (D2 - (3 * DeltaD))) {
-            sendValue(80);
+            // sendValue(80);
         } else if (value <= (D2 - 4 * (DeltaD))) {
-            sendValue(100);
+            // sendValue(100);
         }
 
         waterlevel.insertMany(
@@ -147,27 +126,26 @@ app.post("/api/data", (req, res, next) => {
         console.log("New state: " + state);
         switch (state) {
             case 0:
-                scc.sendMessage("NORMAL");
+                // scc.sendMessage("NORMAL");
                 percDam = 0;
                 manual = false;
                 break;
             case 1:
-                scc.sendMessage("PRE");
+                // scc.sendMessage("PRE");
                 percDam = 0;
                 manual = false;
                 break;
             case 2:
-                scc.sendMessage("ALARM");
+                // scc.sendMessage("ALARM");
                 break;
         }
     }
-
     // if everything went well
     res.status(200).end();
 });
 
 function sendValue(val) {
-    scc.sendMessage('"' + val + '"');
+    // scc.sendMessage('"' + val + '"');
     if (!manual) {
         percDam = val;
     }
@@ -178,14 +156,5 @@ app.use((req, res, next) => {
     error.status = 404;
     next(error);
 });
-
-/*app.use((error, req, res, next) => {
-    res.json({
-        error: {
-            message: error.message
-        }
-    });
-    res.status(error.status || 500);
-});*/ // TODO delete if useless
 
 module.exports = app;
