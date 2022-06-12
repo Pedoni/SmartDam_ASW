@@ -5,6 +5,10 @@ import sys
 import requests
 
 
+def log(msg: str):
+    print("[waterlevel_sensor]: " + msg)
+
+
 def main(quiet=False):
     n = random.uniform(0, 5)
     while True:
@@ -12,9 +16,9 @@ def main(quiet=False):
         x = math.sin(n / 3) * 50 + 100  # generates values inside [50;150]
         n += 1
         if not quiet:
-            print("[sensor]: sending " + str(x))
+            log("sending " + str(x))
         _ = requests.post(
-            "http://dam_backend:3000/api/data",
+            "http://dam_backend:3000/api/waterlevel",
             json={"value": "{:.2f}".format(x)},
         )
 
@@ -26,5 +30,5 @@ if __name__ == "__main__":
     else:
         quiet = False
     if not quiet:
-        print("[sensor]: started sensor")
+        log("started sensor")
     main(quiet)

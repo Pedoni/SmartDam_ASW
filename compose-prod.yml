@@ -39,11 +39,22 @@ services:
     ports:
       - "8080:8080"
 
-  sensor:
+  waterlevel_sensor:
     depends_on:
       - "dam_backend"
     build:
-      context: ./dam_sensor
+      context: ./waterlevel_sensor
+      args:
+        quiet: quiet
+    restart: always
+    deploy:
+      replicas: 1
+  
+  weather_sensor:
+    depends_on:
+      - "dam_backend"
+    build:
+      context: ./weather_sensor
       args:
         quiet: quiet
     restart: always

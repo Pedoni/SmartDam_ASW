@@ -17,6 +17,9 @@ let percDam = 20;
 const D2 = 0.4
 const DeltaD = 0.04
 
+const waterlevelEndpoint = "/api/waterlevel";
+const weatherEndpoint = "/api/weather";
+
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
 mongoose.connect("mongodb://root:example@mongo:27017");
@@ -32,7 +35,7 @@ app.use(bodyParser.json());
 
 // values.unshift(new DataPoint("100", Date.now(), "dam"));
 
-app.get("/api/dashboard", (req, res, next) => {
+app.get(waterlevelEndpoint, (req, res, next) => {
     waterlevel.find()
         .sort({ "timestamp": -1 })
         .limit(10)
@@ -68,7 +71,7 @@ app.get("/api/dashboard", (req, res, next) => {
         });
 });
 
-app.post("/api/data", (req, res, next) => {
+app.post(waterlevelEndpoint, (req, res, next) => {
     if (req == null) {
         return res.status(400).json({
             message: "Error"
@@ -143,6 +146,14 @@ app.post("/api/data", (req, res, next) => {
     }
     // if everything went well
     res.status(200).end();
+});
+
+app.get(weatherEndpoint, (req, res, next) => {
+    console.log("get on /weather");
+});
+
+app.post(weatherEndpoint, (req, res, next) => {
+    console.log("post on /weather");
 });
 
 function sendValue(val) {
