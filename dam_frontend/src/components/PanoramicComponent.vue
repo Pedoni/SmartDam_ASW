@@ -155,12 +155,12 @@ export default {
 
 
         this.timer = setInterval(() => {
-            var url = 'http://localhost:3000/api/dashboard';
+            var url = 'http://localhost:3000/api/waterlevel';
             axios({
                 method: 'GET',
                 url: url,
             }).then(response => {
-                var level = response.data.waterlevels.at(-1);
+                var level = response.data.waterlevel.at(-1);
                 var [a, b] = this.midPoint(level / this.damHeight * 100);
                 markersPlugin.updateMarker({
                     id: "image",
