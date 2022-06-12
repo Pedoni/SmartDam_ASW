@@ -16,6 +16,14 @@
     </div>
     <div class="chart-container">
         <div class="row">
+            <p>Weather data: </p>
+            <select @change="changedWeatherData">
+                <option value="water_temp">Water temperature</option>
+                <option value="air_temp">Air temperature</option>
+                <option value="pressure">Atmospheric pressure</option>
+                <option value="humidity">Humidity</option>
+                <option value="rain">Rain</option>
+            </select>
             <p>Update frequency: </p>
             <select @change="changedFrequencyWeather">
                 <option value="5">5 seconds</option>
@@ -24,7 +32,7 @@
                 <option value="60">1 minute</option>
                 <option value="300">5 minutes</option>
             </select>
-            <button v-on:click="updateWeatherGraph">Force Update</button>
+            <button v-on:click="updateWeatherGraph(false)">Force Update</button>
             <p id="weather_no_new_data" hidden>No new data</p>
         </div>
         <div id="weather_chart"></div>
@@ -95,10 +103,10 @@ export default {
 
             },
             weatherChartOptions: {
-                colors: ["#0000ff", "#ff0000", "#ffff00"],
+                colors: ["#0000ff"],
                 series: [{
                     type: 'area',
-                    name: "Water temperature",
+                    name: "Water temperature", // if there's only one series, the name does not display
                     data: [],
                 }],
                 chart: {
@@ -130,14 +138,13 @@ export default {
                         opacity: 0.5
                     },
                 },
-                yaxis: {
-                    labels: {
-                        formatter: (value => value + " °C")
-                    },
-                    min: 0,
-                    max: 30
-                },
-
+                // yaxis: {
+                //     labels: {
+                //         formatter: (value => value + " °C")
+                //     },
+                //     min: 0,
+                //     max: 40
+                // },
             },
         }
     },
@@ -147,6 +154,7 @@ export default {
 
         this.weatherChart = new ApexCharts(document.querySelector("#weather_chart"), this.weatherChartOptions);
         this.weatherChart.render();
+        this.weatherData = "water_temperature";
 
         this.last_values = [];
         this.pre_alert_line = [];
@@ -159,8 +167,9 @@ export default {
         // update the graph every 5 seconds
         this.updateWaterlevelGraph();
         this.waterlevelTimer = setInterval(this.updateWaterlevelGraph, 5000);
-        this.updateWeatherGraph();
-        this.weatherTimer = setInterval(this.updateWeatherGraph, 5000);
+        this.updateWeatherGraph(false);
+        this.weatherInterval = 5000;
+        this.weatherTimer = setInterval(() => this.updateWeatherGraph(false), this.weatherInterval);
     },
     unmounted() {
         clearInterval(this.waterlevelTimer);
@@ -169,10 +178,7 @@ export default {
     methods: {
         updateWaterlevelGraph: function () {
             var url = 'http://localhost:3000/api/waterlevel';
-            axios({
-                method: 'GET',
-                url: url,
-            }).then(response => {
+            axios.get(url).then(response => {
                 // if there's no new data, we don't update the chart
                 if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("waterlevel_no_new_data").removeAttribute("hidden");
@@ -209,21 +215,18 @@ export default {
             clearInterval(this.waterlevelTimer);
             this.waterlevelTimer = setInterval(this.updateWaterlevelGraph, event.target.value * 1000);
         },
-        updateWeatherGraph: function () {
+        updateWeatherGraph: function (changedData) {
+            console.log(changedData);
             var url = 'http://localhost:3000/api/weather';
-            axios({
-                method: 'GET',
-                url: url,
-            }).then(response => {
+            axios.get(url).then(response => {
                 // if there's no new data, we don't update the chart
-                if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
+                if (!changedData && response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("weather_no_new_data").removeAttribute("hidden");
                 } else {
                     this.last_values = [...response.data.timestamp];
 
                     this.weatherChart.updateSeries([{
-                        name: 'Water temperature',
-                        data: response.data.water_temperature.reverse(),
+                        data: response.data[this.weatherData].reverse(),
                     }]);
 
                     this.weatherChart.updateOptions({
@@ -241,7 +244,123 @@ export default {
         changedFrequencyWeather: function (event) {
             // kill old timer
             clearInterval(this.weatherTimer);
-            this.weatherTimer = setInterval(this.updateWeatherGraph, event.target.value * 1000);
+            this.weatherInterval = event.target.value * 1000;
+            this.weatherTimer = setInterval(this.updateWeatherGraph, this.weatherInterval);
+        },
+        changedWeatherData: function (event) {
+            switch (event.target.value) {
+                case "water_temp":
+                    this.weatherData = "water_temperature";
+                    this.weatherChart.updateOptions({
+                        series: [{
+                            type: 'area',
+                            name: "Water temperature", // if there's only one series, the name does not display
+                            data: [],
+                        }],
+                        title: {
+                            text: 'Water temperature trend',
+                            align: 'center'
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: (value => value + " °C")
+                            },
+                            min: 0,
+                            max: 40
+                        },
+                    });
+                    break;
+                case "air_temp":
+                    this.weatherData = "air_temperature";
+                    this.weatherChart.updateOptions({
+                        series: [{
+                            type: 'area',
+                            name: "Air temperature", // if there's only one series, the name does not display
+                            data: [],
+                        }],
+                        title: {
+                            text: 'Air temperature trend',
+                            align: 'center'
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: (value => value + " °C")
+                            },
+                            min: 0,
+                            max: 40
+                        },
+                    });
+                    break;
+                case "pressure":
+                    this.weatherData = "atmospheric_pressure";
+                    this.weatherChart.updateOptions({
+                        series: [{
+                            type: 'area',
+                            name: "Atmospheric Pressure", // if there's only one series, the name does not display
+                            data: [],
+                        }],
+                        title: {
+                            text: 'Atmospheric pressure trend',
+                            align: 'center'
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: (value => value + " mmHg")
+                            },
+                            min: 950,
+                            max: 1050
+                        },
+                    });
+                    break;
+                case "humidity":
+                    this.weatherData = "humidity";
+                    this.weatherChart.updateOptions({
+                        series: [{
+                            type: 'area',
+                            name: "Humidity", // if there's only one series, the name does not display
+                            data: [],
+                        }],
+                        title: {
+                            text: 'Humidity trend',
+                            align: 'center'
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: (value => value + "%")
+                            },
+                            min: 0,
+                            max: 100
+                        },
+                    });
+                    break;
+                case "rain":
+                    this.weatherData = "rain";
+                    this.weatherChart.updateOptions({
+                        series: [{
+                            type: 'area',
+                            name: "Rain", // if there's only one series, the name does not display
+                            data: [],
+                        }],
+                        title: {
+                            text: 'Rain trend',
+                            align: 'center'
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: (value => value + " mm")
+                            },
+                            min: 0,
+                            max: 100
+                        },
+                    });
+                    break;
+                default:
+                    console.log("ERROR: unknown type of weather data");
+                    break;
+            }
+            this.updateWeatherGraph(true);
+            clearInterval(this.weatherTimer);
+            this.weatherTimer = setInterval(() => this.updateWeatherGraph(false), this.weatherInterval);
         },
     },
 }
