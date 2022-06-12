@@ -28,6 +28,7 @@ import PanoramicComponent from "../components/PanoramicComponent.vue";
 import GraphComponent from "../components/GraphComponent.vue"
 import HomeComponent from "../components/HomeComponent.vue"
 import ControllerComponent from "@/components/ControllerComponent.vue";
+
 export default {
     name: "HomeView",
     data() {
