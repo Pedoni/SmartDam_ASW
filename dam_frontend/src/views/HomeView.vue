@@ -76,4 +76,5 @@ export default {
 
 <style scoped>
 @import '../css/home.css';
+@import '../css/graph.css';
 </style>

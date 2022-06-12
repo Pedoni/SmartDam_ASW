@@ -152,39 +152,3 @@ export default {
     },
 }
 </script>
-
-<style>
-button {
-    border-radius: 5px;
-    border: 0px;
-    color: white;
-    background-color: rgb(0, 128, 255);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    padding: 10px;
-    margin: 10px;
-    cursor: pointer;
-}
-
-select {
-    border-radius: 5px;
-    border: 0px;
-    color: white;
-    background-color: rgb(0, 128, 255);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    padding: 10px;
-    margin: 10px;
-    cursor: pointer;
-}
-
-#no_new_data {
-    color: red;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    height: 60px;
-}
-</style>
