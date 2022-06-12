@@ -55,6 +55,48 @@ body {
     }
 }
 
+table,
+td,
+th {
+    border: 1px solid #ddd;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+
+th,
+td {
+    padding: 15px;
+    font-size: 1vw;
+}
+
+td {
+    font-weight: normal;
+}
+
+h2 {
+    text-align: center;
+}
+
+p {
+    font-size: 1vw;
+    font-weight: normal;
+    text-align: center;
+    font-family: sans-serif;
+    margin-bottom: 3%;
+}
+
 @media (max-width:900px) {
     .router-link-active {
         font-size: 5px;
