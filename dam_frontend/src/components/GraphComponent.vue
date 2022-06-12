@@ -1,13 +1,16 @@
 <template>
-    <select @change="changedFrequency">
-        <option value="5">5 seconds</option>
-        <option value="10">10 seconds</option>
-        <option value="30">30 seconds</option>
-        <option value="60">1 minute</option>
-        <option value="300">5 minutes</option>
-    </select>
-    <button v-on:click="forceUpdateGraph">Force Update</button>
-    <p id="no_new_data" hidden>No new data</p>
+    <div class="row">
+        <p>Update frequency: </p>
+        <select @change="changedFrequency">
+            <option value="5">5 seconds</option>
+            <option value="10">10 seconds</option>
+            <option value="30">30 seconds</option>
+            <option value="60">1 minute</option>
+            <option value="300">5 minutes</option>
+        </select>
+        <button v-on:click="forceUpdateGraph">Force Update</button>
+        <p id="no_new_data" hidden>No new data</p>
+    </div>
     <div id="chart"></div>
 </template>
 
@@ -84,7 +87,7 @@ export default {
         this.updateGraph();
         this.timer = setInterval(this.regularUpdate, 5000);
     },
-    unmounted(){
+    unmounted() {
         clearInterval(this.timer);
     },
     methods: {
@@ -151,26 +154,37 @@ export default {
 </script>
 
 <style>
-    button {
-        border-radius: 5px;
-        border: 0px;
-        color: white;
-        background-color: rgb(0, 128, 255);
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        padding: 10px;
-        cursor: pointer;
-    }
+button {
+    border-radius: 5px;
+    border: 0px;
+    color: white;
+    background-color: rgb(0, 128, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
 
-    select {
-        border-radius: 5px;
-        border: 0px;
-        color: white;
-        background-color: rgb(0, 128, 255);
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        padding: 10px;
-        margin: 10px;
-        cursor: pointer;
-    }
+select {
+    border-radius: 5px;
+    border: 0px;
+    color: white;
+    background-color: rgb(0, 128, 255);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#no_new_data {
+    color: red;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+}
 </style>
