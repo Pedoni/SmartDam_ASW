@@ -133,7 +133,7 @@ export default {
         const markersPlugin = viewer.getPlugin(MarkersPlugin);
         markersPlugin.on('select-marker', (e, marker) => {
             switch (marker.id) {
-                case "1": case"4": case "6":
+                case "1": case "4": case "6":
                     console.log("cliccata zona alert");
                     break;
                 case "2": case "5":
@@ -172,7 +172,7 @@ export default {
         }, 1000);
 
     },
-    unmounted(){
+    unmounted() {
         clearInterval(this.timer);
     },
     methods: {
@@ -187,8 +187,8 @@ export default {
 
 <style scoped>
 @import "photo-sphere-viewer/dist/plugins/markers.css";
-/*@import "../css/panoramic.css";*/
 
+/* The following rules must remain here otherwise they won't work */
 #viewer {
     width: 100%;
     height: 100%;
