@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const waterlevel = require("./api/model/waterlevel");
+const weather = require("./api/model/weather");
 var cors = require('cors');
 // require('./DataPoint');
 var DataPoint = require("./DataPoint");
@@ -90,7 +91,7 @@ app.post(waterlevelEndpoint, (req, res, next) => {
         if (values.length > MAX_SIZE) {
             values.shift();
         }
-        console.log("New value: " + value + " from " + place + " on " + new Date(time));
+        console.log("New water level value (" + value + ") from " + place + " received on " + new Date(time));
 
         if (value > 1.0) {
             this.state = 0;
@@ -153,7 +154,38 @@ app.get(weatherEndpoint, (req, res, next) => {
 });
 
 app.post(weatherEndpoint, (req, res, next) => {
-    console.log("post on /weather");
+    if (req == null) {
+        return res.status(400).json({
+            message: "Error"
+        });
+    }
+
+    console.log("New weather values " + JSON.stringify({
+        "water_temperature": req.body.water_temperature,
+        "air_temperature": req.body.air_temperature,
+        "atmospheric_pressure": req.body.atmospheric_pressure,
+        "humidity": req.body.humidity,
+        "rain": req.body.rain
+    }) + " received on " + new Date(Date.now()));
+
+    weather.insertMany(
+        [{
+            timestamp: Date.now(),
+            water_temperature: req.body.water_temperature,
+            air_temperature: req.body.air_temperature,
+            atmospheric_pressure: req.body.atmospheric_pressure,
+            humidity: req.body.humidity,
+            rain: req.body.rain
+        }],
+        function (err) {
+            if (err) {
+                console.log("Error during insertMany: " + err);
+            }
+        }
+    );
+
+    // if everything went well
+    res.status(200).end();
 });
 
 function sendValue(val) {
