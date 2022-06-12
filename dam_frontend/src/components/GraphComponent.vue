@@ -107,21 +107,21 @@ export default {
                 pre_alert_line.push(130);
             }
 
-            var url = 'http://localhost:3000/api/dashboard';
+            var url = 'http://localhost:3000/api/waterlevel';
             axios({
                 method: 'GET',
                 url: url,
             }).then(response => {
                 // if there's no new data, we don't update the chart
-                if (response.data.timestamps.every((val, index) => val == this.last_values[index])) {
+                if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("no_new_data").removeAttribute("hidden");
                 } else {
 
-                    this.last_values = [...response.data.timestamps];
+                    this.last_values = [...response.data.timestamp];
 
                     this.chart.updateSeries([{
                         name: 'Water level',
-                        data: response.data.waterlevels.reverse(),
+                        data: response.data.waterlevel.reverse(),
                     },
                     {
                         name: 'Alarm',
@@ -134,7 +134,7 @@ export default {
 
                     this.chart.updateOptions({
                         xaxis: {
-                            categories: response.data.timestamps.reverse().map(t => {
+                            categories: response.data.timestamp.reverse().map(t => {
                                 let date = new Date(t);
                                 return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
                             })

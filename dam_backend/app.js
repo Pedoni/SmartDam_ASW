@@ -65,8 +65,8 @@ app.get(waterlevelEndpoint, (req, res, next) => {
                     "state": state,
                     "manual": manual,
                     "opening": percDam,
-                    "timestamps": timestamps,
-                    "waterlevels": waterlevels
+                    "timestamp": timestamps,
+                    "waterlevel": waterlevels
                 });
             }
         });
@@ -150,7 +150,63 @@ app.post(waterlevelEndpoint, (req, res, next) => {
 });
 
 app.get(weatherEndpoint, (req, res, next) => {
-    console.log("get on /weather");
+    weather.find()
+        .sort({ "timestamp": -1 })
+        .limit(10)
+        .select({
+            "_id": 0,
+            "timestamp": 1,
+            "water_temperature": 1,
+            "air_temperature": 1,
+            "atmospheric_pressure": 1,
+            "humidity": 1,
+            "rain": 1
+        })
+        .exec((err, values) => {
+            if (err) {
+                console.log("Error during reading from db: " + err);
+                res.status(500).json({
+                    "Error": "something went wrong with the database"
+                });
+            } else {
+                // Fill with zeros to have exactly
+                while (values.length < 10) {
+                    values.unshift({
+                        "timestamp": 0,
+                        "water_temperature": 0,
+                        "air_temperature": 0,
+                        "atmospheric_pressure": 0,
+                        "humidity": 0,
+                        "rain": 0
+                    });
+                }
+
+                // Splitting timestamp and level
+                var timestamps = []
+                var water_temperatures = []
+                var air_temperatures = []
+                var atmospheric_pressures = []
+                var humidities = []
+                var rains = []
+                for (i in values) {
+                    timestamps.push(values[i]["timestamp"])
+                    water_temperatures.push(values[i]["water_temperature"])
+                    air_temperatures.push(values[i]["air_temperature"])
+                    atmospheric_pressures.push(values[i]["atmospheric_pressure"])
+                    humidities.push(values[i]["humidity"])
+                    rains.push(values[i]["rain"])
+                }
+
+                res.status(200).json({
+                    "timestamp": timestamps,
+                    "water_temperature": water_temperatures,
+                    "air_temperature": air_temperatures,
+                    "atmospheric_pressure": atmospheric_pressures,
+                    "humidity": humidities,
+                    "rain": rains
+                });
+            }
+        });
 });
 
 app.post(weatherEndpoint, (req, res, next) => {
