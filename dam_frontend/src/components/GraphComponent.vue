@@ -149,11 +149,17 @@ export default {
         this.weatherChart.render();
 
         this.last_values = [];
+        this.pre_alert_line = [];
+        this.alert_line = [];
+        for (let i = 0; i < 10; i++) {
+            this.alert_line.push(150);
+            this.pre_alert_line.push(130);
+        }
 
         // update the graph every 5 seconds
         this.updateWaterlevelGraph();
-        this.updateWeatherGraph();
         this.waterlevelTimer = setInterval(this.updateWaterlevelGraph, 5000);
+        this.updateWeatherGraph();
         this.weatherTimer = setInterval(this.updateWeatherGraph, 5000);
     },
     unmounted() {
@@ -162,13 +168,6 @@ export default {
     },
     methods: {
         updateWaterlevelGraph: function () {
-            var pre_alert_line = [];
-            var alert_line = [];
-            for (let i = 0; i < 10; i++) {
-                alert_line.push(150);
-                pre_alert_line.push(130);
-            }
-
             var url = 'http://localhost:3000/api/waterlevel';
             axios({
                 method: 'GET',
@@ -178,7 +177,6 @@ export default {
                 if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("waterlevel_no_new_data").removeAttribute("hidden");
                 } else {
-
                     this.last_values = [...response.data.timestamp];
 
                     this.waterlevelChart.updateSeries([{
@@ -187,11 +185,11 @@ export default {
                     },
                     {
                         name: 'Alarm',
-                        data: alert_line,
+                        data: this.alert_line,
                     },
                     {
                         name: 'Pre-alert',
-                        data: pre_alert_line,
+                        data: this.pre_alert_line,
                     }]);
 
                     this.waterlevelChart.updateOptions({
@@ -212,13 +210,6 @@ export default {
             this.waterlevelTimer = setInterval(this.updateWaterlevelGraph, event.target.value * 1000);
         },
         updateWeatherGraph: function () {
-            var pre_alert_line = [];
-            var alert_line = [];
-            for (let i = 0; i < 10; i++) {
-                alert_line.push(150);
-                pre_alert_line.push(130);
-            }
-
             var url = 'http://localhost:3000/api/weather';
             axios({
                 method: 'GET',
@@ -228,7 +219,6 @@ export default {
                 if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("weather_no_new_data").removeAttribute("hidden");
                 } else {
-
                     this.last_values = [...response.data.timestamp];
 
                     this.weatherChart.updateSeries([{

@@ -22,7 +22,8 @@ select {
     cursor: pointer;
 }
 
-.no_new_data {
+#waterlevel_no_new_data,
+#weather_no_new_data {
     color: red;
 }
 
