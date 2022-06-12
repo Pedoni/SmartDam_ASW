@@ -1,19 +1,19 @@
 module.exports = class DamData {
-
 	constructor() {
-		this.damCapacity = 30000000;
+		this.damCapacity = 30_000_000;
+		this.maxHeight = 150;
 	}
 
-	getTotalDamCapacity(){
+	getTotalDamCapacity() {
 		return this.damCapacity;
 	}
-	
-	getActualWaterVolume(waterLevel) {
-		return 0;
+
+	getActualWaterVolume(waterlevel) {
+		var area = waterlevel * this.damCapacity / this.maxHeight; // waterlevel : 150 = area : 30'000'000
+		return waterlevel * area / 3;
 	}
 
-    getVolumePercentage(waterLevel){
-        return this.getActualWaterVolume(waterLevel) / this.damCapacity;
-    }
-    
+	getVolumePercentage(waterlevel) {
+		return this.getActualWaterVolume(waterlevel) / this.damCapacity;
+	}
 }

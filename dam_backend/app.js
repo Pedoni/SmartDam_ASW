@@ -20,6 +20,7 @@ const DeltaD = 0.04
 
 const waterlevelEndpoint = "/api/waterlevel";
 const weatherEndpoint = "/api/weather";
+const summaryEndpoint = "/api/summary";
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
@@ -244,17 +245,33 @@ app.post(weatherEndpoint, (req, res, next) => {
     res.status(200).end();
 });
 
-function sendValue(val) {
-    // scc.sendMessage('"' + val + '"');
-    if (!manual) {
-        percDam = val;
-    }
-}
+app.get(summaryEndpoint, (req, res, next) => {
+    Promise.all([
+        weather.find().sort({ "timestamp": -1 }).limit(1),
+        waterlevel.find().sort({ "timestamp": -1 }).limit(1)
+    ])
+        .then(results => {
+            const [weather_values, level_values] = results;
 
-app.use((req, res, next) => {
-    const error = new Error("Not found");
-    error.status = 404;
-    next(error);
+            var dam = new DamData();
+            var level = level_values[0]["level"];
+
+            res.status(200).json({
+                "timestamp": level_values[0]["timestamp"],
+                "level": level,
+                "water_temperature": weather_values[0]["water_temperature"],
+                "air_temperature": weather_values[0]["air_temperature"],
+                "atmospheric_pressure": weather_values[0]["atmospheric_pressure"],
+                "humidity": weather_values[0]["humidity"],
+                "rain": weather_values[0]["rain"],
+                "total_volume": dam.getTotalDamCapacity(),
+                "volume": dam.getActualWaterVolume(level),
+                "volume_percentage": dam.getVolumePercentage(level)
+            });
+        })
+        .catch(err => {
+            console.log("Error during query to db: " + err);
+        });
 });
 
 module.exports = app;
