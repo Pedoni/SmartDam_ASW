@@ -48,4 +48,4 @@ services:
         quiet: quiet
     restart: always
     deploy:
-      replicas: 5
+      replicas: 1
