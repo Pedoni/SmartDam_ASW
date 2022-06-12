@@ -34,22 +34,3 @@ export default {
     }
 }
 </script>
-
-<style>
-body {
-    background: url("./assets/dam.jpg") no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed;
-    overflow-y: scroll;
-}
-
-h1 {
-    padding: 0;
-    margin-top: 0;
-}
-
-#app {
-    width: 100%;
-    height: 100%;
-}
-</style>

@@ -75,6 +75,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../css/app.css';
 @import '../css/home.css';
 @import '../css/graph.css';
 </style>

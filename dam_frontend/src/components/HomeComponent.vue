@@ -46,7 +46,7 @@ export default {
 
         }
     },
-    mounted(){
+    mounted() {
 
     },
     methods: {
@@ -56,8 +56,9 @@ export default {
 </script>
 
 <style scoped>
-
-table, td, th {  
+table,
+td,
+th {
     border: 1px solid #ddd;
     text-align: center;
     font-family: sans-serif;
@@ -75,9 +76,10 @@ table {
     table-layout: fixed;
 }
 
-th, td {
-  padding: 15px;
-  font-size: 1vw;
+th,
+td {
+    padding: 15px;
+    font-size: 1vw;
 }
 
 td {
@@ -95,5 +97,4 @@ p {
     font-family: sans-serif;
     margin-bottom: 3%;
 }
-
 </style>
