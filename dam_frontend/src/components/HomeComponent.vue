@@ -70,8 +70,5 @@ export default {
                 document.getElementById("volume_percentage").innerText = response.data.volume_percentage + "%";
             });
     },
-    methods: {
-
-    },
 }
 </script>

@@ -216,7 +216,6 @@ export default {
             this.waterlevelTimer = setInterval(this.updateWaterlevelGraph, event.target.value * 1000);
         },
         updateWeatherGraph: function (changedData) {
-            console.log(changedData);
             var url = 'http://localhost:3000/api/weather';
             axios.get(url).then(response => {
                 // if there's no new data, we don't update the chart
