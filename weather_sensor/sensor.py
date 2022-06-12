@@ -17,11 +17,11 @@ def main(quiet=False):
         _ = requests.post(
             "http://dam_backend:3000/api/weather",
             json={
-                "water_temperature": math.sin(n / 4) * 2 + 10,
-                "air_temperature": math.sin(n / 5) * 5 + 25,
-                "atmospheric_pressure": math.sin(n / 2) * 20 + 1000,
-                "humidity": math.sin(n / 3) * 30 + 60,
-                "rain": math.sin(n / 6) * 2 + 2,
+                "water_temperature": "{:.2f}".format(math.sin(n / 4) * 2 + 10),
+                "air_temperature": "{:.2f}".format(math.sin(n / 5) * 5 + 25),
+                "atmospheric_pressure": "{:.2f}".format(math.sin(n / 2) * 20 + 1000),
+                "humidity": "{:.2f}".format(math.sin(n / 3) * 30 + 60),
+                "rain": "{:.2f}".format(math.sin(n / 6) * 2 + 2),
             },
         )
 
