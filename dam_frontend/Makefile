@@ -10,6 +10,7 @@ sass:
 	sass src/css/home.scss src/css/home.css
 	sass src/css/graph.scss src/css/graph.css
 	sass src/css/app.scss src/css/app.css
+	sass src/css/controller.scss src/css/controller.css
 
 run:
 	npm run serve
