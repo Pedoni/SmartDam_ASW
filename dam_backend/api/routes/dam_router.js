@@ -27,15 +27,19 @@ router.get(waterlevelEndpoint, (req, res, next) => {
 router.post(waterlevelEndpoint, (req, res, next) => {
     if (req == null) {
         return res.status(400).json({
-            message: "Error"
+            message: "No request"
         });
     }
 
-    if (!("value" in req.body)) {
-        res.status(300).end();
+    if (req.body.value === undefined) {
+        return res.status(400).json({
+            message: "value is missing"
+        });
     }
 
-    controller.addNewWaterlevelData(req, res, next);
+    controller.addNewWaterlevelData(req.body.value);
+
+    res.status(200).end();
 });
 
 router.get(weatherEndpoint, (req, res, next) => {

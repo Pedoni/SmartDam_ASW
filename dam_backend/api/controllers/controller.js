@@ -36,8 +36,7 @@ exports.getLastWaterLevels = (req, res, next, n) => {
         });
 };
 
-exports.addNewWaterlevelData = (req, res, next) => {
-    let value = req.body.value;
+exports.addNewWaterlevelData = (value) => {
     const time = Date.now();
     console.log("New water level value (" + value + ") received on " + new Date(time));
 
@@ -52,8 +51,6 @@ exports.addNewWaterlevelData = (req, res, next) => {
             }
         }
     );
-
-    res.status(200).end();
 };
 
 exports.getLastWeatherData = (req, res, next, n) => {
