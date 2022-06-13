@@ -1,5 +1,6 @@
 const waterlevel = require("../model/waterlevel");
 const weather = require("../model/weather");
+const opening = require("../model/opening")
 const DamData = require("./DamData");
 
 exports.getLastWaterLevels = (req, res, next, n) => {
@@ -164,3 +165,19 @@ exports.getSummary = (req, res, next) => {
             console.log("Error during query to db: " + err);
         });
 };
+
+exports.setOpening = (req, res, next) => {
+    console.log("Arrivato!");
+    opening.insertMany([
+        {
+            timestamp: Date.now(),
+            percentage: req.body.percentage,
+        }
+    ], 
+    function (err) {
+        if (err) {
+            console.log("Error during insertMany: " + err);
+        }
+    });
+    res.status(200).end();
+}

@@ -15,7 +15,8 @@
     "photo-sphere-viewer": "^4.2.1",
     "vue": "^3.2.13",
     "vue-chartjs": "^4.1.0",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "zingchart": "^2.9.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

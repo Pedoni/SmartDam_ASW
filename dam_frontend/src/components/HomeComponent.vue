@@ -26,6 +26,10 @@
                 <td id="volume_perc">76.67 %</td>
             </tr>
             <tr>
+                <th>Humidity</th>
+                <td id="humidity">76.67 %</td>
+            </tr>
+            <tr>
                 <th>Water temperature</th>
                 <td id="water_temp">8°C</td>
             </tr>
@@ -65,9 +69,9 @@ export default {
                 document.getElementById("pressure").innerText = response.data.atmospheric_pressure + " mmHg";
                 document.getElementById("humidity").innerText = response.data.humidity + "%";
                 document.getElementById("rain").innerText = response.data.rain + " mm";
-                document.getElementById("total_volume").innerText = response.data.total_volume + " m<sup>3</sup>";
-                document.getElementById("volume").innerText = response.data.volume + " m<sup>3</sup>";
-                document.getElementById("volume_percentage").innerText = response.data.volume_percentage + "%";
+                document.getElementById("total_volume").innerHTML = response.data.total_volume + " m<sup>3</sup>";
+                document.getElementById("volume").innerHTML = response.data.volume + " m<sup>3</sup>";
+                document.getElementById("volume_perc").innerText = response.data.volume_percentage + "%";
             });
     },
 }

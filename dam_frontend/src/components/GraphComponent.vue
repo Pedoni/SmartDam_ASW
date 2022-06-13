@@ -1,41 +1,43 @@
 <template>
-    <div class="chart-container">
-        <div class="row">
-            <p>Update frequency: </p>
-            <select @change="changedFrequencyWaterlevel">
-                <option value="5">5 seconds</option>
-                <option value="10">10 seconds</option>
-                <option value="30">30 seconds</option>
-                <option value="60">1 minute</option>
-                <option value="300">5 minutes</option>
-            </select>
-            <button v-on:click="updateWaterlevelGraph">Force Update</button>
-            <p id="waterlevel_no_new_data" hidden>No new data</p>
+    <div>
+        <div class="chart-container">
+            <div class="row">
+                <p>Update frequency: </p>
+                <select @change="changedFrequencyWaterlevel">
+                    <option value="5">5 seconds</option>
+                    <option value="10">10 seconds</option>
+                    <option value="30">30 seconds</option>
+                    <option value="60">1 minute</option>
+                    <option value="300">5 minutes</option>
+                </select>
+                <button @click="updateWaterlevelGraph">Force Update</button>
+                <p id="waterlevel_no_new_data" hidden>No new data</p>
+            </div>
+            <div id="waterlevel_chart"></div>
         </div>
-        <div id="waterlevel_chart"></div>
-    </div>
-    <div class="chart-container">
-        <div class="row">
-            <p>Weather data: </p>
-            <select @change="changedWeatherData">
-                <option value="water_temp">Water temperature</option>
-                <option value="air_temp">Air temperature</option>
-                <option value="pressure">Atmospheric pressure</option>
-                <option value="humidity">Humidity</option>
-                <option value="rain">Rain</option>
-            </select>
-            <p>Update frequency: </p>
-            <select @change="changedFrequencyWeather">
-                <option value="5">5 seconds</option>
-                <option value="10">10 seconds</option>
-                <option value="30">30 seconds</option>
-                <option value="60">1 minute</option>
-                <option value="300">5 minutes</option>
-            </select>
-            <button v-on:click="updateWeatherGraph(false)">Force Update</button>
-            <p id="weather_no_new_data" hidden>No new data</p>
+        <div class="chart-container">
+            <div class="row">
+                <p>Weather data: </p>
+                <select @change="changedWeatherData">
+                    <option value="water_temp">Water temperature</option>
+                    <option value="air_temp">Air temperature</option>
+                    <option value="pressure">Atmospheric pressure</option>
+                    <option value="humidity">Humidity</option>
+                    <option value="rain">Rain</option>
+                </select>
+                <p>Update frequency: </p>
+                <select @change="changedFrequencyWeather">
+                    <option value="5">5 seconds</option>
+                    <option value="10">10 seconds</option>
+                    <option value="30">30 seconds</option>
+                    <option value="60">1 minute</option>
+                    <option value="300">5 minutes</option>
+                </select>
+                <button @click="updateWeatherGraph(false)">Force Update</button>
+                <p id="weather_no_new_data" hidden>No new data</p>
+            </div>
+            <div id="weather_chart"></div>
         </div>
-        <div id="weather_chart"></div>
     </div>
 </template>
 
