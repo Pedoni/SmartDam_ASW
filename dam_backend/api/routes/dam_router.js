@@ -79,7 +79,21 @@ router.post(weatherEndpoint, (req, res, next) => {
 });
 
 router.post(openingEndpoint, (req, res, next) => {
-    controller.setOpening(req, res, next);
+    if (req == null) {
+        return res.status(400).json({
+            message: "Error"
+        });
+    }
+
+    if (req.body.percentage === undefined) {
+        return res.status(400).json({
+            message: "percentage is missing"
+        });
+    }
+
+    controller.setOpening(req.body.percentage);
+
+    res.status(200).end();
 });
 
 router.get(summaryEndpoint, (req, res, next) => {

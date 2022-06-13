@@ -154,17 +154,16 @@ exports.getSummary = (req, res, next) => {
         });
 };
 
-exports.setOpening = (req, res, next) => {
+exports.setOpening = (openingPercentage) => {
     opening.insertMany([
         {
             timestamp: Date.now(),
-            percentage: req.body.percentage,
+            percentage: openingPercentage,
         }
     ],
         function (err) {
             if (err) {
-                console.log("Error during insertMany: " + err);
+                console.log("Error during setOpening: " + err);
             }
         });
-    res.status(200).end();
 }
