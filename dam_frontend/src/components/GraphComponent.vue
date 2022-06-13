@@ -140,13 +140,13 @@ export default {
                         opacity: 0.5
                     },
                 },
-                // yaxis: {
-                //     labels: {
-                //         formatter: (value => value + " °C")
-                //     },
-                //     min: 0,
-                //     max: 40
-                // },
+                yaxis: {
+                    labels: {
+                        formatter: (value => value + " °C")
+                    },
+                    //min: 0,
+                    //max: 40
+                },
             },
         }
     },
