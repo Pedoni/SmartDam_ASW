@@ -36,7 +36,7 @@ exports.getLastWaterLevels = (req, res, next, n) => {
         });
 };
 
-exports.addNewWaterlevelData = (value) => {
+exports.addNewWaterlevelData = (res, value) => {
     const time = Date.now();
     console.log("New water level value (" + value + ") received on " + new Date(time));
 
@@ -47,7 +47,10 @@ exports.addNewWaterlevelData = (value) => {
         }],
         function (err) {
             if (err) {
-                console.log("Error during insertMany: " + err);
+                console.log("Error during addNewWaterlevelData: " + err);
+                res.status(500).end();
+            } else {
+                res.status(200).end();
             }
         }
     );
@@ -113,13 +116,16 @@ exports.getLastWeatherData = (req, res, next, n) => {
         });
 };
 
-exports.addNewWeatherData = (values) => {
+exports.addNewWeatherData = (res, values) => {
     values.timestamp = Date.now();
     weather.insertMany(
         [values],
         function (err) {
             if (err) {
                 console.log("Error during addNewWeatherData: " + err);
+                res.status(500).end();
+            } else {
+                res.status(200).end();
             }
         }
     );
@@ -154,7 +160,7 @@ exports.getSummary = (req, res, next) => {
         });
 };
 
-exports.setOpening = (openingPercentage) => {
+exports.setOpening = (res, openingPercentage) => {
     opening.insertMany([
         {
             timestamp: Date.now(),
@@ -164,6 +170,9 @@ exports.setOpening = (openingPercentage) => {
         function (err) {
             if (err) {
                 console.log("Error during setOpening: " + err);
+                res.status(500).end();
+            } else {
+                res.status(200).end();
             }
         });
 }

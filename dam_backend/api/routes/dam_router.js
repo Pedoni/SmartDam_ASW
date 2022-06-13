@@ -37,9 +37,7 @@ router.post(waterlevelEndpoint, (req, res, next) => {
         });
     }
 
-    controller.addNewWaterlevelData(req.body.value);
-
-    res.status(200).end();
+    controller.addNewWaterlevelData(res, req.body.value);
 });
 
 router.get(weatherEndpoint, (req, res, next) => {
@@ -73,9 +71,7 @@ router.post(weatherEndpoint, (req, res, next) => {
 
     console.log("New weather values " + JSON.stringify(values) + " received on " + new Date(Date.now()));
 
-    controller.addNewWeatherData(values);
-
-    res.status(200).end();
+    controller.addNewWeatherData(res, values);
 });
 
 router.post(openingEndpoint, (req, res, next) => {
@@ -91,9 +87,7 @@ router.post(openingEndpoint, (req, res, next) => {
         });
     }
 
-    controller.setOpening(req.body.percentage);
-
-    res.status(200).end();
+    controller.setOpening(res, req.body.percentage);
 });
 
 router.get(summaryEndpoint, (req, res, next) => {
