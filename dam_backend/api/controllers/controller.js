@@ -167,17 +167,16 @@ exports.getSummary = (req, res, next) => {
 };
 
 exports.setOpening = (req, res, next) => {
-    console.log("Arrivato!");
     opening.insertMany([
         {
             timestamp: Date.now(),
             percentage: req.body.percentage,
         }
-    ], 
-    function (err) {
-        if (err) {
-            console.log("Error during insertMany: " + err);
-        }
-    });
+    ],
+        function (err) {
+            if (err) {
+                console.log("Error during insertMany: " + err);
+            }
+        });
     res.status(200).end();
 }
