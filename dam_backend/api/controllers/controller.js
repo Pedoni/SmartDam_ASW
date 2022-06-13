@@ -42,7 +42,7 @@ exports.addNewWaterlevelData = (value) => {
 
     waterlevel.insertMany(
         [{
-            timestamp: Date.now(),
+            timestamp: time,
             level: value,
         }],
         function (err) {
@@ -113,25 +113,16 @@ exports.getLastWeatherData = (req, res, next, n) => {
         });
 };
 
-exports.addNewWeatherData = (req, res, next) => {
+exports.addNewWeatherData = (values) => {
+    values.timestamp = Date.now();
     weather.insertMany(
-        [{
-            timestamp: Date.now(),
-            water_temperature: req.body.water_temperature,
-            air_temperature: req.body.air_temperature,
-            atmospheric_pressure: req.body.atmospheric_pressure,
-            humidity: req.body.humidity,
-            rain: req.body.rain
-        }],
+        [values],
         function (err) {
             if (err) {
-                console.log("Error during insertMany: " + err);
+                console.log("Error during addNewWeatherData: " + err);
             }
         }
     );
-
-    // if everything went well
-    res.status(200).end();
 };
 
 exports.getSummary = (req, res, next) => {

@@ -53,15 +53,29 @@ router.post(weatherEndpoint, (req, res, next) => {
         });
     }
 
-    console.log("New weather values " + JSON.stringify({
+    if (req.body.water_temperature === undefined ||
+        req.body.air_temperature === undefined ||
+        req.body.atmospheric_pressure === undefined ||
+        req.body.humidity === undefined ||
+        req.body.rain === undefined) {
+        return res.status(400).json({
+            message: "Missing data"
+        });
+    }
+
+    const values = {
         "water_temperature": req.body.water_temperature,
         "air_temperature": req.body.air_temperature,
         "atmospheric_pressure": req.body.atmospheric_pressure,
         "humidity": req.body.humidity,
         "rain": req.body.rain
-    }) + " received on " + new Date(Date.now()));
+    };
 
-    controller.addNewWeatherData(req, res, next);
+    console.log("New weather values " + JSON.stringify(values) + " received on " + new Date(Date.now()));
+
+    controller.addNewWeatherData(values);
+
+    res.status(200).end();
 });
 
 router.post(openingEndpoint, (req, res, next) => {
