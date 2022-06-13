@@ -10,7 +10,7 @@
                     <option value="60">1 minute</option>
                     <option value="300">5 minutes</option>
                 </select>
-                <button v-on:click="updateWaterlevelGraph">Force Update</button>
+                <button @click="updateWaterlevelGraph">Force Update</button>
                 <p id="waterlevel_no_new_data" hidden>No new data</p>
             </div>
             <div id="waterlevel_chart"></div>
@@ -33,7 +33,7 @@
                     <option value="60">1 minute</option>
                     <option value="300">5 minutes</option>
                 </select>
-                <button v-on:click="updateWeatherGraph(false)">Force Update</button>
+                <button @click="updateWeatherGraph(false)">Force Update</button>
                 <p id="weather_no_new_data" hidden>No new data</p>
             </div>
             <div id="weather_chart"></div>

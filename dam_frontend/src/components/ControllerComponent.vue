@@ -3,12 +3,12 @@
     <h1 id="controller"></h1>
     <div id="speedometer"></div>
     <div class="buttons">
-      <button>close</button>
-      <button>20 %</button>
-      <button>40 %</button>
-      <button>60 %</button>
-      <button>80 %</button>
-      <button>full open</button>
+      <button @click="setPercentage(0)">close</button>
+      <button @click="setPercentage(20)">20 %</button>
+      <button @click="setPercentage(40)">40 %</button>
+      <button @click="setPercentage(60)">60 %</button>
+      <button @click="setPercentage(80)">80 %</button>
+      <button @click="setPercentage(100)">full open</button>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
       options: {
         series: [67],
         chart: {
-          height: 350,
+          height: 500,
           type: "radialBar",
           offsetY: -10,
         },
@@ -62,7 +62,7 @@ export default {
         stroke: {
           dashArray: 4,
         },
-        labels: ["Median Ratio"],
+        labels: ["Dam opening percentage"],
       },
     };
   },
@@ -73,6 +73,11 @@ export default {
     );
     this.speedometer.render();
   },
+  methods: {
+    setPercentage(level){
+        this.speedometer.updateSeries([level]);
+    }
+  }
 };
 </script>
 
