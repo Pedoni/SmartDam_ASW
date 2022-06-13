@@ -69,10 +69,15 @@ export default {
                 document.getElementById("pressure").innerText = response.data.atmospheric_pressure + " mmHg";
                 document.getElementById("humidity").innerText = response.data.humidity + "%";
                 document.getElementById("rain").innerText = response.data.rain + " mm";
-                document.getElementById("total_volume").innerHTML = response.data.total_volume + " m<sup>3</sup>";
-                document.getElementById("volume").innerHTML = response.data.volume + " m<sup>3</sup>";
-                document.getElementById("volume_perc").innerText = response.data.volume_percentage + "%";
+                document.getElementById("total_volume").innerHTML = this.numberWithCommas(response.data.total_volume.toFixed(0)) + " m<sup>3</sup>";
+                document.getElementById("volume").innerHTML = this.numberWithCommas(response.data.volume.toFixed(0)) + " m<sup>3</sup>";
+                document.getElementById("volume_perc").innerText = response.data.volume_percentage.toFixed(2) + "%";
             });
     },
+    methods: {
+        numberWithCommas: function (x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+        },
+    }
 }
 </script>
