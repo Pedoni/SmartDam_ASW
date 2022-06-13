@@ -8,6 +8,7 @@ var cors = require('cors');
 const waterlevelEndpoint = "/api/waterlevel";
 const weatherEndpoint = "/api/weather";
 const summaryEndpoint = "/api/summary";
+const openingEndpoint = "/api/opening"
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
@@ -59,6 +60,10 @@ app.post(weatherEndpoint, (req, res, next) => {
     }) + " received on " + new Date(Date.now()));
 
     controller.addNewWeatherData(req, res, next);
+});
+
+app.post(openingEndpoint, (req, res, next) => {
+    controller.setOpening(req, res, next);
 });
 
 app.get(summaryEndpoint, (req, res, next) => {

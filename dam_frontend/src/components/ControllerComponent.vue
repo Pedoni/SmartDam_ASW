@@ -15,7 +15,7 @@
 
 <script>
 import ApexCharts from "apexcharts";
-// const axios = require("axios").default;
+const axios = require("axios").default;
 
 export default {
   data() {
@@ -74,10 +74,18 @@ export default {
     this.speedometer.render();
   },
   methods: {
-    setPercentage(level){
-        this.speedometer.updateSeries([level]);
-    }
-  }
+    setPercentage(level) {
+      var url = "http://localhost:3000/api/opening";
+      axios
+        .post(url, {
+          percentage: level,
+        })
+        .then((response) => {
+            console.log(response);
+            this.speedometer.updateSeries([level]);
+        });
+    },
+  },
 };
 </script>
 
