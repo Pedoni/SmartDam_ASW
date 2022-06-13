@@ -16,12 +16,11 @@ mongoose.Promise = global.Promise;
 //for cors permissions
 router.use(cors({ origin: '*' }));
 
-//router.use('/images', express.static('images'));
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 router.get(waterlevelEndpoint, (req, res, next) => {
-    controller.getLastWaterLevels(req, res, next, 10);
+    controller.getLastWaterLevels(res, 10);
 });
 
 router.post(waterlevelEndpoint, (req, res, next) => {
@@ -41,7 +40,7 @@ router.post(waterlevelEndpoint, (req, res, next) => {
 });
 
 router.get(weatherEndpoint, (req, res, next) => {
-    controller.getLastWeatherData(req, res, next, 10);
+    controller.getLastWeatherData(res, 10);
 });
 
 router.post(weatherEndpoint, (req, res, next) => {
@@ -91,7 +90,7 @@ router.post(openingEndpoint, (req, res, next) => {
 });
 
 router.get(summaryEndpoint, (req, res, next) => {
-    controller.getSummary(req, res, next);
+    controller.getSummary(res);
 });
 
 module.exports = router;

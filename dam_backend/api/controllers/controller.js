@@ -3,20 +3,22 @@ const weather = require("../model/weather");
 const opening = require("../model/opening")
 const DamData = require("./DamData");
 
-exports.getLastWaterLevels = (req, res, next, n) => {
+exports.getLastWaterLevels = (res, n) => {
     waterlevel.find()
         .sort({ "timestamp": -1 })
         .limit(n)
-        .select({ "timestamp": 1, "level": 1, "_id": 0 })
+        .select({
+            "_id": 0,
+            "timestamp": 1,
+            "level": 1
+        })
         .exec((err, values) => {
             if (err) {
-                console.log("Error during reading from db: " + err);
-                res.status(500).json({
-                    "Error": "something went wrong with the database"
-                });
+                console.log("Error during getLastWaterLevels: " + err);
+                res.status(500).end();
             } else {
-                // Fill with zeros to have exactly
-                while (values.length < 10) {
+                // Fill with zeros to have exactly n elements
+                while (values.length < n) {
                     values.unshift({ "timestamp": 0, "level": 0 });
                 }
 
@@ -56,7 +58,7 @@ exports.addNewWaterlevelData = (res, value) => {
     );
 };
 
-exports.getLastWeatherData = (req, res, next, n) => {
+exports.getLastWeatherData = (res, n) => {
     weather.find()
         .sort({ "timestamp": -1 })
         .limit(n)
@@ -71,13 +73,11 @@ exports.getLastWeatherData = (req, res, next, n) => {
         })
         .exec((err, values) => {
             if (err) {
-                console.log("Error during reading from db: " + err);
-                res.status(500).json({
-                    "Error": "something went wrong with the database"
-                });
+                console.log("Error during getLastWeatherData: " + err);
+                res.status(500).end();
             } else {
-                // Fill with zeros to have exactly
-                while (values.length < 10) {
+                // Fill with zeros to have exactly n elements
+                while (values.length < n) {
                     values.unshift({
                         "timestamp": 0,
                         "water_temperature": 0,
@@ -131,7 +131,7 @@ exports.addNewWeatherData = (res, values) => {
     );
 };
 
-exports.getSummary = (req, res, next) => {
+exports.getSummary = (res) => {
     Promise.all([
         weather.find().sort({ "timestamp": -1 }).limit(1),
         waterlevel.find().sort({ "timestamp": -1 }).limit(1)
@@ -156,7 +156,8 @@ exports.getSummary = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log("Error during query to db: " + err);
+            console.log("Error during getSummary: " + err);
+            res.status(500).end();
         });
 };
 
