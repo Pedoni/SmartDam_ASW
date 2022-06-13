@@ -9,11 +9,10 @@ module.exports = class DamData {
 	}
 
 	getActualWaterVolume(waterlevel) {
-		var area = waterlevel * this.damCapacity / this.maxHeight; // waterlevel : 150 = area : 30'000'000
-		return waterlevel * area / 3;
+		return waterlevel * 200_000 / 3; // The dam is approximated as a giant prism
 	}
 
 	getVolumePercentage(waterlevel) {
-		return this.getActualWaterVolume(waterlevel) / this.damCapacity;
+		return this.getActualWaterVolume(waterlevel) / this.damCapacity * 100;
 	}
 }
