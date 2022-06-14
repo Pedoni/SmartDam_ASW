@@ -13,6 +13,11 @@
                 <button @click="updateWaterlevelGraph">Force Update</button>
                 <p id="waterlevel_no_new_data" hidden>No new data</p>
             </div>
+            <div class="row">
+                <p id="waterlevel_max">Max: 2000</p>
+                <p id="waterlevel_min">Min: 100</p>
+                <p id="waterlevel_avg">Average: 310</p>
+            </div>
             <div id="waterlevel_chart"></div>
         </div>
         <div class="chart-container">
@@ -36,6 +41,11 @@
                 <button @click="updateWeatherGraph(false)">Force Update</button>
                 <p id="weather_no_new_data" hidden>No new data</p>
             </div>
+            <div class="row">
+                <p id="weather_max">Max: 2000</p>
+                <p id="weather_min">Min: 100</p>
+                <p id="weather_avg">Average: 310</p>
+            </div>
             <div id="weather_chart"></div>
         </div>
     </div>
@@ -44,6 +54,7 @@
 <script>
 import ApexCharts from "apexcharts";
 const axios = require('axios').default;
+const utils = require("../utils");
 
 export default {
     data() {
@@ -142,7 +153,7 @@ export default {
                 },
                 yaxis: {
                     labels: {
-                        formatter: (value => value + " °C")
+                        formatter: (value => value.toFixed(2) + " " + this.weatherUnit)
                     },
                     //min: 0,
                     //max: 40
@@ -157,6 +168,8 @@ export default {
         this.weatherChart = new ApexCharts(document.querySelector("#weather_chart"), this.weatherChartOptions);
         this.weatherChart.render();
         this.weatherData = "water_temperature";
+        this.weatherUnit = "°C";
+        this.weatherFormatter = (value => value.toFixed(2) + " " + this.weatherUnit);
 
         this.last_values = [];
         this.pre_alert_line = [];
@@ -178,38 +191,45 @@ export default {
         clearInterval(this.weatherTimer);
     },
     methods: {
+        updateTimestamps: function (chart, timestamps) {
+            chart.updateOptions({
+                xaxis: {
+                    categories: timestamps.reverse().map(t => utils.formatData(new Date(t)))
+                },
+            });
+        },
         updateWaterlevelGraph: function () {
             var url = 'http://localhost:3000/api/waterlevel';
             axios.get(url).then(response => {
                 // if there's no new data, we don't update the chart
                 if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("waterlevel_no_new_data").removeAttribute("hidden");
-                } else {
-                    this.last_values = [...response.data.timestamp];
-
-                    this.waterlevelChart.updateSeries([{
-                        name: 'Water level',
-                        data: response.data.waterlevel.reverse(),
-                    },
-                    {
-                        name: 'Alarm',
-                        data: this.alert_line,
-                    },
-                    {
-                        name: 'Pre-alert',
-                        data: this.pre_alert_line,
-                    }]);
-
-                    this.waterlevelChart.updateOptions({
-                        xaxis: {
-                            categories: response.data.timestamp.reverse().map(t => {
-                                let date = new Date(t);
-                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                            })
-                        },
-                    });
-                    document.getElementById("waterlevel_no_new_data").setAttribute("hidden", "hidden");
+                    return;
                 }
+
+                this.last_values = [...response.data.timestamp];
+
+                const values = response.data.waterlevel;
+
+                document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2) + " mt.";
+                document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2) + " mt.";
+                document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2) + " mt.";
+
+                this.waterlevelChart.updateSeries([{
+                    name: 'Water level',
+                    data: values.reverse(),
+                },
+                {
+                    name: 'Alarm',
+                    data: this.alert_line,
+                },
+                {
+                    name: 'Pre-alert',
+                    data: this.pre_alert_line,
+                }]);
+
+                this.updateTimestamps(this.waterlevelChart, response.data.timestamp);
+                document.getElementById("waterlevel_no_new_data").setAttribute("hidden", "hidden");
             });
         },
         changedFrequencyWaterlevel: function (event) {
@@ -223,23 +243,23 @@ export default {
                 // if there's no new data, we don't update the chart
                 if (!changedData && response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("weather_no_new_data").removeAttribute("hidden");
-                } else {
-                    this.last_values = [...response.data.timestamp];
-
-                    this.weatherChart.updateSeries([{
-                        data: response.data[this.weatherData].reverse(),
-                    }]);
-
-                    this.weatherChart.updateOptions({
-                        xaxis: {
-                            categories: response.data.timestamp.reverse().map(t => {
-                                let date = new Date(t);
-                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                            })
-                        },
-                    });
-                    document.getElementById("weather_no_new_data").setAttribute("hidden", "hidden");
+                    return;
                 }
+
+                this.last_values = [...response.data.timestamp];
+
+                const values = response.data[this.weatherData];
+
+                document.getElementById("weather_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2) + " " + this.weatherUnit;
+                document.getElementById("weather_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2) + " " + this.weatherUnit;
+                document.getElementById("weather_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2) + " " + this.weatherUnit;
+
+                this.weatherChart.updateSeries([{
+                    data: values.reverse(),
+                }]);
+
+                this.updateTimestamps(this.weatherChart, response.data.timestamp);
+                document.getElementById("weather_no_new_data").setAttribute("hidden", "hidden");
             });
         },
         changedFrequencyWeather: function (event) {
@@ -252,19 +272,18 @@ export default {
             switch (event.target.value) {
                 case "water_temp":
                     this.weatherData = "water_temperature";
+                    this.weatherUnit = "°C";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Water temperature", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Water temperature" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Water temperature trend',
-                            align: 'center'
+                            text: 'Water temperature trend'
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " °C")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 40
@@ -273,19 +292,18 @@ export default {
                     break;
                 case "air_temp":
                     this.weatherData = "air_temperature";
+                    this.weatherUnit = "°C";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Air temperature", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Air temperature" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Air temperature trend',
-                            align: 'center'
+                            text: 'Air temperature trend'
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " °C")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 40
@@ -294,19 +312,18 @@ export default {
                     break;
                 case "pressure":
                     this.weatherData = "atmospheric_pressure";
+                    this.weatherUnit = "mmHg";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Atmospheric Pressure", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Atmospheric Pressure" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Atmospheric pressure trend',
-                            align: 'center'
+                            text: 'Atmospheric pressure trend'
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " mmHg")
+                                formatter: this.weatherFormatter
                             },
                             min: 950,
                             max: 1050
@@ -315,19 +332,18 @@ export default {
                     break;
                 case "humidity":
                     this.weatherData = "humidity";
+                    this.weatherUnit = "%";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Humidity", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Humidity" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Humidity trend',
-                            align: 'center'
+                            text: 'Humidity trend'
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + "%")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 100
@@ -336,19 +352,18 @@ export default {
                     break;
                 case "rain":
                     this.weatherData = "rain";
+                    this.weatherUnit = "mm";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Rain", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Rain" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Rain trend',
-                            align: 'center'
+                            text: 'Rain trend'
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " mm")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 100
