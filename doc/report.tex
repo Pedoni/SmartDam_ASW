@@ -81,13 +81,13 @@ Tenendo in considerazione le anticipazioni al capitolo \ref{sec:intro} il sistem
 \textcolor{red}{\textbf{Tecnologie adottate e motivazioni.}}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \subsection{Node}
-Node.js è un runtime JavaScript costruito sull'engine di Chrome's V8.
+Node.js\cite{node} è un runtime JavaScript costruito sull'engine di Chrome's V8.
 In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
 \\
 \textcolor{green}{Perchè abbiamo usato Node?}
 
 \subsection{Vue}
-Vue è un framework in Javascript per costruire interfacce utente tramite l'uso di HTML, CSS e Javascript. Inoltre fornisce un modello di programmazione dichiarativo e basato sui componenti che aiuta a sviluppare efficientemente le interfacce utente, che siano semplici o complesse. Vue è progettato per essere flessibile e adottabile in modo incrementale, a seconda dei casi d'uso Vue può essere usato in diversi modi:
+Vue\cite{vue} è un framework in Javascript per costruire interfacce utente tramite l'uso di HTML, CSS e Javascript. Inoltre fornisce un modello di programmazione dichiarativo e basato sui componenti che aiuta a sviluppare efficientemente le interfacce utente, che siano semplici o complesse. Vue è progettato per essere flessibile e adottabile in modo incrementale, a seconda dei casi d'uso Vue può essere usato in diversi modi:
 \begin{itemize}
 	\item Potenziare HTML statico senza un passaggio di build.
 	\item Incorporarsi come componente Web in qualsiasi pagina.
@@ -100,7 +100,7 @@ Nel nostro particolare caso tra Options API e Composition API abbiamo deciso di 
 La scelta di usare Vue è stata quasi automatica, una volta aver esplorato la semplicità e le opportunità che mette a disposizione, abbiamo notato che per quello che volevamo realizzare molteplici aspetti del nostro progetto erano già coperti dal framework di Vue, questo ci apriva la strada ad un'implementazione ben organizzata e robusta diventando all'unisono la scelta perfetta per procedere.
 
 \subsection{ApexChart}
-ApexCharts è una moderna libreria di grafici che aiuta gli sviluppatori a creare visualizzazioni eleganti e interattive per pagine web. È un progetto open-source sotto la licenza MIT ed è di uso gratuito per applicazioni commerciali.\\
+ApexCharts\cite{apexcharts} è una moderna libreria di grafici che aiuta gli sviluppatori a creare visualizzazioni eleganti e interattive per pagine web. È un progetto open-source sotto la licenza MIT ed è di uso gratuito per applicazioni commerciali.\\
 L'integrazione di grafici con ApexCharts è tanto semplice quanto può esserlo considerando la completezza dei documenti di riferimento (docs) e i 100+ esempi pronti ad essere usati.\\
 \begin{figure}[h!]
 	\centering
@@ -112,7 +112,7 @@ Tenendo in considerazione che ApexCharts offre la possibilità di integrarsi tra
 Avendo trovato comodo ed efficiente questo framework, lo abbiamo adottato per la principale visualizzazione di dati dei sensori del nostro progetto.
 
 \subsection{Photo Sphere Viewer}
-Photo-Sphere-Viewer è una libreria Javascript usabile per realizzare panorami a 360° tra cui:
+Photo-Sphere-Viewer\cite{photo-sphere-viewer} è una libreria Javascript usabile per realizzare panorami a 360° tra cui:
 \begin{itemize}
 	\item \textbf{Spheres and cubemaps}: può visualizzare panorami standard equirettangolari e cubemaps.
 	\item \textbf{Touchscreen, gyroscope and VR}: Interazioni semplici e orientate all'utente su tutti i tipi di dispositivo.
@@ -124,7 +124,7 @@ Photo-Sphere-Viewer è una libreria Javascript usabile per realizzare panorami a
 La scelta di Photo Sphere Viewer viene naturale considerando i requisiti del nostro progetto, ogni punto di cui abbiamo bisogno è semplicemente implementabile tramite l'uso di una qualche funzionalità già presente all'interno di questa libreria, questo ci consente di concentrarci su aspetti più importanti del nostro sito piuttosto che perdere tempo a reinventare la ruota per realizzare piccole funzionalità.
 
 \subsection{Axios}
-Axios è un client HTTP basato sulle promise per Node.js e il browser, è isomorfo in quanto può girare su Node.js o browser con la stessa codebase. Se nel server-side usa la libreria di Node.js nativa http module, mentre se su client (browser) usa XMLHttpRequests.
+Axios\cite{axios} è un client HTTP basato sulle promise per Node.js e il browser, è isomorfo in quanto può girare su Node.js o browser con la stessa codebase. Se nel server-side usa la libreria di Node.js nativa http module, mentre se su client (browser) usa XMLHttpRequests.
 Tra le principali funzionalità abbiamo:
 \begin{itemize}
 	\item Fare richieste XMLHttpRequests da browser.
@@ -139,7 +139,7 @@ Tra le principali funzionalità abbiamo:
 La scelta di usare Axios è stata fatta considerando le sue utilità lato client e l'ottima gestione dei dati JSON, semplificandoci ancora una volta il lavoro da fare per gestire le richieste e i dati in esse contenuti. Inoltre Axios si integra perfettamente con Vue, offrendoci ancora una volta un uso pulito e intuitivo, grazie a queste considerazioni non abbiamo avuto dubbi al momento di scegliere quale framework http usare lato client.
 
 \subsection{Express}
-Express è un framework web per Node.js che non conosce rivali, in questo ambito è praticamente la scelta migliore considerando la sua efficienza e velocità, bisogna inoltre considerare il suo fascino di minimalità, racchiude infatti tutte le funzionalità di un qualsiasi Web Server, senza aggiungere overhead, risultando quindi in un framework per quanto possibile leggero e funzionale, tra i suoi punti forti notiamo:
+Express\cite{express} è un framework web per Node.js che non conosce rivali, in questo ambito è praticamente la scelta migliore considerando la sua efficienza e velocità, bisogna inoltre considerare il suo fascino di minimalità, racchiude infatti tutte le funzionalità di un qualsiasi Web Server, senza aggiungere overhead, risultando quindi in un framework per quanto possibile leggero e funzionale, tra i suoi punti forti notiamo:
 \begin{itemize}
 	\item \textbf{Web Applications}: Framework minimale e flessibile per applicazioni web che fornisce facilitazioni di sviluppo sia web che per applicazioni mobile.
 	\item \textbf{APIs}: Considerando la vastità di utilità HTTP come metodi e middleware a disposizione diventa davvero facile e veloce costruire una robusta API.
