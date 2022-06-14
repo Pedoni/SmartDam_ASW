@@ -149,6 +149,21 @@ Express è un framework web per Node.js che non conosce rivali, in questo ambito
 Grazie a queste caratteristiche abbiamo deciso di usare Express per realizzare la parte server del DAM Backend, in questo modo siamo stati in grado di realizzare un'API responsive che ci mettesse a disposizione i dati raccolti dai sensori e che allo stesso modo raccogliesse i dati da questi per memorizzarli \ref{sub:mongo}, abbiamo inoltre testato l'efficienza di Express simulando un carico di lavoro oneroso tramite richieste costruite Ad Hoc, concludendo che per le nostre necessità tale framework fosse più che sufficiente e in grado di sostenere il nostro carico di lavoro.
 
 \subsection{MongoDB}\label{sub:mongo}
+MongoDB è un database cross-platform e document oriented che fornisce alte performance, alta disponibilità e facile scalabilità, MongoDB lavora sul concetto di database, collezioni e documenti:
+\begin{itemize}
+	\item \textbf{Database}: Un container fisico per le collezioni, ogni database possiede il suo personale gruppo di file nel file system, un singolo MongoDB server tipicamente ha più databases.
+	\item \textbf{Collection}: Un gruppo di documenti MongoDB, è l'equivalente di una tabella in un RDBMS (Relational DataBase Management System). Le collezioni non forzano l'uso di uno schema, i documenti all'interno di una collezione possono avere diversi campi, comunque tipicamente i documenti all'interno di una stessa collezione hanno scopo similare o comunque sono semanticamente collegati.
+	\item \textbf{Document}: Un gruppo di coppie chiave-valore, i documenti hanno schema dinamico rendendo possibile avere gruppi di campi e strutture differenti anche all'interno di una stessa collection.
+\end{itemize}
+Tra le principali caratteristiche di MongoDB abbiamo:
+\begin{itemize}
+	\item \textbf{Fast build}: Documenti flessibili e di veloce costruzione con un'interfaccia unificata per le query.
+	\item \textbf{Scale further}: Che siano pochi o siano tanti, MongoDB è in grado di soddisfare un qualsiasi numero di richieste (purché ragionevole).
+	\item \textbf{Sleep better}: Alta disponibilità, protezione dell'integrità dei dati, sicurezza e adattamento agli standard per il workload più critico.
+	\item \textbf{For developers}: Essendo costruito da sviluppatori per metterlo a disposizione di altri sviluppatori, MongoDB diventa intuitivo e di facile utilizzo per chi è abituato a sviluppare.
+\end{itemize}
+La libertà di utilizzo, la semplicità d'intuito e la flessibilità di quello che si può costruire sono state le principali motivazioni per cui abbiamo scelto di usare MongoDB, inoltre la sua efficienza è un'esperienza che ogni sviluppatore dovrebbe fare.
+
 \subsection{Docker}
 
 \section{Codice}
