@@ -13,6 +13,11 @@
                 <button @click="updateWaterlevelGraph">Force Update</button>
                 <p id="waterlevel_no_new_data" hidden>No new data</p>
             </div>
+            <div class="row">
+                <p id="waterlevel_max">Max: 2000</p>
+                <p id="waterlevel_min">Min: 100</p>
+                <p id="waterlevel_avg">Average: 310</p>
+            </div>
             <div id="waterlevel_chart"></div>
         </div>
         <div class="chart-container">
@@ -44,6 +49,7 @@
 <script>
 import ApexCharts from "apexcharts";
 const axios = require('axios').default;
+const utils = require("../utils");
 
 export default {
     data() {
@@ -142,7 +148,7 @@ export default {
                 },
                 yaxis: {
                     labels: {
-                        formatter: (value => value + " °C")
+                        formatter: (value => value.toFixed(2) + " °C")
                     },
                     //min: 0,
                     //max: 40
@@ -187,9 +193,15 @@ export default {
                 } else {
                     this.last_values = [...response.data.timestamp];
 
+                    const values = response.data.waterlevel;
+
+                    document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2);
+                    document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2);
+                    document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2);
+
                     this.waterlevelChart.updateSeries([{
                         name: 'Water level',
-                        data: response.data.waterlevel.reverse(),
+                        data: values.reverse(),
                     },
                     {
                         name: 'Alarm',
@@ -226,8 +238,13 @@ export default {
                 } else {
                     this.last_values = [...response.data.timestamp];
 
+                    const values = response.data[this.weatherData];
+
+                    //const min = values.reduce((a, b) => Math.min(a, b));
+                    //const max = values.data[this.weatherData].reduce((a, b) => Math.max(a, b));
+
                     this.weatherChart.updateSeries([{
-                        data: response.data[this.weatherData].reverse(),
+                        data: values.reverse(),
                     }]);
 
                     this.weatherChart.updateOptions({
@@ -264,7 +281,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " °C")
+                                formatter: (value => value.toFixed(2) + " °C")
                             },
                             min: 0,
                             max: 40
@@ -285,7 +302,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " °C")
+                                formatter: (value => value.toFixed(2) + " °C")
                             },
                             min: 0,
                             max: 40
@@ -306,7 +323,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " mmHg")
+                                formatter: (value => value.toFixed(2) + " mmHg")
                             },
                             min: 950,
                             max: 1050
@@ -327,7 +344,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + "%")
+                                formatter: (value => value.toFixed(2) + "%")
                             },
                             min: 0,
                             max: 100
@@ -348,7 +365,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value + " mm")
+                                formatter: (value => value.toFixed(2) + " mm")
                             },
                             min: 0,
                             max: 100
