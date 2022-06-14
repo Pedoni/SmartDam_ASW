@@ -153,7 +153,7 @@ export default {
                 },
                 yaxis: {
                     labels: {
-                        formatter: (value => value.toFixed(2) + " °C")
+                        formatter: (value => value.toFixed(2) + " " + this.weatherUnit)
                     },
                     //min: 0,
                     //max: 40
@@ -168,6 +168,8 @@ export default {
         this.weatherChart = new ApexCharts(document.querySelector("#weather_chart"), this.weatherChartOptions);
         this.weatherChart.render();
         this.weatherData = "water_temperature";
+        this.weatherUnit = "°C";
+        this.weatherFormatter = (value => value.toFixed(2) + " " + this.weatherUnit);
 
         this.last_values = [];
         this.pre_alert_line = [];
@@ -209,9 +211,9 @@ export default {
 
                 const values = response.data.waterlevel;
 
-                document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2);
-                document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2);
-                document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2);
+                document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2) + " mt.";
+                document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2) + " mt.";
+                document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2) + " mt.";
 
                 this.waterlevelChart.updateSeries([{
                     name: 'Water level',
@@ -248,9 +250,9 @@ export default {
 
                 const values = response.data[this.weatherData];
 
-                document.getElementById("weather_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2);
-                document.getElementById("weather_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2);
-                document.getElementById("weather_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2);
+                document.getElementById("weather_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2) + " " + this.weatherUnit;
+                document.getElementById("weather_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2) + " " + this.weatherUnit;
+                document.getElementById("weather_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2) + " " + this.weatherUnit;
 
                 this.weatherChart.updateSeries([{
                     data: values.reverse(),
@@ -270,6 +272,7 @@ export default {
             switch (event.target.value) {
                 case "water_temp":
                     this.weatherData = "water_temperature";
+                    this.weatherUnit = "°C";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
@@ -280,7 +283,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value.toFixed(2) + " °C")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 40
@@ -289,6 +292,7 @@ export default {
                     break;
                 case "air_temp":
                     this.weatherData = "air_temperature";
+                    this.weatherUnit = "°C";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
@@ -299,7 +303,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value.toFixed(2) + " °C")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 40
@@ -308,6 +312,7 @@ export default {
                     break;
                 case "pressure":
                     this.weatherData = "atmospheric_pressure";
+                    this.weatherUnit = "mmHg";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
@@ -318,7 +323,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value.toFixed(2) + " mmHg")
+                                formatter: this.weatherFormatter
                             },
                             min: 950,
                             max: 1050
@@ -327,6 +332,7 @@ export default {
                     break;
                 case "humidity":
                     this.weatherData = "humidity";
+                    this.weatherUnit = "%";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
@@ -337,7 +343,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value.toFixed(2) + "%")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 100
@@ -346,6 +352,7 @@ export default {
                     break;
                 case "rain":
                     this.weatherData = "rain";
+                    this.weatherUnit = "mm";
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
@@ -356,7 +363,7 @@ export default {
                         },
                         yaxis: {
                             labels: {
-                                formatter: (value => value.toFixed(2) + " mm")
+                                formatter: this.weatherFormatter
                             },
                             min: 0,
                             max: 100
