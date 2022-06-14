@@ -3,7 +3,8 @@ const weather = require("../model/weather");
 const opening = require("../model/opening")
 const DamData = require("./DamData");
 
-exports.getLastWaterLevels = (res, n) => {
+exports.getLastWaterLevels = (req, res, next) => {
+    let n = 10;
     waterlevel.find()
         .sort({ "timestamp": -1 })
         .limit(n)
@@ -38,7 +39,22 @@ exports.getLastWaterLevels = (res, n) => {
         });
 };
 
-exports.addNewWaterlevelData = (res, value) => {
+exports.addNewWaterlevelData = (req, res, next) => {
+
+    if (req == null) {
+        return res.status(400).json({
+            message: "No request"
+        });
+    }
+
+    if (req.body.value === undefined) {
+        return res.status(400).json({
+            message: "value is missing"
+        });
+    }
+
+    let value = req.body.value;
+
     const time = Date.now();
     console.log("New water level value (" + value + ") received on " + new Date(time));
 
@@ -58,7 +74,10 @@ exports.addNewWaterlevelData = (res, value) => {
     );
 };
 
-exports.getLastWeatherData = (res, n) => {
+exports.getLastWeatherData = (req, res, next) => {
+
+    let n = 10;
+
     weather.find()
         .sort({ "timestamp": -1 })
         .limit(n)
@@ -116,7 +135,34 @@ exports.getLastWeatherData = (res, n) => {
         });
 };
 
-exports.addNewWeatherData = (res, values) => {
+exports.addNewWeatherData = (req, res, next) => {
+
+    if (req == null) {
+        return res.status(400).json({
+            message: "Error"
+        });
+    }
+
+    if (req.body.water_temperature === undefined ||
+        req.body.air_temperature === undefined ||
+        req.body.atmospheric_pressure === undefined ||
+        req.body.humidity === undefined ||
+        req.body.rain === undefined) {
+        return res.status(400).json({
+            message: "Missing data"
+        });
+    }
+
+    const values = {
+        "water_temperature": req.body.water_temperature,
+        "air_temperature": req.body.air_temperature,
+        "atmospheric_pressure": req.body.atmospheric_pressure,
+        "humidity": req.body.humidity,
+        "rain": req.body.rain
+    };
+
+    console.log("New weather values " + JSON.stringify(values) + " received on " + new Date(Date.now()));
+
     values.timestamp = Date.now();
     weather.insertMany(
         [values],
@@ -131,7 +177,7 @@ exports.addNewWeatherData = (res, values) => {
     );
 };
 
-exports.getSummary = (res) => {
+exports.getSummary = (req, res, next) => {
     Promise.all([
         weather.find().sort({ "timestamp": -1 }).limit(1),
         waterlevel.find().sort({ "timestamp": -1 }).limit(1)
@@ -161,19 +207,34 @@ exports.getSummary = (res) => {
         });
 };
 
-exports.setOpening = (res, openingPercentage) => {
+exports.setOpening = (req, res, next) => {
+
+    if (req == null) {
+        return res.status(400).json({
+            message: "Error"
+        });
+    }
+
+    if (req.body.percentage === undefined) {
+        return res.status(400).json({
+            message: "percentage is missing"
+        });
+    }
+
+    openingPercentage = req.body.percentage;
+
     opening.insertMany([
         {
             timestamp: Date.now(),
             percentage: openingPercentage,
         }
     ],
-        function (err) {
-            if (err) {
-                console.log("Error during setOpening: " + err);
-                res.status(500).end();
-            } else {
-                res.status(200).end();
-            }
-        });
+    function (err) {
+        if (err) {
+            console.log("Error during setOpening: " + err);
+            res.status(500).end();
+        } else {
+            res.status(200).end();
+        }
+    });
 }
