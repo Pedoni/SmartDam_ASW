@@ -83,9 +83,21 @@ Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché s
 Node.js è un runtime JavaScript costruito sull'engine di Chrome's V8.
 In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
 \\
-\textcolor{green}{Perchè abbiamo usato Vue?}
+\textcolor{green}{Perchè abbiamo usato Node?}
 
 \subsection{Vue}
+Vue è un framework in Javascript per costruire interfacce utente tramite l'uso di HTML, CSS e Javascript. Inoltre fornisce un modello di programmazione dichiarativo e basato sui componenti che aiuta a sviluppare efficientemente le interfacce utente, che siano semplici o complesse. Vue è progettato per essere flessibile e adottabile in modo incrementale, a seconda dei casi d'uso Vue può essere usato in diversi modi:
+\begin{itemize}
+	\item Potenziare HTML statico senza un passaggio di build.
+	\item Incorporarsi come componente Web in qualsiasi pagina.
+	\item Applicazioni Single-Page (SPA).
+	\item Fullstack / Server-Side-Rendering (SSR).
+	\item Jamstack / Static-Site-Generation (SSG).
+	\item Può essere mirato allo sviluppo per Desktop, Mobile, WebGL o addirittura per terminale.
+\end{itemize}
+Nel nostro particolare caso tra Options API e Composition API abbiamo deciso di adottare il primo, Options API, come stile di programmazione, in quanto abbiamo pensato che rispecchiasse meglio l'idea che abbiamo di organizzazione del codice, bisogna inoltre sottolineare che i due stili sono del tutto equivalenti, infatti il primo è internamente costruito basandosi sul secondo, si tratta in tutto e per tutto del famoso "zucchero sintattico" che ci aiuta a mantenere alta la leggibilità del codice.\\
+La scelta di usare Vue è stata quasi automatica, una volta aver esplorato la semplicità e le opportunità che mette a disposizione, abbiamo notato che per quello che volevamo realizzare molteplici aspetti del nostro progetto erano già coperti dal framework di Vue, questo ci apriva la strada ad un'implementazione ben organizzata e robusta diventando all'unisono la scelta perfetta per procedere.
+
 \subsection{ApexChart}
 \subsection{Photo Sphere Viewer}
 \subsection{Axios}
