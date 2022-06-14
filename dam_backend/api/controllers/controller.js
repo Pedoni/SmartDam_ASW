@@ -75,9 +75,7 @@ exports.addNewWaterlevelData = (req, res, next) => {
 };
 
 exports.getLastWeatherData = (req, res, next) => {
-
     let n = 10;
-
     weather.find()
         .sort({ "timestamp": -1 })
         .limit(n)
