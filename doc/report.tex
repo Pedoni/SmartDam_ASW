@@ -27,6 +27,7 @@ L'idea è di rivisitare un progetto svolto nell'ambito del corso di Sistemi Embe
 	\label{fig:dam-scheme}
 \end{figure}
 L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all'utilizzo di MongoDB per il salvataggio dei dati. Inoltre per evitare di riesumare Arduino, ESP e l'applicazione mobile (che non concernono il progetto d'esame) simuleremo i sensori/attuatori abilitando tutti i componenti del team allo sviluppo e test del progetto.
+\textcolor{green}{PArlare di MEVN che fa figo ma soprattutto aumenta la lunghezza di sta breve introduzione.}
 
 \section{Requisiti}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
@@ -138,7 +139,16 @@ Tra le principali funzionalità abbiamo:
 La scelta di usare Axios è stata fatta considerando le sue utilità lato client e l'ottima gestione dei dati JSON, semplificandoci ancora una volta il lavoro da fare per gestire le richieste e i dati in esse contenuti. Inoltre Axios si integra perfettamente con Vue, offrendoci ancora una volta un uso pulito e intuitivo, grazie a queste considerazioni non abbiamo avuto dubbi al momento di scegliere quale framework http usare lato client.
 
 \subsection{Express}
-\subsection{MongoDB}
+Express è un framework web per Node.js che non conosce rivali, in questo ambito è praticamente la scelta migliore considerando la sua efficienza e velocità, bisogna inoltre considerare il suo fascino di minimalità, racchiude infatti tutte le funzionalità di un qualsiasi Web Server, senza aggiungere overhead, risultando quindi in un framework per quanto possibile leggero e funzionale, tra i suoi punti forti notiamo:
+\begin{itemize}
+	\item \textbf{Web Applications}: Framework minimale e flessibile per applicazioni web che fornisce facilitazioni di sviluppo sia web che per applicazioni mobile.
+	\item \textbf{APIs}: Considerando la vastità di utilità HTTP come metodi e middleware a disposizione diventa davvero facile e veloce costruire una robusta API.
+	\item \textbf{Performance}: Fornisce un sottile layer di fondamenta per applicazioni web senza oscurare tutte le potenzialità di Node.js.
+	\item \textbf{Frameworks}: Molti framework noti e più utilizzati usano express come base di funzionamento.
+\end{itemize}
+Grazie a queste caratteristiche abbiamo deciso di usare Express per realizzare la parte server del DAM Backend, in questo modo siamo stati in grado di realizzare un'API responsive che ci mettesse a disposizione i dati raccolti dai sensori e che allo stesso modo raccogliesse i dati da questi per memorizzarli \ref{sub:mongo}, abbiamo inoltre testato l'efficienza di Express simulando un carico di lavoro oneroso tramite richieste costruite Ad Hoc, concludendo che per le nostre necessità tale framework fosse più che sufficiente e in grado di sostenere il nostro carico di lavoro.
+
+\subsection{MongoDB}\label{sub:mongo}
 \subsection{Docker}
 
 \section{Codice}
