@@ -123,6 +123,21 @@ Photo-Sphere-Viewer è una libreria Javascript usabile per realizzare panorami a
 La scelta di Photo Sphere Viewer viene naturale considerando i requisiti del nostro progetto, ogni punto di cui abbiamo bisogno è semplicemente implementabile tramite l'uso di una qualche funzionalità già presente all'interno di questa libreria, questo ci consente di concentrarci su aspetti più importanti del nostro sito piuttosto che perdere tempo a reinventare la ruota per realizzare piccole funzionalità.
 
 \subsection{Axios}
+Axios è un client HTTP basato sulle promise per Node.js e il browser, è isomorfo in quanto può girare su Node.js o browser con la stessa codebase. Se nel server-side usa la libreria di Node.js nativa http module, mentre se su client (browser) usa XMLHttpRequests.
+Tra le principali funzionalità abbiamo:
+\begin{itemize}
+	\item Fare richieste XMLHttpRequests da browser.
+	\item Fare richieste http da Node.js.
+	\item Supporta la API delle promise.
+	\item Intercettare richieste e risposte.
+	\item Trasformare i dati di richieste e risposte.
+	\item Cancellare le richieste.
+	\item Trasformazione automatica per i dati JSON.
+	\item Supporto lato client alla protezione contro XSRF.
+\end{itemize}
+La scelta di usare Axios è stata fatta considerando le sue utilità lato client e l'ottima gestione dei dati JSON, semplificandoci ancora una volta il lavoro da fare per gestire le richieste e i dati in esse contenuti. Inoltre Axios si integra perfettamente con Vue, offrendoci ancora una volta un uso pulito e intuitivo, grazie a queste considerazioni non abbiamo avuto dubbi al momento di scegliere quale framework http usare lato client.
+
+\subsection{Express}
 \subsection{MongoDB}
 \subsection{Docker}
 
