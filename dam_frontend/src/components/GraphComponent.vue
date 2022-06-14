@@ -41,6 +41,11 @@
                 <button @click="updateWeatherGraph(false)">Force Update</button>
                 <p id="weather_no_new_data" hidden>No new data</p>
             </div>
+            <div class="row">
+                <p id="weather_max">Max: 2000</p>
+                <p id="weather_min">Min: 100</p>
+                <p id="weather_avg">Average: 310</p>
+            </div>
             <div id="weather_chart"></div>
         </div>
     </div>
@@ -184,44 +189,45 @@ export default {
         clearInterval(this.weatherTimer);
     },
     methods: {
+        updateTimestamps: function (chart, timestamps) {
+            chart.updateOptions({
+                xaxis: {
+                    categories: timestamps.reverse().map(t => utils.formatData(new Date(t)))
+                },
+            });
+        },
         updateWaterlevelGraph: function () {
             var url = 'http://localhost:3000/api/waterlevel';
             axios.get(url).then(response => {
                 // if there's no new data, we don't update the chart
                 if (response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("waterlevel_no_new_data").removeAttribute("hidden");
-                } else {
-                    this.last_values = [...response.data.timestamp];
-
-                    const values = response.data.waterlevel;
-
-                    document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2);
-                    document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2);
-                    document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2);
-
-                    this.waterlevelChart.updateSeries([{
-                        name: 'Water level',
-                        data: values.reverse(),
-                    },
-                    {
-                        name: 'Alarm',
-                        data: this.alert_line,
-                    },
-                    {
-                        name: 'Pre-alert',
-                        data: this.pre_alert_line,
-                    }]);
-
-                    this.waterlevelChart.updateOptions({
-                        xaxis: {
-                            categories: response.data.timestamp.reverse().map(t => {
-                                let date = new Date(t);
-                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                            })
-                        },
-                    });
-                    document.getElementById("waterlevel_no_new_data").setAttribute("hidden", "hidden");
+                    return;
                 }
+
+                this.last_values = [...response.data.timestamp];
+
+                const values = response.data.waterlevel;
+
+                document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2);
+                document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2);
+                document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2);
+
+                this.waterlevelChart.updateSeries([{
+                    name: 'Water level',
+                    data: values.reverse(),
+                },
+                {
+                    name: 'Alarm',
+                    data: this.alert_line,
+                },
+                {
+                    name: 'Pre-alert',
+                    data: this.pre_alert_line,
+                }]);
+
+                this.updateTimestamps(this.waterlevelChart, response.data.timestamp);
+                document.getElementById("waterlevel_no_new_data").setAttribute("hidden", "hidden");
             });
         },
         changedFrequencyWaterlevel: function (event) {
@@ -235,28 +241,23 @@ export default {
                 // if there's no new data, we don't update the chart
                 if (!changedData && response.data.timestamp.every((val, index) => val == this.last_values[index])) {
                     document.getElementById("weather_no_new_data").removeAttribute("hidden");
-                } else {
-                    this.last_values = [...response.data.timestamp];
-
-                    const values = response.data[this.weatherData];
-
-                    //const min = values.reduce((a, b) => Math.min(a, b));
-                    //const max = values.data[this.weatherData].reduce((a, b) => Math.max(a, b));
-
-                    this.weatherChart.updateSeries([{
-                        data: values.reverse(),
-                    }]);
-
-                    this.weatherChart.updateOptions({
-                        xaxis: {
-                            categories: response.data.timestamp.reverse().map(t => {
-                                let date = new Date(t);
-                                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                            })
-                        },
-                    });
-                    document.getElementById("weather_no_new_data").setAttribute("hidden", "hidden");
+                    return;
                 }
+
+                this.last_values = [...response.data.timestamp];
+
+                const values = response.data[this.weatherData];
+
+                document.getElementById("weather_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2);
+                document.getElementById("weather_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2);
+                document.getElementById("weather_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2);
+
+                this.weatherChart.updateSeries([{
+                    data: values.reverse(),
+                }]);
+
+                this.updateTimestamps(this.weatherChart, response.data.timestamp);
+                document.getElementById("weather_no_new_data").setAttribute("hidden", "hidden");
             });
         },
         changedFrequencyWeather: function (event) {
@@ -272,12 +273,10 @@ export default {
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Water temperature", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Water temperature" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Water temperature trend',
-                            align: 'center'
+                            text: 'Water temperature trend'
                         },
                         yaxis: {
                             labels: {
@@ -293,12 +292,10 @@ export default {
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Air temperature", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Air temperature" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Air temperature trend',
-                            align: 'center'
+                            text: 'Air temperature trend'
                         },
                         yaxis: {
                             labels: {
@@ -314,12 +311,10 @@ export default {
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Atmospheric Pressure", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Atmospheric Pressure" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Atmospheric pressure trend',
-                            align: 'center'
+                            text: 'Atmospheric pressure trend'
                         },
                         yaxis: {
                             labels: {
@@ -335,12 +330,10 @@ export default {
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Humidity", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Humidity" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Humidity trend',
-                            align: 'center'
+                            text: 'Humidity trend'
                         },
                         yaxis: {
                             labels: {
@@ -356,12 +349,10 @@ export default {
                     this.weatherChart.updateOptions({
                         series: [{
                             type: 'area',
-                            name: "Rain", // if there's only one series, the name does not display
-                            data: [],
+                            name: "Rain" // if there's only one series, the name does not display
                         }],
                         title: {
-                            text: 'Rain trend',
-                            align: 'center'
+                            text: 'Rain trend'
                         },
                         yaxis: {
                             labels: {
