@@ -99,6 +99,17 @@ Nel nostro particolare caso tra Options API e Composition API abbiamo deciso di 
 La scelta di usare Vue è stata quasi automatica, una volta aver esplorato la semplicità e le opportunità che mette a disposizione, abbiamo notato che per quello che volevamo realizzare molteplici aspetti del nostro progetto erano già coperti dal framework di Vue, questo ci apriva la strada ad un'implementazione ben organizzata e robusta diventando all'unisono la scelta perfetta per procedere.
 
 \subsection{ApexChart}
+ApexCharts è una moderna libreria di grafici che aiuta gli sviluppatori a creare visualizzazioni eleganti e interattive per pagine web. È un progetto open-source sotto la licenza MIT ed è di uso gratuito per applicazioni commerciali.\\
+L'integrazione di grafici con ApexCharts è tanto semplice quanto può esserlo considerando la completezza dei documenti di riferimento (docs) e i 100+ esempi pronti ad essere usati.\\
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{apexchart.png}
+	\caption{Piccolo esempio di cosa è possibile fare tramite ApexCharts}
+	\label{fig:apexchart}
+\end{figure}
+Tenendo in considerazione che ApexCharts offre la possibilità di integrarsi tramite Vue, viene automatico pensare che la scelta di questo framework sia ottima, infatti è di facile integrazione all'interno del codice senza sporcarlo con costrutti strani o particolari che andrebbero solamente a danneggiare la leggibilità dei nostri sorgenti, inoltre osservando l'immagine \ref{fig:apexchart} si nota qualche esempio di grafico ottenibile, in questo caso non possiamo apprezzare gli aggiornamenti in tempo reale, ma come si vedrà nel nostro sito, ApexCharts offre grafici in grado di aggiornarsi dinamicamente tramite animazioni fluide ed eleganti.\\
+Avendo trovato comodo ed efficiente questo framework, lo abbiamo adottato per la principale visualizzazione di dati dei sensori del nostro progetto.
+
 \subsection{Photo Sphere Viewer}
 \subsection{Axios}
 \subsection{MongoDB}
