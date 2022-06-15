@@ -31,7 +31,8 @@ L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all
 
 \section{Requisiti}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
-Tenendo in considerazione le anticipazioni al capitolo \ref{sec:intro} il sistema si riduce a 3 principali componenti:
+\subsection{Funzionali}
+Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il sistema si riduce a 3 principali componenti:
 \begin{enumerate}
 	\item \textbf{Dam Backend} (service):
 	\begin{itemize}
@@ -55,12 +56,6 @@ Tenendo in considerazione le anticipazioni al capitolo \ref{sec:intro} il sistem
 			\item Visione colorata dei livelli di allerta sulla diga.
 			\item Ultimo livello rilevato dell'acqua visualizzato sulla diga in tempo reale.
 		\end{itemize}
-		\item Homepage accessibile, con particolare riguardo a:
-		\begin{itemize}
-			\item Persona cieca.
-			\item Persona ipovedente.
-			\item Persona daltonica.
-		\end{itemize}
 	\end{itemize}
 	\item \textbf{Dam Sensor} (Esp, arduino, mobile):
 	\begin{itemize}
@@ -72,6 +67,13 @@ Tenendo in considerazione le anticipazioni al capitolo \ref{sec:intro} il sistem
 		\end{itemize}
 	\end{itemize}
 \end{enumerate}
+\subsection{Non funzionali}
+Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità e usabilità del sito, focalizzandoci nello specifico a renderlo usufruibile a soggetti particolari con impedenze sensoriali come:
+\begin{itemize}
+	\item Persona cieca.
+	\item Persona ipovedente.
+	\item Persona daltonica.
+\end{itemize}
 
 \section{Design}
 \textcolor{red}{\textbf{Design dell'architettura del sistema e delle interfacce utente.}}
