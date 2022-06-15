@@ -14,6 +14,7 @@ services:
   dam_backend:
     depends_on:
       - "mongo"
+    restart: always
     build:
       context: ./dam_backend
       dockerfile: prod.Dockerfile
