@@ -1,8 +1,14 @@
-$maincolor: #3B3B98;
+$background: #3B3B98;
 $font-family: Arial, Helvetica, sans-serif;
+
+// palette
+$darker-blue: #16558F;
+$dark-blue: #0583D2;
+$greenish-blue: #61B0B7;
+$light-blue: #B8E3FF;
 
 body {
     font-family: $font-family;
-    background-color: $maincolor;
+    background-color: $background;
     margin: 0;
 }

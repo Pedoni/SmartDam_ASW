@@ -60,7 +60,7 @@ export default {
     data() {
         return {
             waterlevelChartOptions: {
-                colors: ["#0000ff", "#ff0000", "#ffff00"],
+                colors: ["#16558F", "#ff0000", "#ffff00"],
                 series: [{
                     type: 'area',
                     name: "Water level",
@@ -116,7 +116,7 @@ export default {
 
             },
             weatherChartOptions: {
-                colors: ["#0000ff"],
+                colors: ["#16558F"],
                 series: [{
                     type: 'area',
                     name: "Water temperature", // if there's only one series, the name does not display
