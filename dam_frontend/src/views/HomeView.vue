@@ -1,7 +1,6 @@
 <template>
     <div id="home">
         <div id="homecontent">
-            <!-- <button @click="getSize()" id="menubutton">Menu</button> -->
             <div v-if="isOK()" id="routers">
                 <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')">Home</router-link>
                 <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')">Panoramic</router-link>
@@ -42,6 +41,7 @@ export default {
     data() {
         return {
             comp: "Home",
+            current: "homelink",
             windowWidth: window.innerWidth
         };
     },
@@ -50,39 +50,22 @@ export default {
             return this.windowWidth > 789;
         },
         initHome() {
-            document.getElementById('homelink').style.color = '#0000ff'
+            document.getElementById('homelink').classList.add("selectedItem");
         },
         changeComponent(event, newComponent) {
+            this.current = event.currentTarget.id;
             this.comp = newComponent;
-            document.getElementById(event.currentTarget.id).style.color = '#0000ff'
-            switch (event.currentTarget.id) {
-                case 'homelink':
-                    document.getElementById("panoramiclink").style.color = '#000000'
-                    document.getElementById("graphlink").style.color = '#000000'
-                    document.getElementById("controllerlink").style.color = '#000000'
-                    break
-                case 'panoramiclink':
-                    document.getElementById("homelink").style.color = '#000000'
-                    document.getElementById("graphlink").style.color = '#000000'
-                    document.getElementById("controllerlink").style.color = '#000000'
-                    break
-                case 'graphlink':
-                    document.getElementById("panoramiclink").style.color = '#000000'
-                    document.getElementById("homelink").style.color = '#000000'
-                    document.getElementById("controllerlink").style.color = '#000000'
-                    break
-                case 'controllerlink':
-                    document.getElementById("panoramiclink").style.color = '#000000'
-                    document.getElementById("homelink").style.color = '#000000'
-                    document.getElementById("graphlink").style.color = '#000000'
-                    break
-            }
-
+            document.getElementById("panoramiclink").classList.remove("selectedItem");
+            document.getElementById("graphlink").classList.remove("selectedItem");
+            document.getElementById("controllerlink").classList.remove("selectedItem");
+            document.getElementById("homelink").classList.remove("selectedItem");
+            document.getElementById(this.current).classList.add("selectedItem");
         },
     },
     mounted() {
         this.initHome();
         window.onresize = () => {
+            document.getElementById(this.current).classList.add("selectedItem");
             this.windowWidth = window.innerWidth
         }
     },
