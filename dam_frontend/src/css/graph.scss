@@ -14,6 +14,7 @@ select {
     border-radius: 5px;
     border: 0px;
     color: white;
+    width: 15%;
     background-color: rgb(0, 128, 255);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -31,8 +32,37 @@ select {
     display: flex;
     flex-direction: row;
     height: 60px;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 
     p {
         padding: 10px;
+        width: auto;
     }
+}
+
+@media screen and (max-width:789px) {
+
+    .row {
+        display: inline-block;
+        p {
+            font-size: small;
+        }
+    }
+
+    .datas {
+        display: flex;
+    }
+
+    select {
+       width: 30%;
+    }
+
+    #weatherSelect {
+        width: 50%;
+    }
+
 }

@@ -40,6 +40,38 @@ body {
 
     }
 
+    #routerbuttons {
+
+        flex-direction: row;
+        width: 100%;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        margin-bottom: 4%;
+
+        router-link-active {
+            text-align: center;
+            width: 15vw;
+            font-size: 22px;
+            text-decoration: none;
+            color: black;
+            display: inline-block;
+            margin-left: 2%;
+            margin-right: 2%;
+        }
+
+        .buttonimage {
+            height: 30%;
+            width: 30%;
+        }
+
+        button {
+            background-color: white;
+        }
+    }
+
     #homecontent {
         width: 90%;
         box-shadow: 1px 0 10px 15px rgba(0, 0, 0, .3);
@@ -55,9 +87,7 @@ body {
     }
 }
 
-table,
-td,
-th {
+table, td, th {
     border: 1px solid #ddd;
     text-align: center;
     font-family: sans-serif;
@@ -66,7 +96,7 @@ th {
 table {
     border-collapse: collapse;
     margin: 25px 0;
-    font-size: 0.9em;
+    font-size: 2em;
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -75,10 +105,9 @@ table {
     table-layout: fixed;
 }
 
-th,
-td {
+th, td {
     padding: 15px;
-    font-size: 1vw;
+    font-size: 1.5vw;
 }
 
 td {
@@ -90,25 +119,40 @@ h2 {
 }
 
 h1>p {
-    font-size: 1vw;
+    font-size: 1.5vw;
     font-weight: normal;
     text-align: center;
     font-family: sans-serif;
     margin-bottom: 3%;
 }
 
-@media (max-width:900px) {
-    .router-link-active {
-        font-size: 5px;
+@media screen and (max-width:1080px) {
+
+}
+
+@media screen and (max-width:789px) {
+
+    h1>p, th, td {
+        font-size: 2vw;
+    }
+
+    #hometitle {
+        font-size: 4vw;
+    }
+
+    #routerbuttons {
+        // button {
+        //     width: 30%;
+        //     height: 30%;
+        // }
+        
+        // #controllerlink {
+        //     width: 30%;
+        //     height: 30%;
+        // }
     }
 }
 
-@media(max-width:452px) {
-    #home {
-        padding: 25px;
-
-        // p {
-        //     font-size: 14px;
-        // }
-    }
+@media screen and (min-width:790px) {
+    
 }

@@ -13,7 +13,7 @@
                 <button @click="updateWaterlevelGraph">Force Update</button>
                 <p id="waterlevel_no_new_data" hidden>No new data</p>
             </div>
-            <div class="row">
+            <div class="row datas">
                 <p id="waterlevel_max">Max: 2000</p>
                 <p id="waterlevel_min">Min: 100</p>
                 <p id="waterlevel_avg">Average: 310</p>
@@ -23,7 +23,7 @@
         <div class="chart-container">
             <div class="row">
                 <p>Weather data: </p>
-                <select @change="changedWeatherData">
+                <select id="weatherSelect" @change="changedWeatherData">
                     <option value="water_temp">Water temperature</option>
                     <option value="air_temp">Air temperature</option>
                     <option value="pressure">Atmospheric pressure</option>
@@ -41,7 +41,7 @@
                 <button @click="updateWeatherGraph(false)">Force Update</button>
                 <p id="weather_no_new_data" hidden>No new data</p>
             </div>
-            <div class="row">
+            <div class="row datas">
                 <p id="weather_max">Max: 2000</p>
                 <p id="weather_min">Min: 100</p>
                 <p id="weather_avg">Average: 310</p>
@@ -155,8 +155,6 @@ export default {
                     labels: {
                         formatter: (value => value.toFixed(2) + " " + this.weatherUnit)
                     },
-                    //min: 0,
-                    //max: 40
                 },
             },
         }

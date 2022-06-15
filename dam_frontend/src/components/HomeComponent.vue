@@ -1,6 +1,6 @@
 <template>
     <h1 id="homePageTitle">
-        <h2>
+        <h2 id="hometitle">
             Welcome to the Smart Dam board!
         </h2>
         <p>Here are some of the actual data extracted from the dam sensors:</p>
