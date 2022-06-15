@@ -1,12 +1,4 @@
-$maincolor: #3B3B98;
-$textcolor: #fff;
-$font-family: Nunito Sans;
-
-body {
-    font-family: $font-family;
-    background-color: $maincolor;
-    margin: 0;
-}
+@import 'global';
 
 #home {
     display: flex;
@@ -15,7 +7,6 @@ body {
     flex-direction: column;
     margin: 2%;
     overflow-y: auto;
-    font-family: sans-serif;
 
     #routers {
         flex-direction: row;
@@ -90,14 +81,12 @@ body {
 table, td, th {
     border: 1px solid #ddd;
     text-align: center;
-    font-family: sans-serif;
 }
 
 table {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 2em;
-    font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     margin-left: auto;
@@ -122,7 +111,6 @@ h1>p {
     font-size: 1.5vw;
     font-weight: normal;
     text-align: center;
-    font-family: sans-serif;
     margin-bottom: 3%;
 }
 

@@ -6,6 +6,7 @@ install:
 	npm install
 
 sass:
+	sass src/css/global.scss src/css/global.css
 	sass src/css/login.scss src/css/login.css
 	sass src/css/home.scss src/css/home.css
 	sass src/css/graph.scss src/css/graph.css

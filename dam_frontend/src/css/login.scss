@@ -1,103 +1,95 @@
-$maincolor: #3B3B98;
-$textcolor: #fff;
-$font-family: Nunito Sans;
-
-body {
-  font-family: $font-family;
-  background-color: $maincolor;
-  margin: 0;
-}
+@import 'global';
 
 #login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
 
-  form {
-    width: 40%;
-    box-shadow: 1px 0 10px 15px rgba(0, 0, 0, .3);
-    padding: 40px;
-    background-color: #fff;
+    form {
+        width: 40%;
+        box-shadow: 1px 0 10px 15px rgba(0, 0, 0, .3);
+        padding: 40px;
+        background-color: #fff;
 
-    h1 {
-      p {
-        align-items: center;
-      }
-    }
-
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      margin-top: 20px;
-      outline: none;
-      border: none;
-      background-color: #ecf0f1;
-      padding: 10px;
-      line-height: 2;
-      font-size: 16px;
-    }
-
-    button {
-      background-color: #4834d4;
-      color: $textcolor;
-      font-size: 18px;
-      width: 100%;
-      outline: none;
-      border: none;
-      padding: 15px;
-      margin-top: 20px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #686de0;
-      }
-
-    }
-
-    p {
-      text-align: center;
-      margin-bottom: 0px;
-
-      a {
-        text-align: center;
-        text-decoration: none;
-        color: $maincolor;
-        padding-left: 3px;
-
-        &:hover {
-          text-decoration: none;
+        h1 {
+            p {
+                align-items: center;
+            }
         }
-      }
-    }
 
-    #wrong_credentials {
-      color: red;
-      font-weight: bold;
-      font-size: 20px;
-      user-select: none;
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+            outline: none;
+            border: none;
+            background-color: #ecf0f1;
+            padding: 10px;
+            line-height: 2;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4834d4;
+            color: white;
+            font-size: 18px;
+            width: 100%;
+            outline: none;
+            border: none;
+            padding: 15px;
+            margin-top: 20px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #686de0;
+            }
+
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 0px;
+
+            a {
+                text-align: center;
+                text-decoration: none;
+                color: $maincolor;
+                padding-left: 3px;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        #wrong_credentials {
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+            user-select: none;
+        }
     }
-  }
 }
 
 @media(max-width:692px) {
-  #login {
-    form {
-      width: 60%;
+    #login {
+        form {
+            width: 60%;
+        }
     }
-  }
 }
 
 @media(max-width:452px) {
-  #login {
-    form {
-      width: 70%;
-      padding: 25px;
+    #login {
+        form {
+            width: 70%;
+            padding: 25px;
 
-      p {
-        font-size: 14px;
-      }
+            p {
+                font-size: 14px;
+            }
+        }
     }
-  }
 }
