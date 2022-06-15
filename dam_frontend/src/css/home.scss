@@ -36,37 +36,10 @@
         }
     }
 
-    #routerbuttons {
-        flex-direction: row;
-        width: 100%;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        display: flex;
-        margin-bottom: 4%;
-
-        .router-link-active {
-            width: 15vw;
-            display: inline-block;
-            margin-left: 2%;
-            margin-right: 2%;
-        }
-
-        .buttonimage {
-            height: 30%;
-            width: 30%;
-        }
-
-        button {
-            background-color: white;
-        }
-    }
-
     #homecontent {
         width: 90%;
         padding: 40px;
-        background-color: #fff;
+        background-color: white;
         border-radius: 10px;
 
         h1 {
@@ -118,6 +91,37 @@ h1>p {
 @media screen and (max-width:1080px) and (min-width:790px) {}
 
 @media screen and (max-width:789px) {
+
+    #home {
+        #routerbuttons {
+            flex-direction: row;
+            width: 100%;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            margin-bottom: 4%;
+
+            .router-link-active {
+                width: 15vw;
+                display: inline-block;
+                margin-left: 2%;
+                margin-right: 2%;
+            }
+
+            .buttonimage {
+                height: 30%;
+                width: 30%;
+                padding: 0;
+            }
+        }
+
+        #homecontent {
+            padding: 10px;
+            padding-top: 20px;
+        }
+    }
 
     table {
         min-width: unset;

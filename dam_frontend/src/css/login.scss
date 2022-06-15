@@ -30,10 +30,11 @@
             padding: 10px;
             line-height: 2;
             font-size: 16px;
+            border-radius: 10px;
         }
 
         button {
-            background-color: #4834d4;
+            background-color: $darker-blue;
             color: white;
             font-size: 18px;
             width: 100%;
@@ -42,9 +43,10 @@
             padding: 15px;
             margin: 20px 0px 0px 0px;
             cursor: pointer;
+            border-radius: 10px;
 
             &:hover {
-                background-color: #686de0;
+                background-color: $greenish-blue;
             }
 
         }
@@ -54,6 +56,7 @@
             font-weight: bold;
             font-size: 20px;
             user-select: none;
+            margin-bottom: 0px;
         }
     }
 }
