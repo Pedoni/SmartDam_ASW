@@ -165,18 +165,40 @@ Tra le principali caratteristiche di MongoDB abbiamo:
 La libertà di utilizzo, la semplicità d'intuito e la flessibilità di quello che si può costruire sono state le principali motivazioni per cui abbiamo scelto di usare MongoDB, inoltre la sua efficienza è un'esperienza che ogni sviluppatore dovrebbe fare.
 
 \subsection{Docker}
+Docker rende lo sviluppo efficiente e prevedibile, rimuove le ripetizioni nella configurazione dei tasks e nel ciclo di sviluppo per un'esperienza di velocità e facilità nel portarsi dietro sistemi e applicazioni di sviluppo, sia Desktop che Cloud. Docker offre UIs, CLIs, APIs e sicurezza studiati apposta per lavorare assieme durante tutto il ciclo di vita di consegna del progetto. Tra i principali utilizzi ecco i vantaggi di usare Docker:
+\begin{itemize}
+	\item \textbf{Build}
+	\begin{itemize}
+		\item Partire avvantaggiato nel coding usando le immagini di Docker per sviluppare efficientemente le proprie applicazioni sia per Windows che per Mac, creare applicazioni multi-container utilizzando Docker compose.
+		\item Integrare con i propri tools preferiti la pipeline di sviluppo, Docker funziona con tutti gli strumenti di sviluppo inclusi VS Code, CircleCI e GitHub.
+		\item Impacchettare le applicazioni come immagini contenitori portatili per eseguire in ogni ambiente consistentemente come Kubernetes, AWS ECS, Azure ACI, Google GKE e molto altro.
+	\end{itemize}
+	\item \textbf{Share}
+	\begin{itemize}
+		\item Sfruttare i contenuti fidati di Docker, incluse le immagini officiali di Docker e quelle verificare e pubblicate nel Dcoker Hub Repository.
+		\item Innovare collaborando con i compagni di team e altri sviluppatori semplicemente pubblicando le immagini su Docker Hub.
+		\item Personalizzare l'accesso alle immagini con un control-access basato sui ruoli e ricevere notifiche sulle attività interne con Docker Hub Audit Logs.
+	\end{itemize}
+	\item \textbf{Run}
+	\begin{itemize}
+		\item Rilasciare più applicazioni senza alcun problema essendo sicuri che gireranno su ogni ambiente allo stesso modo, includendo il design, il testing, lo staging e la production, che siano desktop o basate sul cloud.
+		\item Rilasciare le proprie applicazioni in container separati indipendenti e in diversi linguaggi, riducendo così i rischi di conflitto tra linguaggi, librerie e framework.
+		\item Velocizzare lo sviluppo con la semplicità di Docker compose CLI, con un comando lanciare le proprie applicazioni localmente e/o sul cloud con AWS ECS e Azure ACI.
+	\end{itemize}
+\end{itemize}
+Come lo abbiamo usato, perché lo abbiamo usato e quanto sia stato effettivamente comodo usarlo lo rimando alla sezione di \nameref{sec:deploy} dove ne parliamo più specificatamente.
 
 \section{Codice}
 \textcolor{red}{\textbf{Solo aspetti rilevanti.}}
-\textcolor{green}{\textbf{Qui potremmo metterci la parte di codice che tira su l'immagine a 360 e il graph component.}}
+\textcolor{green}{\textbf{"Due parti di codice molto importantissime del nostro progetto sono state questa e quest'altra perché si.... \\Codice del Sphere viewer, descrizione del codice (come funziona, cosa significano le varie cose...)\\Codice del Graph component, descrizione del codice(come funziona, cosa significano le varie cose...)\\Se hai altro da aggiungere prego fai pure.}}
 
 \section{Test}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
-\textcolor{green}{\textbf{I test di accessibilità sulla homepage, SBAM!\\Simuliamo di averlo fatto provare a Mosè al posto che separare le acque.}}
+\textcolor{green}{\textbf{Test fatti con il magico strumento che hai usato, magari prima facciamo salire il più possibile i 3 numerelli, ci puoi cacciare anche un'immagine fighissima dei risultati, magari anche descrivendo tutti gli aspetti su cui ci siamo concentrati per l'accessibilità (qualche spunto nei requisiti)\\Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.}}
 
-\section{Deployment}
+\section{Deployment}\label{sec:deploy}
 \textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
-\textcolor{green}{\textbf{Docker, docker e ancora docker, mini tutorial su come mettere tutto in esecuzione, gioia di vivere.}}
+\textcolor{green}{\textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}}
 
 \section{Conclusioni}
 \textcolor{red}{\textbf{Conclusioni}}
