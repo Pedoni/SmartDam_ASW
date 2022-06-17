@@ -12,14 +12,14 @@
     \large Applicazioni e Servizi Web
 }
 
-\author{\href{mailto:emalama@studio.unibo.it}{Emanuele Lamagna} - 000725342\\\href{mailto:filippo.barbari@studio.unibo.it}{Filippo Barbari} - 000123456\\\href{mailto:filippo.benvenuti3@studio.unibo.it}{Filippo Benvenuti} - 0001027545}
+\author{\href{mailto:emalama@studio.unibo.it}{Emanuele Lamagna} - 000725342\\\href{mailto:filippo.barbari@studio.unibo.it}{Filippo Barbari} - 0001052391\\\href{mailto:filippo.benvenuti3@studio.unibo.it}{Filippo Benvenuti} - 0001027545}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 \section*{Introduzione}\label{sec:intro}
-L'idea è di rivisitare un progetto svolto nell'ambito del corso di Sistemi Embedded e Internet of Things, che consisteva nella simulazione di una diga smart e monitoraggio del livello idrometrico di un fiume. il sistema era composto da 5 sottosistemi, descritti dall'immagine \ref{fig:dam-scheme}.
+L'idea è di rivisitare un progetto svolto nell'ambito del corso di laurea triennale di Sistemi Embedded e Internet of Things, che consisteva nella simulazione di una diga smart e monitoraggio del livello idrometrico di un fiume. Il sistema era composto da 5 sottosistemi, descritti dall'immagine \ref{fig:dam-scheme}.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.7]{dam-scheme.png}
@@ -27,7 +27,8 @@ L'idea è di rivisitare un progetto svolto nell'ambito del corso di Sistemi Embe
 	\label{fig:dam-scheme}
 \end{figure}
 L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all'utilizzo di MongoDB per il salvataggio dei dati. Inoltre per evitare di riesumare Arduino, ESP e l'applicazione mobile (che non concernono il progetto d'esame) simuleremo i sensori/attuatori abilitando tutti i componenti del team allo sviluppo e test del progetto.
-\textcolor{green}{PArlare di MEVN che fa figo ma soprattutto aumenta la lunghezza di sta breve introduzione.}
+Come punto di partenza è stato quindi scelto lo stack MEVN, una versione di MEAN che utilizza come framework Vue invece di Angular. Questa scelta permette l'utilizzo di Javascript anche lato backend (sfruttando Express), dando vita al paradigma "Javascript everywhere" che rende più uniforme e gestibile il codice ed evita molte complicazioni derivanti dall'utilizzo di linguaggi diversi. 
+\textcolor{green}{Altro?}
 
 \section{Requisiti}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
@@ -52,7 +53,7 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 		\end{itemize}
 		\item Panoramic viewer della diga a 360°:
 		\begin{itemize}
-			\item Zoom in e out, possibilità di entrare in modalità full-scren.
+			\item Zoom in e out, possibilità di entrare in modalità full-screen.
 			\item Visione colorata dei livelli di allerta sulla diga.
 			\item Ultimo livello rilevato dell'acqua visualizzato sulla diga in tempo reale.
 		\end{itemize}
@@ -70,21 +71,20 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 \subsection{Non funzionali}
 Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità e usabilità del sito, focalizzandoci nello specifico a renderlo usufruibile a soggetti particolari con impedenze sensoriali come:
 \begin{itemize}
-	\item Persona cieca.
-	\item Persona ipovedente.
-	\item Persona daltonica.
+	\item ablepsia.
+	\item ipovisione.
+	\item daltonismo.
 \end{itemize}
 
 \section{Design}
 \textcolor{red}{\textbf{Design dell'architettura del sistema e delle interfacce utente.}}
-\textcolor{green}{\textbf{Personas e mockup con BALSAMIC........ :3}}
+\textcolor{green}{\textbf{Personas e mockup con BALSAMIQ........ :3}}
 
 \section{Tecnologie}
 \textcolor{red}{\textbf{Tecnologie adottate e motivazioni.}}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \subsection{Node}
-Node.js\cite{node} è un runtime JavaScript costruito sull'engine di Chrome's V8.
-In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
+Node.js\cite{node} è un runtime JavaScript costruito sull'engine di Chrome V8. In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
 \\
 \textcolor{green}{Perchè abbiamo usato Node?}
 
@@ -191,16 +191,40 @@ Docker rende lo sviluppo efficiente e prevedibile, rimuove le ripetizioni nella 
 Come lo abbiamo usato, perché lo abbiamo usato e quanto sia stato effettivamente comodo usarlo lo rimando alla sezione di \nameref{sec:deploy} dove ne parliamo più specificatamente.
 
 \section{Codice}
-\textcolor{red}{\textbf{Solo aspetti rilevanti.}}
-\textcolor{green}{\textbf{"Due parti di codice molto importantissime del nostro progetto sono state questa e quest'altra perché si.... \\Codice del Sphere viewer, descrizione del codice (come funziona, cosa significano le varie cose...)\\Codice del Graph component, descrizione del codice(come funziona, cosa significano le varie cose...)\\Se hai altro da aggiungere prego fai pure.}}
+In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice nei vari componenti:
+\begin{itemize}
+    \item \textbf{Home}: qui sono mostrati i dati più importanti relativi alla diga (l'aggiornamento in tempo reale sarà mostrato nel component Graph).
+	\item \textbf{Panorama}: come già accennato abbiamo utilizzato Photo-Sphere Viewer per fornire un'immagine panoramica della diga. Sono stati aggiunti due elementi grafici:
+    	\begin{itemize}
+    	    \item evidenziamento delle zone della diga relative al livello di allerta
+    	    \item icona posizionata al livello corrente dell'acqua, e in constante aggiornamento all'arrivo dei dati
+    	\end{itemize}
+	Per queste operazioni sono state sfruttate la longitudine e la latitudine, dati forniti dalla libreria.
+	\item \textbf{Graph}: per questo component è stata utilizzata la libreria ApexCharts. Sono stati realizzati due grafici (più precisamente di tipo Area):
+	\begin{itemize}
+	    \item andamento dell'acqua: mostra l'andamento del livello dell'acqua durante il tempo. Sono stati realizzati pulsanti per cambiare la velocità di aggiornamento dei dati e per forzare l'aggiornamento.
+	    \item cambiamento del meteo:  questo comprende 6 grafici diversi, relativi a temperatura dell'acqua, temperatura dell'aria, pressione atmosferica, umidità e pioggia. Ogni grafico è selezionabile attraverso un menù a tendina.
+	\end{itemize}
+	\item \textbf{Controller}: anche in questo component viene utilizzata la libreria ApexCharts, ma il grafico utilizzato è questa volta è un RadialBar. Con quest'ultimo viene mostrata la percentuale di apertura attuale della diga. Oltre ad esso sono presenti dei pulsanti per modificare a mano l'apertura della diga a diverse percentuali.
+\end{itemize}
+In tutti i component i dati sono ottenuti con delle chiamate (get o post) effettuate grazie ad Axios.
 
 \section{Test}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
-\textcolor{green}{\textbf{Test fatti con il magico strumento che hai usato, magari prima facciamo salire il più possibile i 3 numerelli, ci puoi cacciare anche un'immagine fighissima dei risultati, magari anche descrivendo tutti gli aspetti su cui ci siamo concentrati per l'accessibilità (qualche spunto nei requisiti)\\Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.}}
+
+\textbf{Test fatti con il magico strumento che hai usato, magari prima facciamo salire il più possibile i 3 numerelli, ci puoi cacciare anche un'immagine fighissima dei risultati, magari anche descrivendo tutti gli aspetti su cui ci siamo concentrati per l'accessibilità (qualche spunto nei requisiti)\\Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.}
+
+\subsection{Test automatici}
+Qui parlo degli unit test fatti con jest.
+\subsection{Exploratory testing}
+Qui parlo (forse) dei test manuali effettuati durante lo sviluppo.
+\subsection{Test con utenti}
+Qui parlo di pecche di usabilità individuate durante lo sviluppo.
 
 \section{Deployment}\label{sec:deploy}
 \textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
-\textcolor{green}{\textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}}
+
+\textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}
 
 \section{Conclusioni}
 \textcolor{red}{\textbf{Conclusioni}}
