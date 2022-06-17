@@ -2,6 +2,9 @@ const controller = require("../api/controllers/controller");
 const waterlevel = require("../api/model/waterlevel");
 
 const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
+
+jest.setTimeout(20 * 1000);
 
 describe('insert', () => {
     let connection;
@@ -19,14 +22,31 @@ describe('insert', () => {
         await connection.close();
     });
 
-    it('should insert a doc into collection', async () => {
-        const users = db.collection('users');
+    // it('should insert a doc into collection', async () => {
+    //     const users = db.collection('waterlevels');
 
-        const mockUser = { _id: 'some-user-id', name: 'John' };
-        await users.insertOne(mockUser);
+    //     const mockUser = { _id: 'some-user-id', name: 'John' };
+    //     await users.insertOne(mockUser);
 
-        const insertedUser = await users.findOne({ _id: 'some-user-id' });
-        expect(insertedUser).toEqual(mockUser);
+    //     const insertedUser = await users.findOne({ _id: 'some-user-id' });
+    //     expect(insertedUser).toEqual(mockUser);
+    // });
+
+    it("GET /api/waterlevel", async () => {
+        const post = await waterlevel.create({
+            _id: ObjectId("abcdefghijkl"),
+            timestamp: Date.now(),
+            level: 100
+        });
+        console.log("eheheheh");
+
+        await supertest(app).get("/api/waterlevel/" + post._id)
+            .expect(200)
+            .then((response) => {
+                expect(response.body._id).toBe(post._id);
+                expect(response.body.timestamp).toBe(post.timestamp);
+                expect(response.body.level).toBe(post.level);
+            });
     });
 });
 
@@ -39,15 +59,3 @@ describe('insert', () => {
 // //         controller.addNewWaterlevelData(null, new http.ServerReponse(), null)
 // //     ).toBe({});
 // // });
-
-// test("GET /api/waterlevel", async () => {
-//     const post = await waterlevel.create({ timestamp: Date.now(), level: 100 });
-
-//     await supertest(app).get("/api/waterlevel/" + post.id)
-//         .expect(200)
-//         .then((response) => {
-//             expect(response.body._id).toBe(post.id);
-//             expect(response.body.title).toBe(post.title);
-//             expect(response.body.content).toBe(post.content);
-//         });
-// });
