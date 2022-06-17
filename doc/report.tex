@@ -27,7 +27,8 @@ L'idea è di rivisitare un progetto svolto nell'ambito del corso di Sistemi Embe
 	\label{fig:dam-scheme}
 \end{figure}
 L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all'utilizzo di MongoDB per il salvataggio dei dati. Inoltre per evitare di riesumare Arduino, ESP e l'applicazione mobile (che non concernono il progetto d'esame) simuleremo i sensori/attuatori abilitando tutti i componenti del team allo sviluppo e test del progetto.
-\textcolor{green}{PArlare di MEVN che fa figo ma soprattutto aumenta la lunghezza di sta breve introduzione.}
+Come punto di partenza è stato quindi scelto lo stack MEVN, una versione di MEAN che utilizza come framework Vue invece di Angular. Questa scelta permette l'utilizzo di Javascript anche lato backend (sfruttando Express), dando vita al paradigma "Javascript everywhere" che rende più uniforme e gestibile il codice ed evita molte complicazioni derivanti dall'utilizzo di linguaggi diversi. 
+\textcolor{green}{Altro?}
 
 \section{Requisiti}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
@@ -70,9 +71,9 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 \subsection{Non funzionali}
 Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità e usabilità del sito, focalizzandoci nello specifico a renderlo usufruibile a soggetti particolari con impedenze sensoriali come:
 \begin{itemize}
-	\item Persona cieca.
-	\item Persona ipovedente.
-	\item Persona daltonica.
+	\item ablepsia.
+	\item ipovisione.
+	\item daltonismo.
 \end{itemize}
 
 \section{Design}
@@ -191,8 +192,23 @@ Docker rende lo sviluppo efficiente e prevedibile, rimuove le ripetizioni nella 
 Come lo abbiamo usato, perché lo abbiamo usato e quanto sia stato effettivamente comodo usarlo lo rimando alla sezione di \nameref{sec:deploy} dove ne parliamo più specificatamente.
 
 \section{Codice}
-\textcolor{red}{\textbf{Solo aspetti rilevanti.}}
-\textcolor{green}{\textbf{"Due parti di codice molto importantissime del nostro progetto sono state questa e quest'altra perché si.... \\Codice del Sphere viewer, descrizione del codice (come funziona, cosa significano le varie cose...)\\Codice del Graph component, descrizione del codice(come funziona, cosa significano le varie cose...)\\Se hai altro da aggiungere prego fai pure.}}
+In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice nei vari componenti:
+\begin{itemize}
+    \item \textbf{Home}: qui sono mostrati i dati più importanti relativi alla diga (l'aggiornamento in tempo reale sarà mostrato nel component Graph).
+	\item \textbf{Panorama}: come già accennato abbiamo utilizzato Photo-Sphere Viewer per fornire un'immagine panoramica della diga. Sono stati aggiunti due elementi grafici:
+    	\begin{itemize}
+    	    \item evidenziamento delle zone della diga relative al livello di allerta
+    	    \item icona posizionata al livello corrente dell'acqua, e in constante aggiornamento all'arrivo dei dati
+    	\end{itemize}
+	Per queste operazioni sono state sfruttate la longitudine e la latitudine, dati forniti dalla libreria.
+	\item \textbf{Graph}: per questo component è stata utilizzata la libreria ApexCharts. Sono stati realizzati due grafici (più precisamente di tipo Area):
+	\begin{itemize}
+	    \item andamento dell'acqua: mostra l'andamento del livello dell'acqua durante il tempo. Sono stati realizzati pulsanti per cambiare la velocità di aggiornamento dei dati e per forzare l'aggiornamento.
+	    \item cambiamento del meteo:  questo comprende 6 grafici diversi, relativi a temperatura dell'acqua, temperatura dell'aria, pressione atmosferica, umidità e pioggia. Ogni grafico è selezionabile attraverso un menù a tendina.
+	\end{itemize}
+	\item \textbf{Controller}: anche in questo component viene utilizzata la libreria ApexCharts, ma il grafico utilizzato è questa volta è un RadialBar. Con quest'ultimo viene mostrata la percentuale di apertura attuale della diga. Oltre ad esso sono presenti dei pulsanti per modificare a mano l'apertura della diga a diverse percentuali.
+\end{itemize}
+In tutti i component i dati sono ottenuti con delle chiamate (get o post) effettuate grazie ad Axios.
 
 \section{Test}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
