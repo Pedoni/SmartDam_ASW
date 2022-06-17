@@ -209,6 +209,14 @@ export default {
 
                 const values = response.data.waterlevel;
 
+                if (values[0] >= 150) {
+                    document.getElementById("waterlevel_chart").style.backgroundColor="rgba(255, 0, 0, 0.3)";
+                } else if(values[0] >= 130) {
+                    document.getElementById("waterlevel_chart").style.backgroundColor="rgba(255, 255, 0, 0.3)";
+                } else {
+                    document.getElementById("waterlevel_chart").style.backgroundColor="";
+                }
+
                 document.getElementById("waterlevel_min").innerText = "Min: " + utils.arrayMin(values).toFixed(2) + " mt.";
                 document.getElementById("waterlevel_max").innerText = "Max: " + utils.arrayMax(values).toFixed(2) + " mt.";
                 document.getElementById("waterlevel_avg").innerText = "Average: " + utils.arrayAvg(values).toFixed(2) + " mt.";
