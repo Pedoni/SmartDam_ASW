@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "blocking-queue": "^0.0.1",
     "cors": "^2.8.5",
@@ -9,5 +12,8 @@
     "queue": "^6.0.2",
     "serialport": "^10.3.0",
     "text-encoder": "^0.0.4"
+  },
+  "devDependencies": {
+    "jest": "^28.1.1"
   }
 }
