@@ -1,9 +1,10 @@
+@import 'global';
+
 button {
     border-radius: 5px;
     border: 0px;
     color: white;
-    background-color: rgb(0, 128, 255);
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: $dark-blue;
     font-size: 16px;
     padding: 10px;
     margin: 10px;
@@ -15,8 +16,7 @@ select {
     border: 0px;
     color: white;
     width: 15%;
-    background-color: rgb(0, 128, 255);
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: $greenish-blue;
     font-size: 16px;
     padding: 10px;
     margin: 10px;
@@ -48,6 +48,7 @@ select {
 
     .row {
         display: inline-block;
+
         p {
             font-size: small;
         }
@@ -58,7 +59,7 @@ select {
     }
 
     select {
-       width: 30%;
+        width: 30%;
     }
 
     #weatherSelect {

@@ -1,13 +1,13 @@
 <template>
     <div id="home">
         <div id="homecontent">
-            <div v-if="isOK()" id="routers">
+            <div v-if="isOnDesktop()" id="routers">
                 <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')">Home</router-link>
                 <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')">Panoramic</router-link>
                 <router-link id="graphlink" to="/home" replace @click="changeComponent($event, 'Graph')">Real-time</router-link>
                 <router-link id="controllerlink" to="/home" replace @click="changeComponent($event, 'Controller')">Controller</router-link>
             </div>
-            <div v-if="!isOK()" id="routerbuttons">
+            <div v-if="!isOnDesktop()" id="routerbuttons">
                 <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')"><img class="buttonimage" src="../assets/home.png"/></router-link>
                 <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')"><img class="buttonimage" src="../assets/panorama.png"/></router-link>
                 <router-link id="graphlink" to="/home" replace @click="changeComponent($event, 'Graph')"><img class="buttonimage" src="../assets/graph.png"/></router-link>
@@ -46,7 +46,7 @@ export default {
         };
     },
     methods: {
-        isOK(){
+        isOnDesktop(){
             return this.windowWidth > 789;
         },
         initHome() {

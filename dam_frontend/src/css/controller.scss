@@ -1,3 +1,10 @@
+@import 'global';
+
 .buttons {
     text-align: center;
+    color: $dark-blue;
+
+    button:hover {
+        background-color: $greenish-blue;
+    }
 }
