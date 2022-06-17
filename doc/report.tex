@@ -12,21 +12,21 @@
     \large Applicazioni e Servizi Web
 }
 
-\author{\href{mailto:emalama@studio.unibo.it}{Emanuele Lamagna} - 000725342\\\href{mailto:filippo.barbari@studio.unibo.it}{Filippo Barbari} - 000123456\\\href{mailto:filippo.benvenuti3@studio.unibo.it}{Filippo Benvenuti} - 0001027545}
+\author{\href{mailto:emalama@studio.unibo.it}{Emanuele Lamagna} - 000725342\\\href{mailto:filippo.barbari@studio.unibo.it}{Filippo Barbari} - 0001052391\\\href{mailto:filippo.benvenuti3@studio.unibo.it}{Filippo Benvenuti} - 0001027545}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 \section*{Introduzione}\label{sec:intro}
-L'idea è di rivisitare un progetto svolto nell'ambito del corso di Sistemi Embedded e Internet of Things, che consisteva nella simulazione di una diga smart e monitoraggio del livello idrometrico di un fiume. il sistema era composto da 5 sottosistemi, descritti dall'immagine \ref{fig:dam-scheme}.
+L'idea è di rivisitare un progetto svolto nell'ambito del corso di laurea triennale di Sistemi Embedded e Internet of Things, che consisteva nella simulazione di una diga smart e monitoraggio del livello idrometrico di un fiume. Il sistema era composto da 5 sottosistemi, descritti dall'immagine \ref{fig:dam-scheme}.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.7]{dam-scheme.png}
 	\caption{Diagramma dei componenti di DAM}
 	\label{fig:dam-scheme}
 \end{figure}
-L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all'utilizzo di MongoDB per il salvataggio dei dati. Inoltre per evitare di riesumare Arduino, ESP e l'applicazione mobile (che non concernono il progetto d'esame) simuleremo i sensori/attuatori abilitando tutti i componenti del team allo sviluppo e test del progetto.
+L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all'utilizzo di MongoDB come DBMS per il salvataggio dei dati. Inoltre per evitare di riesumare Arduino, ESP e l'applicazione mobile (che non concernono il progetto d'esame) simuleremo i sensori/attuatori abilitando tutti i componenti del team allo sviluppo e test del progetto.
 \textcolor{green}{PArlare di MEVN che fa figo ma soprattutto aumenta la lunghezza di sta breve introduzione.}
 
 \section{Requisiti}
@@ -52,7 +52,7 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 		\end{itemize}
 		\item Panoramic viewer della diga a 360°:
 		\begin{itemize}
-			\item Zoom in e out, possibilità di entrare in modalità full-scren.
+			\item Zoom in e out, possibilità di entrare in modalità full-screen.
 			\item Visione colorata dei livelli di allerta sulla diga.
 			\item Ultimo livello rilevato dell'acqua visualizzato sulla diga in tempo reale.
 		\end{itemize}
@@ -77,14 +77,13 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 
 \section{Design}
 \textcolor{red}{\textbf{Design dell'architettura del sistema e delle interfacce utente.}}
-\textcolor{green}{\textbf{Personas e mockup con BALSAMIC........ :3}}
+\textcolor{green}{\textbf{Personas e mockup con BALSAMIQ........ :3}}
 
 \section{Tecnologie}
 \textcolor{red}{\textbf{Tecnologie adottate e motivazioni.}}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \subsection{Node}
-Node.js\cite{node} è un runtime JavaScript costruito sull'engine di Chrome's V8.
-In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
+Node.js\cite{node} è un runtime JavaScript costruito sull'engine di Chrome V8. In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
 \\
 \textcolor{green}{Perchè abbiamo usato Node?}
 
@@ -196,11 +195,20 @@ Come lo abbiamo usato, perché lo abbiamo usato e quanto sia stato effettivament
 
 \section{Test}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
-\textcolor{green}{\textbf{Test fatti con il magico strumento che hai usato, magari prima facciamo salire il più possibile i 3 numerelli, ci puoi cacciare anche un'immagine fighissima dei risultati, magari anche descrivendo tutti gli aspetti su cui ci siamo concentrati per l'accessibilità (qualche spunto nei requisiti)\\Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.}}
+
+\textbf{Test fatti con il magico strumento che hai usato, magari prima facciamo salire il più possibile i 3 numerelli, ci puoi cacciare anche un'immagine fighissima dei risultati, magari anche descrivendo tutti gli aspetti su cui ci siamo concentrati per l'accessibilità (qualche spunto nei requisiti)\\Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.}
+
+\subsection{Test automatici}
+Qui parlo degli unit test fatti con jest.
+\subsection{Exploratory testing}
+Qui parlo (forse) dei test manuali effettuati durante lo sviluppo.
+\subsection{Test con utenti}
+Qui parlo di pecche di usabilità individuate durante lo sviluppo.
 
 \section{Deployment}\label{sec:deploy}
 \textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
-\textcolor{green}{\textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}}
+
+\textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}
 
 \section{Conclusioni}
 \textcolor{red}{\textbf{Conclusioni}}
