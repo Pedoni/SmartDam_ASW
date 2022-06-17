@@ -13,7 +13,7 @@ def main(quiet=False):
     n = random.uniform(0, 5)
     while True:
         time.sleep(5)
-        x = math.sin(n / 3) * 50 + 100  # generates values inside [50;150]
+        x = math.sin(n / 3) * 50 + 120  # generates values inside [70;170]
         n += 1
         if not quiet:
             log("sending " + str(x))
