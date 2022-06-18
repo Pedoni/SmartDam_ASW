@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             options: {
-                series: [60],
+                series: [0],
                 chart: {
                     height: 500,
                     type: "radialBar",
@@ -72,6 +72,7 @@ export default {
             this.options
         );
         this.speedometer.render();
+        this.updatePercentage();
     },
     methods: {
         setPercentage(level) {
@@ -79,8 +80,14 @@ export default {
             axios
                 .post(url, {
                     percentage: level,
-                });
-            this.speedometer.updateSeries([level]);
+                })
+                .then(this.updatePercentage);       
+        },
+        updatePercentage() {
+            var url = 'http://localhost:3000/api/opening';
+            axios.get(url).then(response => {
+                this.speedometer.updateSeries([response.data.percentage]);
+            });
         },
     },
 };
