@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - "./dam_backend/db:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  dam_backend:
+    depends_on:
+      - "mongo"
+    restart: always
+    build:
+      context: ./dam_backend
+      dockerfile: prod.Dockerfile
+    ports:
+      - 3000:3000
