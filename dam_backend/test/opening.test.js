@@ -57,3 +57,21 @@ test("Expected 400 on POST /api/opening if percentage too high", async () => {
             expect(response.body.message).toBe("Invalid percentage");
         });
 });
+
+test("GETting same percentage after POST", async () => {
+    let value = 45;
+    await request("http://localhost:3000")
+        .post("/api/opening")
+        .send({
+            percentage: value
+        })
+        .expect(200);
+
+    await request("http://localhost:3000")
+        .get("/api/opening")
+        .expect(200)
+        .expect("Content-Type", "application/json; charset=utf-8")
+        .then(response => {
+            expect(response.body.percentage).toBe(value);
+        });
+});
