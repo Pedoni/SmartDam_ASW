@@ -53,6 +53,12 @@ exports.addNewWaterlevelData = (req, res, next) => {
         });
     }
 
+    if (req.body.value < 0) {
+        return res.status(400).json({
+            message: "Invalid value"
+        });
+    }
+
     let value = req.body.value;
 
     const time = Date.now();
@@ -148,6 +154,16 @@ exports.addNewWeatherData = (req, res, next) => {
         req.body.rain === undefined) {
         return res.status(400).json({
             message: "Missing data"
+        });
+    }
+
+    if (req.body.water_temperature < 0 ||
+        req.body.air_temperature < 0 ||
+        req.body.atmospheric_pressure < 0 ||
+        req.body.humidity < 0 ||
+        req.body.rain < 0) {
+        return res.status(400).json({
+            message: "Invalid value(s)"
         });
     }
 

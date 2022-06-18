@@ -82,6 +82,86 @@ test("Expected 400 on POST /api/weather with no rain", async () => {
         });
 });
 
+test("Expected 400 on POST /api/weather with negative water_temperature", async () => {
+    await request("http://localhost:3000")
+            .post("/api/weather")
+            .send({
+                water_temperature: -1,
+                air_temperature: 30,
+                atmospheric_pressure: 1000,
+                humidity: 60,
+                rain: 15
+            })
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).toBe("Invalid value(s)");
+            });
+});
+
+test("Expected 400 on POST /api/weather with negative air_temperature", async () => {
+    await request("http://localhost:3000")
+            .post("/api/weather")
+            .send({
+                water_temperature: 30,
+                air_temperature: -1,
+                atmospheric_pressure: 1000,
+                humidity: 60,
+                rain: 15
+            })
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).toBe("Invalid value(s)");
+            });
+});
+
+test("Expected 400 on POST /api/weather with negative atmospheric_pressure", async () => {
+    await request("http://localhost:3000")
+            .post("/api/weather")
+            .send({
+                water_temperature: 30,
+                air_temperature: 30,
+                atmospheric_pressure: -1,
+                humidity: 60,
+                rain: 15
+            })
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).toBe("Invalid value(s)");
+            });
+});
+
+test("Expected 400 on POST /api/weather with negative humidity", async () => {
+    await request("http://localhost:3000")
+            .post("/api/weather")
+            .send({
+                water_temperature: 30,
+                air_temperature: 30,
+                atmospheric_pressure: 1000,
+                humidity: -1,
+                rain: 15
+            })
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).toBe("Invalid value(s)");
+            });
+});
+
+test("Expected 400 on POST /api/weather with negative rain", async () => {
+    await request("http://localhost:3000")
+            .post("/api/weather")
+            .send({
+                water_temperature: 30,
+                air_temperature: 30,
+                atmospheric_pressure: 1000,
+                humidity: 60,
+                rain: -1
+            })
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).toBe("Invalid value(s)");
+            });
+});
+
 test("Normal POST on /api/weather", async () => {
     await request("http://localhost:3000")
         .post("/api/weather")
@@ -149,23 +229,23 @@ test("POSTing 10 values and expecting them in reverse order", async () => {
     for (let i = 0; i < 10; i++) {
         let req = {};
 
-        let x = 30+i;
+        let x = 30 + i;
         req.water_temperature = x;
         values.water_temperature.push(x);
 
-        x = 25+i;
+        x = 25 + i;
         req.air_temperature = x;
         values.air_temperature.push(x);
 
-        x = 1000+i;
+        x = 1000 + i;
         req.atmospheric_pressure = x;
         values.atmospheric_pressure.push(x);
 
-        x = 60+i;
+        x = 60 + i;
         req.humidity = x;
         values.humidity.push(x);
 
-        x = 5+i;
+        x = 5 + i;
         req.rain = x;
         values.rain.push(x);
 

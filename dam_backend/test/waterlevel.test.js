@@ -69,3 +69,15 @@ test("POSTing 10 values and expecting them in reverse order", async () => {
             expect(response.body.waterlevel).toStrictEqual(values.reverse());
         });
 });
+
+test("POSTing negative waterlevel values", async () => {
+    await request("http://localhost:3000")
+            .post("/api/waterlevel")
+            .send({
+                value: -1
+            })
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).toBe("Invalid value");
+            });
+});
