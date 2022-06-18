@@ -15,6 +15,8 @@ router.get(weatherEndpoint, controller.getLastWeatherData);
 
 router.post(weatherEndpoint, controller.addNewWeatherData);
 
+router.get(openingEndpoint, controller.getLastOpening);
+
 router.post(openingEndpoint, controller.setOpening);
 
 router.get(summaryEndpoint, controller.getSummary);

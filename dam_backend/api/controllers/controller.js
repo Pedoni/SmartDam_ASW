@@ -205,6 +205,28 @@ exports.getSummary = (req, res, next) => {
         });
 };
 
+exports.getLastOpening = (req, res, next) => {
+    opening.find()
+        .sort({ "timestamp": -1 })
+        .limit(1)
+        .select({
+            "_id": 0,
+            "timestamp": 1,
+            "percentage": 1
+        })
+        .exec((err, values) => {
+            if (err) {
+                console.log("Error during getLastOpening: " + err);
+                res.status(500).end();
+            } else {
+                res.status(200).json({
+                    "timestamp": values[0].timestap,
+                    "percentage": values[0].percentage,
+                });
+            }
+        });
+}
+
 exports.setOpening = (req, res, next) => {
 
     if (req == null) {
