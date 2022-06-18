@@ -50,7 +50,7 @@ test("Expected same level when GETting after POST", async () => {
         });
 });
 
-test("POSTing 10 values and expecting them in same order", async () => {
+test("POSTing 10 values and expecting them in reverse order", async () => {
     const values = [13, 87, 65, 23, 44, 19, 85, 35, 26, 80];
     for (let i = 0; i < 10; i++) {
         await request("http://localhost:3000")
