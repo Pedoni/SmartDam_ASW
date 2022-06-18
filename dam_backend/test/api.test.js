@@ -102,6 +102,19 @@ test("Expected 400 on POST /api/weather with no rain", async () => {
         });
 });
 
+test("Normal POST on /api/weather", async () => {
+    await request("http://localhost:3000")
+        .post("/api/weather")
+        .send({
+            water_temperature: 30,
+            air_temperature: 30,
+            atmospheric_pressure: 1000,
+            humidity: 60,
+            rain: 15
+        })
+        .expect(200);
+});
+
 test("Normal GET request on /api/waterlevel", async () => {
     await request("http://localhost:3000")
         .get("/api/waterlevel")
@@ -111,4 +124,38 @@ test("Normal GET request on /api/waterlevel", async () => {
             expect(response.body.waterlevel.length).toBe(10);
             expect(response.body.timestamp.length).toBe(10);
         });
-})
+});
+
+test("Normal GET request on /api/weather", async () => {
+    await request("http://localhost:3000")
+        .get("/api/weather")
+        .expect(200)
+        .expect("Content-Type", "application/json; charset=utf-8")
+        .then(response => {
+            expect(response.body.timestamp.length).toBe(10);
+            expect(response.body.water_temperature.length).toBe(10);
+            expect(response.body.air_temperature.length).toBe(10);
+            expect(response.body.atmospheric_pressure.length).toBe(10);
+            expect(response.body.humidity.length).toBe(10);
+            expect(response.body.rain.length).toBe(10);
+        });
+});
+
+test("Normal GET request on /api/summary", async () => {
+    await request("http://localhost:3000")
+        .get("/api/summary")
+        .expect(200)
+        .expect("Content-Type", "application/json; charset=utf-8")
+        .then(response => {
+            expect(response.body.timestamp).toBeDefined();
+            expect(response.body.level).toBeDefined();
+            expect(response.body.water_temperature).toBeDefined();
+            expect(response.body.air_temperature).toBeDefined();
+            expect(response.body.atmospheric_pressure).toBeDefined();
+            expect(response.body.humidity).toBeDefined();
+            expect(response.body.rain).toBeDefined();
+            expect(response.body.total_volume).toBeDefined();
+            expect(response.body.volume).toBeDefined();
+            expect(response.body.volume_percentage).toBeDefined();
+        });
+});
