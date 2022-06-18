@@ -5,8 +5,8 @@ prod:
 	docker-compose -f compose-prod.yml up --build
 
 test:
-	docker-compose -f compose-test.yml up -d
-	cd dam_backend && npm test
+	docker-compose -f compose-test.yml up -d --build
+	cd dam_backend && npm test --detectOpenHandles
 	cd ..
 	docker-compose -f compose-test.yml down
 
