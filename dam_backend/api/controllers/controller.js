@@ -236,7 +236,7 @@ exports.getLastOpening = (req, res, next) => {
                 res.status(500).end();
             } else {
                 res.status(200).json({
-                    "timestamp": values[0].timestap,
+                    "timestamp": values[0].timestamp,
                     "percentage": values[0].percentage,
                 });
             }
@@ -251,13 +251,19 @@ exports.setOpening = (req, res, next) => {
         });
     }
 
-    if (req.body.percentage === undefined) {
+    openingPercentage = req.body.percentage;
+
+    if (openingPercentage === undefined) {
         return res.status(400).json({
-            message: "percentage is missing"
+            message: "Percentage missing"
         });
     }
 
-    openingPercentage = req.body.percentage;
+    if (openingPercentage < 0 || openingPercentage > 100) {
+        return res.status(400).json({
+            message: "Invalid percentage"
+        });
+    }
 
     opening.insertMany([
         {
