@@ -21,6 +21,7 @@
 \newcommand{\docker}{\href{https://www.docker.com/}{Docker} }
 \newcommand{\jest}{\href{https://jestjs.io/}{Jest} }
 \newcommand{\supertest}{\href{https://www.npmjs.com/package/supertest}{supertest} }
+\newcommand{\lighthouse}{\href{https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=it}{Lighthouse} }
 
 \title{
     Smart Dam \\
@@ -255,11 +256,11 @@ In tutti i component i dati sono ottenuti con delle chiamate (get o post) effett
 Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.
 
 \section{Test automatici}
-\subsection{Backend testing}
-Per effettuare test automatici sulla parte di backend, abbiamo scelto di utilizzare il framework \jest, lo standard de facto per lo unit testing in javascript. Inoltre, per comunicare più efficacemente con l'API RESTful del backend, abbiamo utilizzato \supertest. I test implementati, disponibili nella cartella \texttt{dam\_backend/test} del progetto, si concentrano sull'interazione tra il database Mongo e il server di backend per assicurare il corretto funzionamento del
+\subsection{Backend}
+Per effettuare test automatici sulla parte di backend, abbiamo scelto di utilizzare il framework \jest, lo standard de facto per lo unit testing in javascript. Inoltre, per comunicare più efficacemente con l'API RESTful del backend, abbiamo utilizzato \supertest. I test implementati, disponibili nella cartella \texttt{dam\_backend/test} del progetto, si concentrano sulla verifica della corretta interazione tra il database Mongo e il server di backend.
 
-\subsection{Frontend testing}
-Qui parlo anche della valutazione di performance e accessibilità effettuata con Lighthouse.
+\subsection{Frontend}
+Riguardo alla parte frontend, abbiamo preferito concentrare i nostri sforzi sul massimizzare l'accessibilità. Il tool che abbiamo scelto per verificare tale metrica è \lighthouse, integrato dentro la sezione DevTools di Google Chrome.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 	\centering
