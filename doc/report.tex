@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -8,6 +8,7 @@
 \usepackage{wrapfig}
 \usepackage{todonotes} % TODO remove when finished
 
+% useful macros
 \newcommand{\node}{\href{https://nodejs.org/it/}{Node.js} }
 \newcommand{\npm}{\href{https://www.npmjs.com/}{npm} }
 \newcommand{\vue}{\href{https://vuejs.org/}{Vue} }
@@ -94,11 +95,13 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 	\item daltonismo.
 \end{itemize}
 
+\clearpage
 \section{Design}\label{sec:design}
 Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
 All'apertura c'è il login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panorama, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
 Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito di una breve user interview, però, è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche.
 
+\clearpage
 \section{Tecnologie}\label{sec:technologies}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \subsection{Node.js}
@@ -208,6 +211,7 @@ La libertà di utilizzo, la semplicità d'intuito e la flessibilità di quello c
 \end{itemize}
 Come lo abbiamo usato, perché lo abbiamo usato e quanto sia stato effettivamente comodo usarlo lo rimando alla sezione di \nameref{sec:deployment} dove ne parliamo più specificatamente.
 
+\clearpage
 \section{Codice}\label{sec:code}
 In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice nei vari componenti:
 \begin{itemize}
@@ -227,6 +231,7 @@ In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice ne
 \end{itemize}
 In tutti i component i dati sono ottenuti con delle chiamate (get o post) effettuate grazie ad \axios.
 
+\clearpage
 \section{Test}\label{sec:testing}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
 
@@ -234,7 +239,7 @@ Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare
 
 \subsection{Test automatici}
 \subsubsection{Backend testing}
-Per effettuare test automatici sulla parte di backend, abbiamo scelto di utilizzare il framework \jest, lo standard de facto per lo unit testing in javascript. Inoltre, per comunicare più efficacemente con l'API RESTful del backend, abbiamo utilizzato \supertest.
+Per effettuare test automatici sulla parte di backend, abbiamo scelto di utilizzare il framework \jest, lo standard de facto per lo unit testing in javascript. Inoltre, per comunicare più efficacemente con l'API RESTful del backend, abbiamo utilizzato \supertest. I test implementati, disponibili nella cartella \texttt{dam\_backend/test} del progetto, si concentrano sull'interazione tra il database Mongo e il server di backend per assicurare il corretto funzionamento del
 
 \subsubsection{Frontend testing}
 Qui parlo anche della valutazione di performance e accessibilità effettuata con Lighthouse.
@@ -258,6 +263,7 @@ Qui parlo dei test manuali effettuati durante lo sviluppo.
 \subsection{Test con utenti}
 Qui parlo di pecche di usabilità individuate durante lo sviluppo (come l'aggiunta di dati atmosferici).
 
+\clearpage
 \section{Deployment}\label{sec:deployment}
 \textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
 
@@ -271,6 +277,7 @@ L'unico requisito per effettuare il deployment dell'intero sito su una singola m
 Per effettuare il deployment su macchine separate, dunque senza l'utilizzo di Docker è sufficiente avere installati \node e \npm, sia per il frontend che per il backend. Invece per quanto riguarda il database è sufficiente avere un server con \mongodb accessibile via internet(?) e aggiungere la stringa di connessione all'avvio del backend. Inoltre, è necessario aggiungere anche la stringa di connessione al backend quando si avvia il frontend.
 (argomentare, spiegare più nel dettaglio tutti i passaggi)
 
+\clearpage
 \section{Conclusioni}
 \textcolor{red}{\textbf{Conclusioni}}
 \textcolor{green}{Le relazioni d'esempio sono lunghe un botto mi viene da piangere.}
