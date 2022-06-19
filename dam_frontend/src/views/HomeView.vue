@@ -26,7 +26,10 @@
                 <ControllerComponent></ControllerComponent>
             </div>
             <footer>
-                <button @click="this.logout">Logout</button>
+                <button id="logoutbutton" @click="this.logout">
+                    <p>Logout</p>
+                </button>
+                <img id="logoutimage" @click="this.logout" src="../assets/logout.png"/>
             </footer>
         </div>
     </div>
