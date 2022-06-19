@@ -291,19 +291,28 @@ Durante lo sviluppo, abbiamo effettuato una sessione di test con utenti reali (d
 
 \clearpage
 \chapter{Deployment}\label{sec:deployment}
-\textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
-
-\textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}
 
 \section{Singola macchina}
-Per effettuare il deployment dell'intero sito su una singola macchina sono necessari \docker e del suo plugin Docker Compose. Entrambi sono open-source e disponibili gratuitamente rispettivamente \href{https://docs.docker.com/desktop/#download-and-install}{qui} e \href{https://docs.docker.com/compose/install/}{qui}. Nella cartella del progetto sono presenti tre file di configurazione per 
+Per effettuare il deployment dell'intero sito su una singola macchina sono necessari \docker e il suo plugin Docker Compose. Entrambi sono open-source e disponibili gratuitamente rispettivamente \href{https://docs.docker.com/desktop/#download-and-install}{qui} e \href{https://docs.docker.com/compose/install/}{qui}. Nella cartella del progetto sono presenti tre file di configurazione per Docker Compose, comodamente utilizzabili tramite un Makefile. Per il deployment in modalità production/release, è sufficiente lanciare il comando \texttt{make prod} dalla cartella del progetto. L'utilizzo del programma \texttt{make} non è indispensabile in quanto è solo una comodità per lanciare il comando:\\
+\texttt{docker compose -f compose-prod.yml up --build}
 
-(argomentare, magari spiegando perchè è sufficiente docker e cosa effettivamente viene tirato su)
-(siccome con docker abbiamo l'ordered deployment, questa è l'opzione consigliata anche perchè è la più semplice)
+Complessivamente, questo comando istanzia e avvia 5 container:
+\begin{itemize}
+	\item \textbf{mongo}: il container di MongoDB contenente il database, disponibile sulla porta 27017
+	\item \textbf{dam\_backend}: il container con il server, disponibile sulla porta 3000, viene avviato dopo il container \texttt{mongo}
+	\item \textbf{dam\_frontend}: il container con il frontend, disponibile sulla porta 8080
+	\item \textbf{waterlevel\_sensor}: il container che simula un sensore che misura il livello dell'acqua nel bacino, viene avviato dopo il container \texttt{dam\_backend}
+	\item \textbf{weather\_sensor}: il container che simula un sensore che misura i dati meteorologici, viene avviato dopo il container \texttt{dam\_backend}
+\end{itemize}
 
 \section{Macchine separate}
-Per effettuare il deployment su macchine separate, dunque senza l'utilizzo di Docker è sufficiente avere installati \node e \npm, sia per il frontend che per il backend. Invece per quanto riguarda il database è sufficiente avere un server con \mongodb accessibile via internet(?) e aggiungere la stringa di connessione all'avvio del backend. Inoltre, è necessario aggiungere anche la stringa di connessione al backend quando si avvia il frontend.
-(argomentare, spiegare più nel dettaglio tutti i passaggi)
+Per effettuare il deployment su macchine separate, ovvero senza l'utilizzo di Docker, è sufficiente avere installati \node e \npm, sia per il frontend che per il backend. Entrambi sono disponibili gratuitamente sul \href{https://nodejs.org/it/download/}{sito ufficiale} di Nodejs.
+
+Sia per il frontend che per il backend, è necessario prima di tutto installare le dipendenze lanciando il comando \texttt{npm install}. Dopo di ciò, il server di backend può essere avviato lanciando il comando \texttt{npm start} che, di default, ascolterà connessioni sulla porta 3000 e cercherà di comunicare con un container MongoDB sulla porta 27017 mediante credenziali di default. Il frontend, invece, va prima compilato per generare files HTML/CSS/JS statici mediante il comando \texttt{npm run build}. A questo punto, occorre solamente servire tali file (disponibili nella sottocartella \texttt{dist}) mediante un semplice file server. La nostra scelta, per semplicità e per \href{https://cli.vuejs.org/guide/deployment.html}{consiglio} degli sviluppatori di Vue, ricade su \href{https://www.npmjs.com/package/serve}{\texttt{serve}}. \'E possibile installare serve mediante npm con il comando \texttt{npm install -g serve}, dopodichè il sito può essere servito con \texttt{make serve}. A questo punto, il frontend ascolterà sulla porta 8080 e proverà a comunicare con un server backend tramite la porta 3000.
+
+Per quanto riguarda il database è sufficiente avere un server con \mongodb accessibile via internet e aggiungere la stringa di connessione all'avvio del backend.
+
+Ulteriori dettagli sono disponibili nel file \texttt{README.md} presente nel repository del progetto.
 
 \clearpage
 \chapter{Conclusioni}
