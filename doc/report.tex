@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -36,7 +36,7 @@
 \tableofcontents
 \clearpage
 
-\section*{Introduzione}\label{sec:intro}
+\chapter*{Introduzione}\label{sec:intro}
 L'idea è di rivisitare un progetto svolto nell'ambito del corso di laurea triennale di Sistemi Embedded e Internet of Things, che consisteva nella simulazione di una diga smart e monitoraggio del livello idrometrico di un fiume. Il sistema era composto da 5 sottosistemi, descritti dall'immagine \ref{fig:dam-scheme}.
 \begin{figure}[h!]
 	\centering
@@ -49,9 +49,9 @@ Come punto di partenza è stato quindi scelto lo stack MEVN, una versione di MEA
 \textcolor{green}{Altro?}
 \clearpage
 
-\section{Requisiti}\label{sec:requirements}
+\chapter{Requisiti}\label{sec:requirements}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
-\subsection{Funzionali}
+\section{Funzionali}
 Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il sistema si riduce a 3 principali componenti:
 \begin{enumerate}
 	\item \textbf{Dam Backend} (service):
@@ -87,7 +87,7 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 		\end{itemize}
 	\end{itemize}
 \end{enumerate}
-\subsection{Non funzionali}
+\section{Non funzionali}
 Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità e usabilità del sito, focalizzandoci nello specifico a renderlo usufruibile a soggetti particolari con impedenze sensoriali come:
 \begin{itemize}
 	\item ablepsia.
@@ -96,9 +96,9 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 \end{itemize}
 
 \clearpage
-\section{Design}\label{sec:design}
+\chapter{Design}\label{sec:design}
 In questo paragrafo verrà analizzato il design dell'applicativo, prima dal punto di vista delle interfacce e poi da quello architetturale.\\
-\subsection{Design delle interfacce}
+\section{Design delle interfacce}
 Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
 All'apertura c'è il login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panorama, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
 Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito di una breve user interview, però, è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche. Sono state trattate, infatti:
@@ -110,7 +110,7 @@ Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'a
     \item pioggia
 \end{itemize}
 
-\subsection{Design architetturale}
+\section{Design architetturale}
 
 Il sistema è stato realizzato separando la parte di backend da quella di frontend:
 \begin{itemize}
@@ -118,14 +118,14 @@ Il sistema è stato realizzato separando la parte di backend da quella di fronte
     \item il frontend si occupa della visualizzazione dei dati all'utente e dell'interazione con esso. Comunica con il backend tramite chiamate asincrone (con Axios, che sarà approfondito più avanti) per ottenere i dati necessari alle varie schermate richieste dall'utente.
 \end{itemize}
 \clearpage
-\section{Tecnologie}\label{sec:technologies}
+\chapter{Tecnologie}\label{sec:technologies}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
-\subsection{Node.js}
+\section{Node.js}
 \node è un runtime JavaScript costruito sull'engine di Chrome V8. In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
 \\
 \textcolor{green}{Perchè abbiamo usato Node?}
 
-\subsection{Vue}
+\section{Vue}
 \vue è un framework in Javascript per costruire interfacce utente tramite l'uso di HTML, CSS e Javascript. Inoltre fornisce un modello di programmazione dichiarativo e basato sui componenti che aiuta a sviluppare efficientemente le interfacce utente, che siano semplici o complesse. Vue è progettato per essere flessibile e adottabile in modo incrementale, a seconda dei casi d'uso Vue può essere usato in diversi modi:
 \begin{itemize}
 	\item Potenziare HTML statico senza un passaggio di build.
@@ -138,7 +138,7 @@ Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché s
 Nel nostro particolare caso tra Options API e Composition API abbiamo deciso di adottare il primo, Options API, come stile di programmazione, in quanto abbiamo pensato che rispecchiasse meglio l'idea che abbiamo di organizzazione del codice, bisogna inoltre sottolineare che i due stili sono del tutto equivalenti, infatti il primo è internamente costruito basandosi sul secondo, si tratta in tutto e per tutto del famoso "zucchero sintattico" che ci aiuta a mantenere alta la leggibilità del codice.\\
 La scelta di usare Vue è stata quasi automatica, una volta aver esplorato la semplicità e le opportunità che mette a disposizione, abbiamo notato che per quello che volevamo realizzare molteplici aspetti del nostro progetto erano già coperti dal framework di Vue, questo ci apriva la strada ad un'implementazione ben organizzata e robusta diventando all'unisono la scelta perfetta per procedere.
 
-\subsection{ApexCharts}
+\section{ApexCharts}
 \apexcharts è una moderna libreria di grafici che aiuta gli sviluppatori a creare visualizzazioni eleganti e interattive per pagine web. È un progetto open-source sotto la licenza MIT ed è di uso gratuito per applicazioni commerciali.\\
 L'integrazione di grafici con ApexCharts è tanto semplice quanto può esserlo considerando la completezza dei documenti di riferimento (docs) e i 100+ esempi pronti ad essere usati.\\
 \begin{figure}[h!]
@@ -150,7 +150,7 @@ L'integrazione di grafici con ApexCharts è tanto semplice quanto può esserlo c
 Tenendo in considerazione che ApexCharts offre la possibilità di integrarsi tramite \vue, viene automatico pensare che la scelta di questo framework sia ottima, infatti è di facile integrazione all'interno del codice senza sporcarlo con costrutti strani o particolari che andrebbero solamente a danneggiare la leggibilità dei nostri sorgenti, inoltre osservando l'immagine \ref{fig:apexchart} si nota qualche esempio di grafico ottenibile, in questo caso non possiamo apprezzare gli aggiornamenti in tempo reale, ma come si vedrà nel nostro sito, ApexCharts offre grafici in grado di aggiornarsi dinamicamente tramite animazioni fluide ed eleganti.\\
 Avendo trovato comodo ed efficiente questo framework, lo abbiamo adottato per la principale visualizzazione di dati dei sensori del nostro progetto.
 
-\subsection{Photo Sphere Viewer}
+\section{Photo Sphere Viewer}
 \photosphereviewer è una libreria Javascript usabile per realizzare panorami a 360° tra cui:
 \begin{itemize}
 	\item \textbf{Spheres and cubemaps}: può visualizzare panorami standard equirettangolari e cubemaps.
@@ -162,7 +162,7 @@ Avendo trovato comodo ed efficiente questo framework, lo abbiamo adottato per la
 \end{itemize}
 La scelta di Photo Sphere Viewer viene naturale considerando i requisiti del nostro progetto, ogni punto di cui abbiamo bisogno è semplicemente implementabile tramite l'uso di una qualche funzionalità già presente all'interno di questa libreria, questo ci consente di concentrarci su aspetti più importanti del nostro sito piuttosto che perdere tempo a reinventare la ruota per realizzare piccole funzionalità.
 
-\subsection{Axios}
+\section{Axios}
 \axios è un client HTTP basato sulle promise per \node e il browser, è isomorfo in quanto può girare su Node.js o browser con la stessa codebase. Se nel server-side usa la libreria di Node.js nativa http module, mentre se su client (browser) usa XMLHttpRequests.
 Tra le principali funzionalità abbiamo:
 \begin{itemize}
@@ -177,7 +177,7 @@ Tra le principali funzionalità abbiamo:
 \end{itemize}
 La scelta di usare Axios è stata fatta considerando le sue utilità lato client e l'ottima gestione dei dati JSON, semplificandoci ancora una volta il lavoro da fare per gestire le richieste e i dati in esse contenuti. Inoltre Axios si integra perfettamente con \vue, offrendoci ancora una volta un uso pulito e intuitivo, grazie a queste considerazioni non abbiamo avuto dubbi al momento di scegliere quale framework http usare lato client.
 
-\subsection{Express}
+\section{Express}
 \express è un framework web per \node che non conosce rivali, in questo ambito è praticamente la scelta migliore considerando la sua efficienza e velocità, bisogna inoltre considerare il suo fascino di minimalità, racchiude infatti tutte le funzionalità di un qualsiasi Web Server, senza aggiungere overhead, risultando quindi in un framework per quanto possibile leggero e funzionale, tra i suoi punti forti notiamo:
 \begin{itemize}
 	\item \textbf{Web Applications}: Framework minimale e flessibile per applicazioni web che fornisce facilitazioni di sviluppo sia web che per applicazioni mobile.
@@ -187,7 +187,7 @@ La scelta di usare Axios è stata fatta considerando le sue utilità lato client
 \end{itemize}
 Grazie a queste caratteristiche abbiamo deciso di usare Express per realizzare la parte server del DAM Backend, in questo modo siamo stati in grado di realizzare un'API responsive che ci mettesse a disposizione i dati raccolti dai sensori e che allo stesso modo raccogliesse i dati da questi per memorizzarli \ref{sub:mongo}, abbiamo inoltre testato l'efficienza di Express simulando un carico di lavoro oneroso tramite richieste costruite Ad Hoc, concludendo che per le nostre necessità tale framework fosse più che sufficiente e in grado di sostenere il nostro carico di lavoro.
 
-\subsection{MongoDB}\label{sub:mongo}
+\section{MongoDB}\label{sub:mongo}
 \mongodb è un database cross-platform e document oriented che fornisce alte performance, alta disponibilità e facile scalabilità, MongoDB lavora sul concetto di database, collezioni e documenti:
 \begin{itemize}
 	\item \textbf{Database}: Un container fisico per le collezioni, ogni database possiede il suo personale gruppo di file nel file system, un singolo MongoDB server tipicamente ha più databases.
@@ -203,7 +203,7 @@ Tra le principali caratteristiche di MongoDB abbiamo:
 \end{itemize}
 La libertà di utilizzo, la semplicità d'intuito e la flessibilità di quello che si può costruire sono state le principali motivazioni per cui abbiamo scelto di usare MongoDB, inoltre la sua efficienza è un'esperienza che ogni sviluppatore dovrebbe fare.
 
-\subsection{Docker}
+\section{Docker}
 \docker rende lo sviluppo efficiente e prevedibile, rimuove le ripetizioni nella configurazione dei tasks e nel ciclo di sviluppo per un'esperienza di velocità e facilità nel portarsi dietro sistemi e applicazioni di sviluppo, sia Desktop che Cloud. Docker offre UIs, CLIs, APIs e sicurezza studiati apposta per lavorare assieme durante tutto il ciclo di vita di consegna del progetto. Tra i principali utilizzi ecco i vantaggi di usare Docker:
 \begin{itemize}
 	\item \textbf{Build}
@@ -228,7 +228,7 @@ La libertà di utilizzo, la semplicità d'intuito e la flessibilità di quello c
 Come lo abbiamo usato, perché lo abbiamo usato e quanto sia stato effettivamente comodo usarlo lo rimando alla sezione di \nameref{sec:deployment} dove ne parliamo più specificatamente.
 
 \clearpage
-\section{Codice}\label{sec:code}
+\chapter{Codice}\label{sec:code}
 In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice nei vari componenti:
 \begin{itemize}
     \item \textbf{Home}: qui sono mostrati i dati più importanti relativi alla diga (l'aggiornamento in tempo reale sarà mostrato nel component Graph).
@@ -248,16 +248,16 @@ In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice ne
 In tutti i component i dati sono ottenuti con delle chiamate (get o post) effettuate grazie ad \axios.
 
 \clearpage
-\section{Test}\label{sec:testing}
+\chapter{Test}\label{sec:testing}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
 
 Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.
 
-\subsection{Test automatici}
-\subsubsection{Backend testing}
+\section{Test automatici}
+\subsection{Backend testing}
 Per effettuare test automatici sulla parte di backend, abbiamo scelto di utilizzare il framework \jest, lo standard de facto per lo unit testing in javascript. Inoltre, per comunicare più efficacemente con l'API RESTful del backend, abbiamo utilizzato \supertest. I test implementati, disponibili nella cartella \texttt{dam\_backend/test} del progetto, si concentrano sull'interazione tra il database Mongo e il server di backend per assicurare il corretto funzionamento del
 
-\subsubsection{Frontend testing}
+\subsection{Frontend testing}
 Qui parlo anche della valutazione di performance e accessibilità effettuata con Lighthouse.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -274,27 +274,27 @@ Qui parlo anche della valutazione di performance e accessibilità effettuata con
 	\label{fig:lighthouse_report_mobile}
 \end{wrapfigure}
 
-\subsection{Exploratory testing}
+\section{Exploratory testing}
 Qui parlo dei test manuali effettuati durante lo sviluppo.
-\subsection{Test con utenti}
+\section{Test con utenti}
 Qui parlo di pecche di usabilità individuate durante lo sviluppo (come l'aggiunta di dati atmosferici).
 
 \clearpage
-\section{Deployment}\label{sec:deployment}
+\chapter{Deployment}\label{sec:deployment}
 \textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
 
 \textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}
 
-\subsection{Single machine (?)}
+\section{Single machine (?)}
 L'unico requisito per effettuare il deployment dell'intero sito su una singola macchina è \docker. (argomentare, magari spiegando perchè è sufficiente docker e cosa effettivamente viene tirato su)
 (siccome con docker abbiamo l'ordered deployment, questa è l'opzione consigliata anche perchè è la più semplice)
 
-\subsection{Macchine separate}
+\section{Macchine separate}
 Per effettuare il deployment su macchine separate, dunque senza l'utilizzo di Docker è sufficiente avere installati \node e \npm, sia per il frontend che per il backend. Invece per quanto riguarda il database è sufficiente avere un server con \mongodb accessibile via internet(?) e aggiungere la stringa di connessione all'avvio del backend. Inoltre, è necessario aggiungere anche la stringa di connessione al backend quando si avvia il frontend.
 (argomentare, spiegare più nel dettaglio tutti i passaggi)
 
 \clearpage
-\section{Conclusioni}
+\chapter{Conclusioni}
 \textcolor{red}{\textbf{Conclusioni}}
 \textcolor{green}{Le relazioni d'esempio sono lunghe un botto mi viene da piangere.}
 
