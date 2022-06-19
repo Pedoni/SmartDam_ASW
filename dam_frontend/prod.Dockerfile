@@ -11,4 +11,5 @@ COPY . .
 EXPOSE 8080
 
 RUN npm install
+RUN npm run sass
 CMD npm run serve
