@@ -52,7 +52,13 @@ Come punto di partenza è stato quindi scelto lo stack MEVN, una versione di MEA
 \clearpage
 
 \chapter{Requisiti}\label{sec:requirements}
-\textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
+
+Prima della realizzazione dell'applicazione è stato necessario capire qual è il tipo di utilizzatore a cui esso è rivolto. Essendo un gestionale di una diga (ambiente lavorativo con una cerchia di persone ristretta) si è pensato che il numero di utilizzatori fosse molto limitato. Di conseguenza è stato pensato un solo tipo di Persona con un solo tipo di Scenario:
+\begin{itemize}
+    \item \textbf{Bob}, addetto alla gestione della diga, vuole svolgere le sue mansioni con un applicativo funzionale e facile da usare, senza il rischio quindi di perdersi in animazioni ed elementi grafici superflui: questo perché ci possono essere delle allerte per il livello dell'acqua e il controllo dev'essere rapido ed efficiente.
+\end{itemize}
+In seguto l'elenco dei requisiti funzionali e non funzionali.
+
 \section{Funzionali}
 Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il sistema si riduce a 3 principali componenti:
 \begin{enumerate}
@@ -99,11 +105,13 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 
 \clearpage
 \chapter{Design}\label{sec:design}
-In questo paragrafo verrà analizzato il design dell'applicativo, prima dal punto di vista delle interfacce e poi da quello architetturale.\\
+Nella parte relativa ai requisiti è stata individuata una sola Persona, ossia l'addetto al controllo della diga. Nonostante l'assenza di molteplici Personas il design si può definire User Centered, poiché è stato realizzato seguendo l'esigenza della Persona individuata e nello Scenario conseguente. In questo paragrafo verrà analizzato il design dell'applicativo, prima dal punto di vista delle interfacce e poi da quello architetturale. 
+\\
 \section{Design delle interfacce}
-Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
-All'apertura c'è il login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panorama, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
-Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito di una breve user interview, però, è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche. Sono state trattate, infatti:
+Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. \\
+Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
+All'apertura c'è il Login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panoramic, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
+Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito però di una breve user interview (che ha coinvolto diversi conoscenti di ogni membro del team di sviluppo) è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche, che rende sicuramente più completo il monitoraggio complessivo della diga. Sono state trattate, infatti:
 \begin{itemize}
     \item temperatura dell'acqua
     \item temperatura dell'aria
@@ -124,8 +132,6 @@ Il sistema è stato realizzato separando la parte di backend da quella di fronte
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \section{Node.js}
 \node è un runtime JavaScript costruito sull'engine di Chrome V8. In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
-\\
-\textcolor{green}{Perchè abbiamo usato Node?}
 
 \section{Vue}
 \vue è un framework in Javascript per costruire interfacce utente tramite l'uso di HTML, CSS e Javascript. Inoltre fornisce un modello di programmazione dichiarativo e basato sui componenti che aiuta a sviluppare efficientemente le interfacce utente, che siano semplici o complesse. Vue è progettato per essere flessibile e adottabile in modo incrementale, a seconda dei casi d'uso Vue può essere usato in diversi modi:
@@ -297,7 +303,9 @@ Per effettuare il deployment su macchine separate, dunque senza l'utilizzo di Do
 
 \clearpage
 \chapter{Conclusioni}
-\textcolor{red}{\textbf{Conclusioni}}
-\textcolor{green}{Le relazioni d'esempio sono lunghe un botto mi viene da piangere.}
+
+Il team si ritiene soddisfatto del lavoro svolto, in quanto l'applicativo risulta immediato nell'utilizzo ed è estremamente funzionale e diretto, senza perdersi in giochi grafici o quant'altro, come potrebbe essere un sito e-commerce ad esempio. L'obiettivo iniziale è stato, a nostro avviso, raggiunto. Questo progetto ci ha permesso anche di confrontarci con molte tecnologie, alcune già viste (HTML, CSS, Javascript, Docker) e altre del tutto nuove (Node, Express, Vue, MongoDB).\\\\
+Come già accennato, il progetto iniziale comprendeva, oltre alla parte Arduino/ESP che è stata simulata, anche un'applicazione mobile sviluppata in Android. Siccome però quest'ultima non rientrava nelle richieste progettuali è stata eliminata, e le funzionalità da essa svolte sono state inserite nella parte di Controller. L'idea però dell'applicazione mobile rimane valida, sia per la questione del controllo dell'apertura, sia per altre funzionalità che potrebbero tornare utili, soprattutto per il fatto che le applicazioni mobile sono a portata di mano e sono ideali ad accompagnare un lavoro dove la rapidità fa la differenza.\\\\
+In conclusione, questo progetto è stato utile a tutti i membri del gruppo per approfondire le conoscenze in ambito web ottenute con il corso di Tecnologie Web, e saranno sicuramente fondamentali visto il grande utilizzo delle tecnologie affrontate in un ambito lavorativo reale.
 
 \end{document}
