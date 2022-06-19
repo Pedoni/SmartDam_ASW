@@ -6,7 +6,8 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
-\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subfig}
 \usepackage{todonotes} % TODO remove when finished
 
 % useful macros
@@ -57,10 +58,10 @@ Prima della realizzazione dell'applicazione è stato necessario capire qual è i
 \begin{itemize}
     \item \textbf{Bob}, addetto alla gestione della diga, vuole svolgere le sue mansioni con un applicativo funzionale e facile da usare, senza il rischio quindi di perdersi in animazioni ed elementi grafici superflui: questo perché ci possono essere delle allerte per il livello dell'acqua e il controllo dev'essere rapido ed efficiente.
 \end{itemize}
-In seguto l'elenco dei requisiti funzionali e non funzionali.
+Di seguito si riporta l'elenco dei requisiti funzionali e non funzionali.
 
 \section{Funzionali}
-Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il sistema si riduce a 3 principali componenti:
+Tenendo in considerazione le anticipazioni fornite nell'introduzione, il sistema si riduce a 3 principali componenti:
 \begin{enumerate}
 	\item \textbf{Dam Backend} (service):
 	\begin{itemize}
@@ -73,10 +74,10 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 		\begin{itemize}
 			\item Linea blu livello corrente acqua.
 			\item Linea rossa d'allarme.
-			\item Linea gialla d'allerta.
+			\item Linea gialla di preavviso.
 			\item Scelta periodo di aggiornamento grafico.
 			\item Possibilità di forzare l'aggiornamento manualmente.
-			\item Altri grafici mostranti dati su: temperatura dell'acqua, temperatura esterna, umidità, pressione atmosferica e pioggia.
+			\item Altri grafici mostranti dati su: temperatura dell'acqua, temperatura esterna, umidità relativa, pressione atmosferica e precipitazioni atmosferiche.
 		\end{itemize}
 		\item Panoramic viewer della diga a 360°:
 		\begin{itemize}
@@ -91,7 +92,6 @@ Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il si
 		\begin{itemize}
 			\item Sensore livello dell'acqua.
 			\item Sensore del tempo atmosferico.
-			\item Attuatore apertura diga.
 		\end{itemize}
 	\end{itemize}
 \end{enumerate}
@@ -105,28 +105,29 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 
 \clearpage
 \chapter{Design}\label{sec:design}
-Nella parte relativa ai requisiti è stata individuata una sola Persona, ossia l'addetto al controllo della diga. Nonostante l'assenza di molteplici Personas il design si può definire User Centered, poiché è stato realizzato seguendo l'esigenza della Persona individuata e nello Scenario conseguente. In questo paragrafo verrà analizzato il design dell'applicativo, prima dal punto di vista delle interfacce e poi da quello architetturale. 
-\\
-\section{Design delle interfacce}
-Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. \\
+Nella parte relativa ai requisiti è stata individuata una sola Persona, ossia l'addetto al controllo della diga. Nonostante l'assenza di molteplici Personas il design si può definire User Centered, poiché è stato realizzato seguendo l'esigenza della Persona individuata e nello Scenario conseguente. In questo paragrafo verrà analizzato il design dell'applicativo, prima dal punto di vista delle interfacce e poi da quello architetturale.
+
+\section{Design delle interfacce}\label{sec:design_interfacce}
+Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza.\\
 Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
-All'apertura c'è il Login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panoramic, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
-Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito però di una breve user interview (che ha coinvolto diversi conoscenti di ogni membro del team di sviluppo) è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche, che rende sicuramente più completo il monitoraggio complessivo della diga. Sono state trattate, infatti:
+All'apertura c'è il Login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panoramic, Real Time e Controller) organizzate con un menu listato orizzontale (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
+Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito però di una breve \emph{user interview} (che ha coinvolto diversi conoscenti di ogni membro del team di sviluppo) è stato deciso di realizzare anche il grafico relativo alle condizioni meteorologiche, che rende sicuramente più completo il monitoraggio complessivo della diga. Sono state trattate, infatti:
 \begin{itemize}
     \item temperatura dell'acqua
     \item temperatura dell'aria
-    \item pressione atmoaferica
-    \item umidità
-    \item pioggia
+    \item pressione atmosferica
+    \item umidità relativa
+    \item precipitazioni atmosferiche
 \end{itemize}
 
 \section{Design architetturale}
 
 Il sistema è stato realizzato separando la parte di backend da quella di frontend:
 \begin{itemize}
-    \item il backend mantiene i dati e gestisce la logica dell'applicativo, comunicando anche con il database. È stata realizzata un'API RESTful, che ha permesso una separazione netta e molto comoda con la parte di frontend, sfruttando a pieno il meccanismo request-response di HTTP (tra i cui vantaggi citiamo l'indipendenza delle tecnologie utilizzate e la semplicità di accesso alle risorse necessarie).
-    \item il frontend si occupa della visualizzazione dei dati all'utente e dell'interazione con esso. Comunica con il backend tramite chiamate asincrone (con Axios, che sarà approfondito più avanti) per ottenere i dati necessari alle varie schermate richieste dall'utente.
+    \item il backend mantiene i dati e gestisce la logica dell'applicativo, comunicando anche con il database. È stata realizzata un'API RESTful, che ha permesso una separazione netta e molto comoda con la parte di frontend, sfruttando a pieno il meccanismo request-response di HTTP (tra i cui vantaggi citiamo l'indipendenza dalle tecnologie utilizzate e la semplicità di accesso alle risorse necessarie).
+    \item il frontend si occupa della visualizzazione dei dati e dell'interazione con esso. Comunica con il backend tramite chiamate asincrone (con Axios, che sarà approfondito più avanti) per ottenere i dati necessari alle varie schermate richieste dall'utente.
 \end{itemize}
+
 \clearpage
 \chapter{Tecnologie}\label{sec:technologies}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
@@ -249,43 +250,44 @@ In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice ne
 	\item \textbf{Graph}: per questo component è stata utilizzata la libreria \apexcharts. Sono stati realizzati due grafici (più precisamente di tipo Area):
 	\begin{itemize}
 	    \item andamento dell'acqua: mostra l'andamento del livello dell'acqua durante il tempo. Sono stati realizzati pulsanti per cambiare la velocità di aggiornamento dei dati e per forzare l'aggiornamento.
-	    \item cambiamento del meteo:  questo comprende 6 grafici diversi, relativi a temperatura dell'acqua, temperatura dell'aria, pressione atmosferica, umidità e pioggia. Ogni grafico è selezionabile attraverso un menù a tendina.
+	    \item cambiamento del meteo: questo comprende 5 grafici diversi, relativi a temperatura dell'acqua, temperatura dell'aria, pressione atmosferica, umidità e pioggia. Ogni grafico è selezionabile attraverso un \emph{dropdown} menu.
 	\end{itemize}
 	\item \textbf{Controller}: anche in questo component viene utilizzata la libreria ApexCharts, ma il grafico utilizzato è questa volta è un RadialBar. Con quest'ultimo viene mostrata la percentuale di apertura attuale della diga. Oltre ad esso sono presenti dei pulsanti per modificare a mano l'apertura della diga a diverse percentuali.
 \end{itemize}
-In tutti i component i dati sono ottenuti con delle chiamate (get o post) effettuate grazie ad \axios.
+In tutti i component i dati sono ottenuti con delle chiamate (GET o POST) effettuate grazie ad \axios.
 
 \clearpage
 \chapter{Test}\label{sec:testing}
-\textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
-
-Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.
+Di seguito, si illustrano le varie tipologie di test che sono state effettuate.
 
 \section{Test automatici}
 \subsection{Backend}
 Per effettuare test automatici sulla parte di backend, abbiamo scelto di utilizzare il framework \jest, lo standard de facto per lo unit testing in javascript. Inoltre, per comunicare più efficacemente con l'API RESTful del backend, abbiamo utilizzato \supertest. I test implementati, disponibili nella cartella \texttt{dam\_backend/test} del progetto, si concentrano sulla verifica della corretta interazione tra il database Mongo e il server di backend.
 
 \subsection{Frontend}
-Riguardo alla parte frontend, abbiamo preferito concentrare i nostri sforzi sul massimizzare l'accessibilità. Il tool che abbiamo scelto per verificare tale metrica è \lighthouse, integrato dentro la sezione DevTools di Google Chrome.
+Riguardo alla parte frontend, abbiamo preferito concentrare i nostri sforzi sul massimizzare l'accessibilità. Il tool che abbiamo scelto per verificare ciò è \lighthouse, integrato dentro la sezione DevTools di Google Chrome. Come è possibile vedere dai report generati rispettivamente dalla versione desktop (figura \ref{fig:lighthouse_report_desktop}) e dalla versione mobile (figura \ref{fig:lighthouse_report_mobile}), questo obiettivo è stato raggiunto. Come side-effect inaspettato abbiamo massimizzato anche la Search Engine Optimization. Purtroppo va notato che le prestazioni non sono state al centro dell'attenzione del team di sviluppo e i lunghi tempi di esecuzione (Time to Interactive medio: 13 secondi sulla versione mobile) sono da imputare all'utilizzo di \vue come framework frontend.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure}
 	\centering
-	\includegraphics[scale=0.7]{lighthouse_report_desktop}
-	\caption{Report di Lighthouse sulla versione desktop}
-	\label{fig:lighthouse_report_desktop}
-\end{wrapfigure}
+	\begin{minipage}{0.45\textwidth}
+		\includegraphics[scale=0.7]{lighthouse_report_desktop}
+		\caption{Report di Lighthouse sulla versione desktop}
+		\label{fig:lighthouse_report_desktop}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+		\includegraphics[scale=0.7]{lighthouse_report_mobile}
+		\caption{Report di Lighthouse sulla versione mobile}
+		\label{fig:lighthouse_report_mobile}
+	\end{minipage}
+\end{figure}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-	\centering
-	\includegraphics[scale=0.7]{lighthouse_report_mobile}
-	\caption{Report di Lighthouse sulla versione mobile}
-	\label{fig:lighthouse_report_mobile}
-\end{wrapfigure}
+\section{Test manuali}
+\subsection{Exploratory testing}
+Durante lo sviluppo di Smart Dam, abbiamo dedicato alcune ore a settimana a sessioni di \emph{exploratory testing}. Abbiamo sottoposto a questo tipo di test sia il frontend che il server backend e, grazie a ciò, abbiamo potuto rilevare e correggere alcune problematiche sia di grafica (come il \emph{clipping} di una sezione dei grafici \emph{real time}) che riguardo all'API RESTful (come valori di input invalidi per le richieste HTTP POST).
 
-\section{Exploratory testing}
-Qui parlo dei test manuali effettuati durante lo sviluppo.
-\section{Test con utenti}
-Qui parlo di pecche di usabilità individuate durante lo sviluppo (come l'aggiunta di dati atmosferici).
+\subsection{Test con utenti}
+Durante lo sviluppo, abbiamo effettuato una sessione di test con utenti reali (diversi conoscenti dei membri del team di sviluppo) che si è rivelata fondamentale per migliorare la \emph{user experience} e l'usabilità di Smart Dam. Come già accennato nella sezione \ref{sec:design_interfacce}, è emersa la necessità di un ulteriore grafico nella sezione real-time riguardante le condizioni meteorologiche che possono influire sull'andamento dell'acqua nel bacino.
 
 \clearpage
 \chapter{Deployment}\label{sec:deployment}
@@ -293,8 +295,10 @@ Qui parlo di pecche di usabilità individuate durante lo sviluppo (come l'aggiun
 
 \textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}
 
-\section{Single machine (?)}
-L'unico requisito per effettuare il deployment dell'intero sito su una singola macchina è \docker. (argomentare, magari spiegando perchè è sufficiente docker e cosa effettivamente viene tirato su)
+\section{Singola macchina}
+Per effettuare il deployment dell'intero sito su una singola macchina sono necessari \docker e del suo plugin Docker Compose. Entrambi sono open-source e disponibili gratuitamente rispettivamente \href{https://docs.docker.com/desktop/#download-and-install}{qui} e \href{https://docs.docker.com/compose/install/}{qui}. Nella cartella del progetto sono presenti tre file di configurazione per 
+
+(argomentare, magari spiegando perchè è sufficiente docker e cosa effettivamente viene tirato su)
 (siccome con docker abbiamo l'ordered deployment, questa è l'opzione consigliata anche perchè è la più semplice)
 
 \section{Macchine separate}
