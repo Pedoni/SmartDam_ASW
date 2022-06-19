@@ -18,6 +18,10 @@
 \begin{document}
 
 \maketitle
+\clearpage
+\tableofcontents
+\clearpage
+
 \section*{Introduzione}\label{sec:intro}
 L'idea è di rivisitare un progetto svolto nell'ambito del corso di laurea triennale di Sistemi Embedded e Internet of Things, che consisteva nella simulazione di una diga smart e monitoraggio del livello idrometrico di un fiume. Il sistema era composto da 5 sottosistemi, descritti dall'immagine \ref{fig:dam-scheme}.
 \begin{figure}[h!]
@@ -29,6 +33,7 @@ L'idea è di rivisitare un progetto svolto nell'ambito del corso di laurea trien
 L'idea è di rifare da zero backend e frontend utilizzando Node e Vue, oltre all'utilizzo di MongoDB per il salvataggio dei dati. Inoltre per evitare di riesumare Arduino, ESP e l'applicazione mobile (che non concernono il progetto d'esame) simuleremo i sensori/attuatori abilitando tutti i componenti del team allo sviluppo e test del progetto.
 Come punto di partenza è stato quindi scelto lo stack MEVN, una versione di MEAN che utilizza come framework Vue invece di Angular. Questa scelta permette l'utilizzo di Javascript anche lato backend (sfruttando Express), dando vita al paradigma "Javascript everywhere" che rende più uniforme e gestibile il codice ed evita molte complicazioni derivanti dall'utilizzo di linguaggi diversi. 
 \textcolor{green}{Altro?}
+\clearpage
 
 \section{Requisiti}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
@@ -212,19 +217,43 @@ In tutti i component i dati sono ottenuti con delle chiamate (get o post) effett
 \section{Test}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
 
-\textbf{Test fatti con il magico strumento che hai usato, magari prima facciamo salire il più possibile i 3 numerelli, ci puoi cacciare anche un'immagine fighissima dei risultati, magari anche descrivendo tutti gli aspetti su cui ci siamo concentrati per l'accessibilità (qualche spunto nei requisiti)\\Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.}
+Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.
 
 \subsection{Test automatici}
+\subsubsection{jest e supertest}
 Qui parlo degli unit test fatti con jest e supertest.
-\subsection{Exploratory testing}
-Qui parlo (forse) dei test manuali effettuati durante lo sviluppo.
-\subsection{Test con utenti}
-Qui parlo di pecche di usabilità individuate durante lo sviluppo.
+\subsubsection{Lighthouse}
+Qui parlo anche della valutazione di performance e accessibilità effettuata con Lighthouse.
+\begin{figure}
+	\centering
+	\includegraphics[scale=1]{lighthouse_report_desktop}
+	\caption{Report di Lighthouse sulla versione desktop}
+	\label{fig:lighthouse_report_desktop}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=1]{lighthouse_report_mobile}
+	\caption{Report di Lighthouse sulla versione mobile}
+	\label{fig:lighthouse_report_mobile}
+\end{figure}
 
-\section{Deployment}\label{sec:deploy}
+\subsection{Exploratory testing}
+Qui parlo dei test manuali effettuati durante lo sviluppo.
+\subsection{Test con utenti}
+Qui parlo di pecche di usabilità individuate durante lo sviluppo (come l'aggiunta di dati atmosferici).
+
+\section{Deployment}\label{sec:deployment}
 \textcolor{red}{\textbf{Rilascio, installazione e messa in funzione.}}
 
 \textbf{Nella sezione tecnologie l'ultima frase parla di quello che ci si aspetta di trovare qui, inoltre bisogna descrivere dettagliatamente come fare a preparare il progetto e farlo partire perfettamente funzionante.}
+
+\subsection{Single machine (?)}
+L'unico requisito per effettuare il deployment dell'intero sito su una singola macchina è Docker. (argomentare, magari spiegando perchè è sufficiente docker e cosa effettivamente viene tirato su)
+(siccome con docker abbiamo l'ordered deployment, questa è l'opzione consigliata anche perchè è la più semplice)
+
+\subsection{Macchine separate}
+Per effettuare il deployment su macchine separate, dunque senza l'utilizzo di Docker è sufficiente avere installati Node.js e npm, sia per il frontend che per il backend. Invece per quanto riguarda il database è sufficiente avere un server con MongoDB accessibile via internet(?) e aggiungere la stringa di connessione all'avvio del backend. Inoltre, è necessario aggiungere anche la stringa di connessione al backend quando si avvia il frontend.
+(argomentare, spiegare più nel dettaglio tutti i passaggi)
 
 \section{Conclusioni}
 \textcolor{red}{\textbf{Conclusioni}}
