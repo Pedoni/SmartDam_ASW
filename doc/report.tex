@@ -12,7 +12,7 @@
     \large Applicazioni e Servizi Web
 }
 
-\author{\href{mailto:emalama@studio.unibo.it}{Emanuele Lamagna} - 000725342\\\href{mailto:filippo.barbari@studio.unibo.it}{Filippo Barbari} - 0001052391\\\href{mailto:filippo.benvenuti3@studio.unibo.it}{Filippo Benvenuti} - 0001027545}
+\author{\href{mailto:emanuele.lamagna@studio.unibo.it}{Emanuele Lamagna} - 0001027566\\\href{mailto:filippo.barbari@studio.unibo.it}{Filippo Barbari} - 0001052391\\\href{mailto:filippo.benvenuti3@studio.unibo.it}{Filippo Benvenuti} - 0001027545}
 \date{\today}
 
 \begin{document}
@@ -77,11 +77,11 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 \end{itemize}
 
 \section{Design}
-\textcolor{red}{\textbf{Design dell'architettura del sistema e delle interfacce utente.}}
-\textcolor{green}{\textbf{Personas e mockup con BALSAMIQ........ :3}}
+Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
+All'apertura c'è il login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panorama, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
+Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito di una breve user interview, però, è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche.
 
 \section{Tecnologie}
-\textcolor{red}{\textbf{Tecnologie adottate e motivazioni.}}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \subsection{Node}
 Node.js\cite{node} è un runtime JavaScript costruito sull'engine di Chrome V8. In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.

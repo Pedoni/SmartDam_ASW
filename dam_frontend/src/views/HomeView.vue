@@ -25,6 +25,9 @@
             <div v-if="comp == 'Controller'">
                 <ControllerComponent></ControllerComponent>
             </div>
+            <footer>
+                <button>Logout</button>
+            </footer>
         </div>
     </div>
 </template>
