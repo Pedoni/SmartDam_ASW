@@ -48,7 +48,7 @@ Come punto di partenza è stato quindi scelto lo stack MEVN, una versione di MEA
 \textcolor{green}{Altro?}
 \clearpage
 
-\section{Requisiti}
+\section{Requisiti}\label{sec:requirements}
 \textcolor{red}{\textbf{Descrizione delle caratteristiche e funzionalità che il sistema prevede.}} % To remove!
 \subsection{Funzionali}
 Tenendo in considerazione le anticipazioni al capitolo \nameref{sec:intro} il sistema si riduce a 3 principali componenti:
@@ -94,12 +94,12 @@ Tra i requisiti non funzionali abbiamo catturato le necessità di accessibilità
 	\item daltonismo.
 \end{itemize}
 
-\section{Design}
+\section{Design}\label{sec:design}
 Il progetto in questione è un vero e proprio gestionale per una diga, quindi la decisione relativa all'organizzazione del sito è stata presa di conseguenza. Sono stati utilizzati dei tool online per la realizzazione dei mockup preliminari, i quali sono stati utili per capire la disposizione delle pagine e dei componenti.\\
 All'apertura c'è il login, con il quale l'admin può accedere con le sue credenziali. Sebbene all'inizio fosse stato pensato un sistema di login diversificato tra admin e utenti, si è ritenuto che non sarebbe stata una scelta corretta includere questi ultimi (proprio per la natura gestionale del sito). Una volta effettuato il login si passa alla schermata principale: questa è divisa in 4 sottopagine (Home, Panorama, Real Time e Controller) organizzate con un menu listato (che in versione mobile vede la sostituzione delle scritte con delle icone). L'approccio utilizzato è mobile first, quindi si è partiti con le gestione della versione mobile per poi passare a gestire anche schermi più grandi.\\\\
 Inizialmente, nella sezione dei grafici, era previsto solo quello relativo all'andamento dell'acqua. A seguito di una breve user interview, però, è stato deciso di realizzare anche il grafico relativo alle condizioni climatiche.
 
-\section{Tecnologie}
+\section{Tecnologie}\label{sec:technologies}
 Di seguito l'elenco delle tecnologie adottate, come le abbiamo usate e perché sono state scelte.
 \subsection{Node.js}
 \node è un runtime JavaScript costruito sull'engine di Chrome V8. In quanto runtime Javascript asincrono event-driven, Node.js è progettato per costruire applicazioni network scalabili. Node.js è costituito da un event-loop a livello di runtime al contrario di altri sistemi che lo includono come libreria da chiamare con una chiamata bloccante. Il meccanismo ad event-loop potrebbe sembrare CPU intensive, ma in realtà se non c'è lavoro da svolgere Node.js va in sleep rilasciando la maggior parte delle risorse, ma rimanendo pronto a reagire agli eventi nel minor tempo possibile.
@@ -227,7 +227,7 @@ In questa sezione andiamo ad analizzare gli aspetti più rilevanti del codice ne
 \end{itemize}
 In tutti i component i dati sono ottenuti con delle chiamate (get o post) effettuate grazie ad \axios.
 
-\section{Test}
+\section{Test}\label{sec:testing}
 \textcolor{red}{\textbf{Test effettuati sul codice e test con utenti.}}
 
 Simulazione di utilizzo da parte delle personas, questo probabilmente è da fare dopo aver fatto il design.
