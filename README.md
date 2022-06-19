@@ -36,3 +36,7 @@ Run `make prod`, then:
 
 ### Cleanup
 Run `make down` to remove containers and docker networks.
+
+## Running modules as standalone
+### dam_backend
+You can run the dam_backend module as a standalone app if you have Nodejs and npm installed. First run `npm install` and then `npm start [mongodb-connection-string]`.

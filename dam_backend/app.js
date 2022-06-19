@@ -8,7 +8,15 @@ const router = require("./api/routes/dam_router");
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
 
-mongoose.connect("mongodb://root:example@mongo:27017");
+mongoConnectionString = "mongodb://root:example@mongo:27017";
+
+if (process.argv.length >= 3) {
+    mongoConnectionString = process.argv[2];
+}
+
+console.log(mongoConnectionString);
+
+mongoose.connect(mongoConnectionString);
 mongoose.Promise = global.Promise;
 
 //for cors permissions
