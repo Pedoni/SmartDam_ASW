@@ -26,7 +26,7 @@
                 <ControllerComponent></ControllerComponent>
             </div>
             <footer>
-                <button>Logout</button>
+                <button @click="this.logout">Logout</button>
             </footer>
         </div>
     </div>
@@ -49,6 +49,9 @@ export default {
         };
     },
     methods: {
+        logout(){
+            this.$router.replace({ name: "login" });
+        },
         isOnDesktop(){
             return this.windowWidth > 789;
         },
@@ -66,7 +69,6 @@ export default {
         },
     },
     mounted() {
-        console.log("mounted");
         this.initHome();
         window.onresize = () => {
             document.getElementById(this.current).classList.add("selectedItem");
