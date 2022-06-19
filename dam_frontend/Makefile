@@ -16,6 +16,9 @@ sass:
 run:
 	npm run serve
 
+serve:
+	serve -s dist -l 8080
+
 lint:
 	npm run lint
 

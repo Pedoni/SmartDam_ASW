@@ -40,3 +40,6 @@ Run `make down` to remove containers and docker networks.
 ## Running modules as standalone
 ### dam_backend
 You can run the dam_backend module as a standalone app if you have Nodejs and npm installed. First run `npm install` and then `npm start [mongodb-connection-string]`.
+
+### dam_frontend
+You can run the dam_backend module as a standalone app if you have npm installed. First run `npm install` to install all dependencies, then run `npm run build` to build the application. At this point you just need a static file server to serve the website now generated inside the `dist` folder. Our choice is the package `serve`. You can install it with `npm install -g serve` and then you can run `make serve`.

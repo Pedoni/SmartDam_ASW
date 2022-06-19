@@ -1,4 +1,4 @@
-DC=docker compose
+DC=docker-compose
 DEVFILE=compose-dev.yml
 PRODFILE=compose-prod.yml
 TESTFILE=compose-test.yml
