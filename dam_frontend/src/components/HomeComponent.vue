@@ -3,7 +3,9 @@
         <h2 id="hometitle">
             Welcome to the Smart Dam board!
         </h2>
-        <p>Here are some of the actual data extracted from the dam sensors:</p>
+        <p>Here are some of the most recent data extracted from the dam sensors.
+            For the real time data, swipe to the Realtime tab.
+        </p>
         <table>
             <tr>
                 <th>Time of measurement</th>

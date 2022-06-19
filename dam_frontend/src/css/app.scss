@@ -1,9 +1,13 @@
+html {
+    height: 100%;
+}
+
 body {
     background: url("../assets/dam.webp") no-repeat center center fixed;
     background-size: cover;
     background-attachment: fixed;
     overflow-y: scroll;
-    min-width: 400px;
+    min-width: 350px;
     display:flex; 
     flex-direction:column;
 }
@@ -41,6 +45,7 @@ footer {
 .footer {
     background-color: rgb(41, 11, 126);
     width: 100%;
+    margin-top: auto;
 
     p {
         color: white;
