@@ -1,5 +1,6 @@
 <template>
     <div id="home">
+        <div class="header"><p>Smart Dam</p></div>
         <div id="homecontent">
             <div v-if="isOnDesktop()" id="routers">
                 <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')">Home</router-link>
@@ -32,6 +33,7 @@
                 <img id="logoutimage" @click="this.logout" src="../assets/logout.png"/>
             </footer>
         </div>
+        <div class="footer"><p>Smart Dam</p></div>
     </div>
 </template>
 
@@ -40,7 +42,6 @@ import PanoramicComponent from "../components/PanoramicComponent.vue";
 import GraphComponent from "../components/GraphComponent.vue"
 import HomeComponent from "../components/HomeComponent.vue"
 import ControllerComponent from "@/components/ControllerComponent.vue";
-
 
 export default {
     name: "HomeView",

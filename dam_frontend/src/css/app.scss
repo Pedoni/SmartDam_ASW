@@ -23,7 +23,47 @@ footer {
     margin-top: auto; 
 }
 
+.header {
+    background-color: rgb(41, 11, 126);
+    width: 100%;
+
+    p {
+        color: white;
+        font-size: 2em;
+        margin: 0;
+        text-align: center;
+        font-weight: bold;
+        padding: 1.5%;
+    }
+
+}
+
+.footer {
+    background-color: rgb(41, 11, 126);
+    width: 100%;
+
+    p {
+        color: white;
+        font-size: 2em;
+        margin: 0;
+        text-align: center;
+        font-weight: bold;
+        padding: 3%;
+    }
+
+}
+
 @media screen and (max-width:789px) {
+
+    .header p {
+        font-size: 1.3em; 
+        padding: 3%;
+    }
+
+    .footer p {
+        font-size: 1.3em; 
+        padding: 5%;
+    }
 
     footer button {
         width: 14%;
