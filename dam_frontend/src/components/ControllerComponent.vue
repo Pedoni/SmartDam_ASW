@@ -3,12 +3,12 @@
         <h1 id="controller"></h1>
         <div id="speedometer"></div>
         <div class="buttons">
-            <button @click="setPercentage(0)">close</button>
+            <button class="close" @click="setPercentage(0)">close</button>
             <button @click="setPercentage(20)">20 %</button>
             <button @click="setPercentage(40)">40 %</button>
             <button @click="setPercentage(60)">60 %</button>
             <button @click="setPercentage(80)">80 %</button>
-            <button @click="setPercentage(100)">full open</button>
+            <button class="fullopen" @click="setPercentage(100)">full open</button>
         </div>
     </div>
 </template>

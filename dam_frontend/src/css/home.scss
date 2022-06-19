@@ -88,6 +88,16 @@ h1>p {
     margin-bottom: 3%;
 }
 
+#logoutbutton {
+    margin-top: 5%;
+}
+
+#logoutimage {
+    display: none;
+    margin: 5% 0 5% 0;
+    width: 6%;
+}
+
 @media screen and (max-width:789px) {
 
     #home {
@@ -145,4 +155,13 @@ h1>p {
             filter: drop-shadow(8px 5px 4px #333338);
         }
     }
+
+    #logoutbutton {
+        display: none;
+    }
+
+    #logoutimage {
+        display: inline;
+    }
+
 }
