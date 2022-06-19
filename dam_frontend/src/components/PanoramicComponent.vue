@@ -189,8 +189,9 @@ export default {
 
 /* The following rules must remain here otherwise they won't work */
 #viewer {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
+    margin: 0 5% 0 5%;
 }
 
 .panoramic {
