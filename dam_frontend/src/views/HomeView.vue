@@ -27,7 +27,7 @@
             </div>
             <footer>
                 <button id="logoutbutton" @click="this.logout">
-                    <p>Logout</p>
+                    Logout
                 </button>
                 <img id="logoutimage" @click="this.logout" src="../assets/logout.png"/>
             </footer>
