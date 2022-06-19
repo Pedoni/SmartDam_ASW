@@ -10,6 +10,14 @@
             <button @click="setPercentage(80)">80 %</button>
             <button class="fullopen" @click="setPercentage(100)">full open</button>
         </div>
+        <div class="mobilebuttons" hidden>
+            <button class="close" @click="setPercentage(0)">close</button>
+            <button class="buttons1" @click="setPercentage(20)">20 %</button>
+            <button class="buttons1" @click="setPercentage(40)">40 %</button>
+            <button class="buttons2" @click="setPercentage(60)">60 %</button>
+            <button class="buttons2" @click="setPercentage(80)">80 %</button>
+            <button class="fullopen" @click="setPercentage(100)">full open</button>
+        </div>
     </div>
 </template>
 
