@@ -19,11 +19,7 @@ export default {
             }
         }
     },
-    mounted() {
-        // if (!this.authenticated) {
-        //     this.$router.replace({ name: "login" });
-        // }
-    },
+    mounted() {},
     methods: {
         setAuthenticated(status) {
             this.authenticated = status;

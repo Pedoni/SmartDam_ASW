@@ -69,7 +69,6 @@ export default {
         },
     },
     mounted() {
-        console.log(this.$root.authenticated);
         this.initHome();
         window.onresize = () => {
             document.getElementById(this.current).classList.add("selectedItem");

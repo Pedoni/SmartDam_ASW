@@ -143,7 +143,6 @@ export default {
                     console.log("cliccata zona normal");
                     break;
                 default:
-                    console.log("Che cazzo hai cliccato");
                     break;
             }
         });
