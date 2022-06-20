@@ -7,44 +7,45 @@
             For the real time data, swipe to the Realtime tab.
         </p>
         <table>
+            <caption>Latest data retrieved from the dam's sensors</caption>
             <tr>
-                <th>Time of measurement</th>
+                <th scope="row">Time of measurement</th>
                 <td id="time"></td>
             </tr>
             <tr>
-                <th>Water level</th>
+                <th scope="row">Water level</th>
                 <td id="level"></td>
             </tr>
             <tr>
-                <th>Dam total capacity</th>
+                <th scope="row">Dam total capacity</th>
                 <td id="total_volume">30.000.000 m<sup>3</sup></td>
             </tr>
             <tr>
-                <th>Water actual volume </th>
+                <th scope="row">Water actual volume </th>
                 <td id="volume">23.000.000 m<sup>3</sup></td>
             </tr>
             <tr>
-                <th>Water actual volume percentage</th>
+                <th scope="row">Water actual volume percentage</th>
                 <td id="volume_perc">76.67 %</td>
             </tr>
             <tr>
-                <th>Humidity</th>
+                <th scope="row">Humidity</th>
                 <td id="humidity">76.67 %</td>
             </tr>
             <tr>
-                <th>Water temperature</th>
+                <th scope="row">Water temperature</th>
                 <td id="water_temp">8°C</td>
             </tr>
             <tr>
-                <th>Air temperature</th>
+                <th scope="row">Air temperature</th>
                 <td id="air_temp">21°C</td>
             </tr>
             <tr>
-                <th>Daily rain</th>
+                <th scope="row">Daily rain</th>
                 <td id="rain">2 mm</td>
             </tr>
             <tr>
-                <th>Atmospheric pressure</th>
+                <th scope="row">Atmospheric pressure</th>
                 <td id="pressure">912 mb</td>
             </tr>
         </table>
