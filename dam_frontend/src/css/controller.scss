@@ -1,0 +1,77 @@
+@import 'global';
+
+.buttons {
+    text-align: center;
+    color: $dark-blue;
+    margin: 5%;
+
+    button:hover {
+        background-color: $greenish-blue;
+    }
+
+    button {
+        background-color: rgb(189, 178, 27);
+    }
+
+    .close {
+        background-color: red;
+    }
+
+    .fullopen {
+        background-color: green;
+    }
+}
+
+.mobilebuttons {
+    text-align: center;
+    color: $dark-blue;
+    margin: 5%;
+
+    button:hover {
+        background-color: $greenish-blue;
+    }
+
+    button {
+        background-color: rgb(189, 178, 27);
+    }
+
+    .close {
+        background-color: red;
+    }
+
+    .fullopen {
+        background-color: green;
+    }
+}
+
+@media screen and (max-width:789px) {
+
+    .buttons {
+        display: none;
+    }
+
+    .mobilebuttons {
+
+        display: list-item;
+
+        .close {
+            width: 85%;
+        }
+
+        .buttons1 {
+            width: 40%;
+            display: inline-block;
+        }
+
+        .buttons2 {
+            width: 40%;
+            display: inline-block;
+        }
+
+        .fullopen {
+            width: 85%;
+        }
+
+    }
+
+}

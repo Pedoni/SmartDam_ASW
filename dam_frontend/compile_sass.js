@@ -13,6 +13,7 @@ function compile(filename) {
 };
 
 compile("./src/css/app");
+compile("./src/css/controller");
 compile("./src/css/global");
 compile("./src/css/graph");
 compile("./src/css/home");
