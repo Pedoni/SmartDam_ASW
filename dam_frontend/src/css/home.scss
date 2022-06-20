@@ -10,7 +10,9 @@
 
     #hometitle {
         text-align: center;
-        margin: 4% 0;
+        font-family: SmartDamRegular;
+        margin: 2% 0 4% 0;
+        padding: 0 3% 0 3%;
     }
 
     #routers {
@@ -21,23 +23,23 @@
         align-items: center;
         text-align: center;
         display: inline-block;
-        margin: 4% 0 4% 0;
+        margin: 3% 0 3% 0;
 
         .router-link-active {
             text-align: center;
             width: 15vw;
-            font-size: 22px;
+            font-size: 20px;
+            font-family: SmartDamRegular;
             text-decoration: none;
             color: black;
             display: inline-block;
-            margin-left: 2%;
-            margin-right: 2%;
+            margin-left: 2.2%;
+            margin-right: 2.2%;
         }
 
         .selectedItem {
-            font-size: 25px;
             font-weight: bold;
-            color: $dark-blue;
+            color: rgb(41, 11, 126);
         }
     }
 
@@ -49,6 +51,7 @@
         h1 {
             p {
                 align-items: center;
+                font-family: SmartDamLight;
             }
         }
     }
@@ -64,8 +67,7 @@ table {
     margin: 8% 0;
     font-size: 2em;
     min-width: 400px;
-    // margin-left: auto;
-    // margin-right: auto;
+    font-family: SmartDamLight;
     margin: auto;
     table-layout: fixed;
 }
@@ -89,6 +91,23 @@ h1>p {
 #logoutbutton {
     margin-top: 5%;
     margin-bottom: 5%;
+    width: 8em;
+    background-color: rgb(41, 11, 126);
+
+    img {
+        height: 25pt;
+        padding-right: 3%;
+    }
+
+    p {
+        margin: 0 0 0 2%;
+        font-family: SmartDamRegular;
+    }
+    
+    img, p {
+        display: inline-block;
+        vertical-align: middle;
+    }
 }
 
 #logoutimage {
@@ -167,4 +186,14 @@ h1>p {
         display: inline;
     }
 
+}
+
+@font-face {
+    font-family: SmartDamRegular;
+    src: url(../assets/fonts/Aleo-Regular.ttf);
+}
+
+@font-face {
+    font-family: SmartDamLight;
+    src: url(../assets/fonts/Aleo-Light.ttf);
 }

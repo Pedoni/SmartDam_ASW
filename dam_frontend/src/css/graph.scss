@@ -1,5 +1,13 @@
 @import 'global';
 
+.chart-container {
+    font-family: SmartDamLight;
+}
+
+.firstcont {
+    margin-top: 2%;
+}
+
 button {
     border-radius: 5px;
     border: 0px;
@@ -66,4 +74,9 @@ select {
         width: 50%;
     }
 
+}
+
+@font-face {
+    font-family: SmartDamLight;
+    src: url(../assets/fonts/Aleo-Light.ttf);
 }

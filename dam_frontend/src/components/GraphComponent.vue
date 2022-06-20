@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="chart-container">
+        <div class="chart-container firstcont">
             <div class="row">
                 <p>Update frequency: </p>
                 <select @change="changedFrequencyWaterlevel">

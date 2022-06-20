@@ -191,7 +191,7 @@ export default {
 #viewer {
     width: 90%;
     height: 90%;
-    margin: 0 5% 0 5%;
+    margin: 5% 5% 0 5%;
 }
 
 .panoramic {

@@ -3,20 +3,20 @@
         <h1 id="controller"></h1>
         <div id="speedometer"></div>
         <div class="buttons">
-            <button class="close" @click="setPercentage(0)">close</button>
-            <button @click="setPercentage(20)">20 %</button>
-            <button @click="setPercentage(40)">40 %</button>
-            <button @click="setPercentage(60)">60 %</button>
-            <button @click="setPercentage(80)">80 %</button>
-            <button class="fullopen" @click="setPercentage(100)">full open</button>
+            <button class="close" @click="setPercentage(0)"><p>CLOSE</p></button>
+            <button @click="setPercentage(20)"><p>20 %</p></button>
+            <button @click="setPercentage(40)"><p>40 %</p></button>
+            <button @click="setPercentage(60)"><p>60 %</p></button>
+            <button @click="setPercentage(80)"><p>80 %</p></button>
+            <button class="fullopen" @click="setPercentage(100)"><p>OPEN</p></button>
         </div>
         <div class="mobilebuttons" hidden>
-            <button class="close" @click="setPercentage(0)">close</button>
+            <button class="close" @click="setPercentage(0)">CLOSE</button>
             <button class="buttons1" @click="setPercentage(20)">20 %</button>
             <button class="buttons1" @click="setPercentage(40)">40 %</button>
             <button class="buttons2" @click="setPercentage(60)">60 %</button>
             <button class="buttons2" @click="setPercentage(80)">80 %</button>
-            <button class="fullopen" @click="setPercentage(100)">full open</button>
+            <button class="fullopen" @click="setPercentage(100)">OPEN</button>
         </div>
     </div>
 </template>

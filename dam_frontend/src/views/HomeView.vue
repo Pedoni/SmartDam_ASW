@@ -3,10 +3,10 @@
         <div class="header"><p>Smart Dam</p></div>
         <div id="homecontent">
             <div v-if="isOnDesktop()" id="routers">
-                <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')">Home</router-link>
-                <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')">Panoramic</router-link>
-                <router-link id="graphlink" to="/home" replace @click="changeComponent($event, 'Graph')">Real-time</router-link>
-                <router-link id="controllerlink" to="/home" replace @click="changeComponent($event, 'Controller')">Controller</router-link>
+                <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')">HOME</router-link>
+                <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')">PANORAMIC</router-link>
+                <router-link id="graphlink" to="/home" replace @click="changeComponent($event, 'Graph')">REAL-TIME</router-link>
+                <router-link id="controllerlink" to="/home" replace @click="changeComponent($event, 'Controller')">CONTROLLER</router-link>
             </div>
             <div v-if="!isOnDesktop()" id="routerbuttons">
                 <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')"><img class="buttonimage" src="../assets/home.webp" alt=""/></router-link>
@@ -28,12 +28,13 @@
             </div>
             <footer>
                 <button id="logoutbutton" @click="this.logout">
-                    Logout
+                    <img src="../assets/logout.webp"/>
+                    <p>Logout</p>
                 </button>
                 <img id="logoutimage" @click="this.logout" src="../assets/logout.webp" alt="" />
             </footer>
         </div>
-        <div class="footer"><p>Smart Dam</p></div>
+        <div class="footer"><p>Smart Dam Corporation&trade;</p></div>
     </div>
 </template>
 
@@ -54,7 +55,9 @@ export default {
     },
     methods: {
         logout(){
-            this.$router.replace({ name: "login" });
+            if (confirm("Are you sure?") == true) {
+                this.$router.replace({ name: "login" });
+            }
         },
         isOnDesktop(){
             return this.windowWidth > 789;

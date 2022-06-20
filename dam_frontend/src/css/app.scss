@@ -33,7 +33,8 @@ footer {
 
     p {
         color: white;
-        font-size: 2em;
+        font-size: 2.2em;
+        font-family: SmartDamFont;
         margin: 0;
         text-align: center;
         font-weight: bold;
@@ -49,11 +50,12 @@ footer {
 
     p {
         color: white;
-        font-size: 2em;
+        font-size: 1.6em;
+        font-family: SmartDamFont;
         margin: 0;
         text-align: center;
         font-weight: bold;
-        padding: 3%;
+        padding: 2.5%;
     }
 
 }
@@ -61,8 +63,8 @@ footer {
 @media screen and (max-width:789px) {
 
     .header p {
-        font-size: 1.3em; 
-        padding: 3%;
+        font-size: 1.7em; 
+        padding: 2%;
     }
 
     .footer p {
@@ -75,4 +77,9 @@ footer {
         font-size: 8pt;
     }
 
+}
+
+@font-face {
+    font-family: SmartDamFont;
+    src: url(../assets/fonts/Butler_Black.otf);
 }
