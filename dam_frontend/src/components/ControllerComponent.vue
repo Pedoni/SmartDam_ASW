@@ -100,7 +100,3 @@ export default {
     },
 };
 </script>
-
-<style>
-@import '../css/controller.css';
-</style>
