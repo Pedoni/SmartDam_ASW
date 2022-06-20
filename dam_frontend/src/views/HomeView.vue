@@ -9,10 +9,10 @@
                 <router-link id="controllerlink" to="/home" replace @click="changeComponent($event, 'Controller')">CONTROLLER</router-link>
             </div>
             <div v-if="!isOnDesktop()" id="routerbuttons">
-                <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')"><img class="buttonimage" src="../assets/home.webp" alt=""/></router-link>
-                <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')"><img class="buttonimage" src="../assets/panorama.webp" alt="" /></router-link>
-                <router-link id="graphlink" to="/home" replace @click="changeComponent($event, 'Graph')"><img class="buttonimage" src="../assets/graph.webp" alt="" /></router-link>
-                <router-link id="controllerlink" to="/home" replace @click="changeComponent($event, 'Controller')"><img class="buttonimage" src="../assets/remote.webp" alt="" /></router-link>
+                <router-link id="homelink" to="/home" replace @click="changeComponent($event, 'Home')"><img class="buttonimage" src="../assets/home.webp" alt="go to home" /></router-link>
+                <router-link id="panoramiclink" to="/home" replace @click="changeComponent($event, 'Panoramic')"><img class="buttonimage" src="../assets/panorama.webp" alt="go to panoramic view" /></router-link>
+                <router-link id="graphlink" to="/home" replace @click="changeComponent($event, 'Graph')"><img class="buttonimage" src="../assets/graph.webp" alt="go to real-time data" /></router-link>
+                <router-link id="controllerlink" to="/home" replace @click="changeComponent($event, 'Controller')"><img class="buttonimage" src="../assets/remote.webp" alt="go to dam controller" /></router-link>
             </div>
             <div v-if="comp == 'Home'">
                 <HomeComponent></HomeComponent>
@@ -28,10 +28,10 @@
             </div>
             <footer>
                 <button id="logoutbutton" @click="this.logout">
-                    <img src="../assets/logout.webp"/>
+                    <img src="../assets/logout.webp" alt="logout" />
                     <p>Logout</p>
                 </button>
-                <img id="logoutimage" @click="this.logout" src="../assets/logout.webp" alt="" />
+                <img id="logoutimage" @click="this.logout" src="../assets/logout.webp" alt="logout" />
             </footer>
         </div>
         <div class="footer"><p>Smart Dam Corporation&trade;</p></div>
