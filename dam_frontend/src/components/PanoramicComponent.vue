@@ -29,6 +29,7 @@ export default {
         };
     },
     mounted() {
+        document.getElementById("viewer").innerHTML = "";
         const viewer = new Viewer({
             container: document.querySelector('#viewer'),
             panorama: 'https://i1.wp.com/www.samrohn.com/wp-content/uploads/hoover-dam-360-virtual-tour-01.jpg',
